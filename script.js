@@ -1,7 +1,7 @@
 // ---------- Loader (index page only) ----------
-// The coin is a still PNG; on top of it a small WebGL pass makes the bird's
-// relief flicker upward like slow metal flame — calm at the tail, strongest
-// in the wing feathers — while the engraved lettering stays put.
+// The coin is a still PNG; on top of it a small WebGL pass animates only the
+// flame strands rising from the bird's wings. The bird, lettering and the
+// rest of the coin stay perfectly still.
 const LOADER_MS = 3200;
 let stopCoinFire = null;
 
@@ -24,8 +24,8 @@ function startCoinFire(canvas){
   const fs = `
     precision mediump float;
     varying vec2 uv;
-    uniform sampler2D coin;   // finished coin, centre inscription baked in
-    uniform sampler2D maps;   // r: inscription shading / 2, g: flame strength
+    uniform sampler2D coin;    // the finished coin
+    uniform sampler2D flames;  // r: how free each flame strand is (0 anchored, 1 at the tip)
     uniform float t;
     float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
     float noise(vec2 p){
@@ -34,30 +34,24 @@ function startCoinFire(canvas){
       return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
                  mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
     }
-    float fbm(vec2 p){ return 0.7 * noise(p) + 0.3 * noise(p * 2.03 + 7.1); }
     void main(){
-      float s = texture2D(maps, uv).g;
-      // flame field rising up the bird: the strands sway sideways and lick
-      // upward in waves, strongest through the wings
-      vec2 q = vec2(uv.x * 5.5 + sin(t * 0.9 + uv.y * 7.0) * 0.35, uv.y * 3.2 + t * 0.75);
-      float sway = fbm(q) - 0.5;
-      float lick = fbm(q * vec2(1.3, 0.8) + vec2(4.3, 1.9)) - 0.32;
-      vec2 d = vec2(sway, lick * 0.9) * s * 0.021;
-      vec2 st = uv + d;
+      float w = texture2D(flames, uv).r;
+      vec2 st = uv;
+      float glint = 0.0;
+      if(w > 0.001){
+        // waves travel up each strand: it sways from its anchored base and
+        // flickers at the tip, like a slow flame
+        float phase = uv.y * 95.0 + t * 2.4 + uv.x * 40.0;
+        float sway = 0.7 * sin(phase) + 0.3 * (noise(vec2(uv.x * 30.0, uv.y * 12.0 + t * 0.9)) * 2.0 - 1.0);
+        float lick = 0.5 + 0.5 * sin(phase * 0.5 + 1.3);
+        st += vec2(sway * 0.0042, -lick * 0.0022) * w;
+        // a faint glint of light rising up the strand
+        glint = w * smoothstep(0.55, 1.0, sin(uv.y * 38.0 + t * 2.0)) * 0.3;
+      }
       vec4 c = texture2D(coin, st);
-      // lift out the inscription where we sample, lay it back where we draw
-      c.rgb = c.rgb / max(texture2D(maps, st).r * 2.0, 0.05) * texture2D(maps, uv).r * 2.0;
-      // soft glow travelling up the raised metal, tinted by the metal itself
-      // brightness of the relief, averaged so the metal's grain doesn't sparkle
-      vec3 w = vec3(0.299, 0.587, 0.114);
-      float r = 0.004;
-      float lum = 0.2 * (dot(texture2D(coin, st).rgb, w)
-                       + dot(texture2D(coin, st + vec2( r, 0.0)).rgb, w)
-                       + dot(texture2D(coin, st + vec2(-r, 0.0)).rgb, w)
-                       + dot(texture2D(coin, st + vec2(0.0,  r)).rgb, w)
-                       + dot(texture2D(coin, st + vec2(0.0, -r)).rgb, w));
-      float g = smoothstep(0.6, 0.82, lum) * smoothstep(0.38, 0.72, fbm(q * 0.9 + vec2(2.0, t * 0.3))) * s;
-      c.rgb += c.rgb * g * 0.6;
+      // only the raised ridge of the flame catches it, not the field around it
+      float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
+      c.rgb += c.rgb * glint * smoothstep(0.64, 0.8, lum);
       gl_FragColor = vec4(c.rgb * c.a, c.a);
     }`;
 
@@ -108,7 +102,7 @@ function startCoinFire(canvas){
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     raf = requestAnimationFrame(frame);
   }
-  Promise.all([texture(0, 'coin', 'images/yvis-hausen-coin.png'), texture(1, 'maps', 'images/coin-maps.png')])
+  Promise.all([texture(0, 'coin', 'images/yvis-hausen-coin.png'), texture(1, 'flames', 'images/coin-flames.png')])
     .then(() => { if(running) raf = requestAnimationFrame(frame); })
     .catch(() => {});
   return () => { running = false; cancelAnimationFrame(raf); };
