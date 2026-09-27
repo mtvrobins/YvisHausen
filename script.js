@@ -35,24 +35,40 @@ function startCoinFire(canvas){
       return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
                  mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
     }
+    float fbm(vec2 p){ return 0.65 * noise(p) + 0.35 * noise(p * 2.07 + 5.3); }
+    // tall, narrow tongues of flame that rise and sway over time
+    float flame(vec2 p){
+      vec2 q = vec2(p.x * 17.0 + sin(p.y * 9.0 + t * 1.7) * 0.7, p.y * 5.5 + t * 1.25);
+      float r = 1.0 - abs(fbm(q) * 2.0 - 1.0);
+      r = r * r * r;
+      return r * smoothstep(0.25, 0.75, fbm(vec2(p.x * 7.0, p.y * 3.0 + t * 1.5)));
+    }
     void main(){
       float w = texture2D(flames, uv).r;
       vec2 st = uv;
-      float glint = 0.0;
+      float h = 0.0;
+      vec3 n = vec3(0.0, 0.0, 1.0);
       if(w > 0.001){
-        // waves travel up each strand: it sways from its anchored base and
-        // flickers at the tip, like a slow flame
-        float phase = uv.y * 95.0 + t * 2.4 + uv.x * 40.0;
+        // the existing metal sways from its anchored base
+        float phase = uv.y * 95.0 + t * 2.6 + uv.x * 40.0;
         float sway = 0.7 * sin(phase) + 0.3 * (noise(vec2(uv.x * 30.0, uv.y * 12.0 + t * 0.9)) * 2.0 - 1.0);
         float lick = 0.5 + 0.5 * sin(phase * 0.5 + 1.3);
-        st += vec2(sway * 0.0078, -lick * 0.0038) * w;
-        // a faint glint of light rising up the strand
-        glint = w * smoothstep(0.55, 1.0, sin(uv.y * 38.0 + t * 2.0)) * 0.3;
+        st += vec2(sway * 0.0075, -lick * 0.0035) * w;
+        // raised metal flames rising through it, lit like the rest of the coin
+        float e = 0.0025;
+        h = flame(uv);
+        float hx = flame(uv + vec2(e, 0.0)), hy = flame(uv + vec2(0.0, e));
+        n = normalize(vec3(-(hx - h) / e * 0.012 * w, -(hy - h) / e * 0.012 * w, 1.0));
       }
       vec4 c = texture2D(coin, st);
-      // only the raised ridge of the flame catches it, not the field around it
-      float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
-      c.rgb += c.rgb * glint * smoothstep(0.64, 0.8, lum);
+      if(w > 0.001){
+        vec3 L = normalize(vec3(-0.5, -0.62, 0.6));
+        vec3 H = normalize(L + vec3(0.0, 0.0, 1.0));
+        float diff = dot(n, L) - L.z;
+        float spec = max(pow(max(dot(n, H), 0.0), 18.0) - pow(H.z, 18.0), 0.0);
+        c.rgb *= 1.0 + (diff * 1.1 + h * 0.18) * smoothstep(0.0, 0.6, w);
+        c.rgb += c.rgb * spec * 1.8;
+      }
       gl_FragColor = vec4(c.rgb * c.a, c.a);
     }`;
 
