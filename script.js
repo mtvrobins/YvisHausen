@@ -1,8 +1,109 @@
 // ---------- Loader (index page only) ----------
+// The coin is a still PNG; on top of it a small WebGL pass makes the bird's
+// relief flicker upward like slow metal flame — calm at the tail, strongest
+// in the wing feathers — while the engraved lettering stays put.
+const LOADER_MS = 3200;
+let stopCoinFire = null;
+
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
-  if(loader){ setTimeout(() => loader.classList.add('hide'), 2600); }
+  if(!loader) return;
+  stopCoinFire = startCoinFire(loader.querySelector('.loader-coin-fire'));
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => { if(stopCoinFire) stopCoinFire(); }, 1000);
+  }, LOADER_MS);
 });
+
+function startCoinFire(canvas){
+  if(!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  const gl = canvas.getContext('webgl', { premultipliedAlpha:true, alpha:true, antialias:false });
+  if(!gl) return null;
+
+  const vs = 'attribute vec2 p; varying vec2 uv; void main(){ uv = p * vec2(0.5, -0.5) + 0.5; gl_Position = vec4(p, 0.0, 1.0); }';
+  const fs = `
+    precision mediump float;
+    varying vec2 uv;
+    uniform sampler2D coin;   // finished coin, centre inscription baked in
+    uniform sampler2D maps;   // r: inscription shading / 2, g: flame strength
+    uniform float t;
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    float noise(vec2 p){
+      vec2 i = floor(p), f = fract(p);
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x),
+                 mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+    }
+    float fbm(vec2 p){ return 0.7 * noise(p) + 0.3 * noise(p * 2.03 + 7.1); }
+    void main(){
+      float s = texture2D(maps, uv).g;
+      // broad, slow flame field drifting upward: the strands sway sideways and
+      // stretch a touch, rather than jitter
+      vec2 q = vec2(uv.x * 5.0, uv.y * 3.0 + t * 0.38);
+      vec2 d = vec2(fbm(q) - 0.5, (fbm(q + vec2(4.3, 1.9)) - 0.5) * 0.45) * s * 0.008;
+      vec2 st = uv + d;
+      vec4 c = texture2D(coin, st);
+      // lift out the inscription where we sample, lay it back where we draw
+      c.rgb = c.rgb / max(texture2D(maps, st).r * 2.0, 0.05) * texture2D(maps, uv).r * 2.0;
+      // soft glow travelling up the raised metal, tinted by the metal itself
+      float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
+      float g = smoothstep(0.62, 0.86, lum) * smoothstep(0.4, 0.75, fbm(q * 0.9 + vec2(2.0, t * 0.15))) * s;
+      c.rgb += c.rgb * g * 0.38;
+      gl_FragColor = vec4(c.rgb * c.a, c.a);
+    }`;
+
+  function shader(type, src){
+    const sh = gl.createShader(type); gl.shaderSource(sh, src); gl.compileShader(sh);
+    return gl.getShaderParameter(sh, gl.COMPILE_STATUS) ? sh : null;
+  }
+  const v = shader(gl.VERTEX_SHADER, vs), f = shader(gl.FRAGMENT_SHADER, fs);
+  if(!v || !f) return null;
+  const prog = gl.createProgram();
+  gl.attachShader(prog, v); gl.attachShader(prog, f); gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+  gl.useProgram(prog);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  function texture(unit, name, src){
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => { try {
+        gl.activeTexture(gl.TEXTURE0 + unit);
+        gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.uniform1i(gl.getUniformLocation(prog, name), unit);
+        resolve();
+      } catch(e){ reject(e); } };
+      img.onerror = reject;
+      img.src = src;
+    });
+  }
+
+  const tLoc = gl.getUniformLocation(prog, 't');
+  let raf = 0, running = true;
+  const t0 = performance.now();
+  function frame(now){
+    if(!running) return;
+    const size = Math.round(canvas.clientWidth * Math.min(window.devicePixelRatio || 1, 2));
+    if(canvas.width !== size){ canvas.width = canvas.height = size; gl.viewport(0, 0, size, size); }
+    gl.uniform1f(tLoc, (now - t0) / 1000);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    raf = requestAnimationFrame(frame);
+  }
+  Promise.all([texture(0, 'coin', 'images/yvis-hausen-coin.png'), texture(1, 'maps', 'images/coin-maps.png')])
+    .then(() => { if(running) raf = requestAnimationFrame(frame); })
+    .catch(() => {});
+  return () => { running = false; cancelAnimationFrame(raf); };
+}
 
 // ---------- i18n ----------
 const SUBTITLES = {
