@@ -70,7 +70,7 @@ function startCoinFire(canvas){
         float lit = 1.0 - smoothstep(front - 0.12, front + 0.02, yb + rag);
         // quieter and more transparent low down, fuller towards the wings
         float low = mix(0.28, 1.0, smoothstep(0.12, 0.55, yb));
-        float k = m.r * lit * (1.0 - 0.9 * m.g) * low;
+        float k = m.r * lit * (1.0 - m.g) * low;
         if(k > 0.001){
           float e = 0.003;
           float h = flame(uv);

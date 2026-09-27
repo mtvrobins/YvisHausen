@@ -11,8 +11,11 @@
   --muted:#A79F90;
   --hairline: rgba(245,242,235,0.14);
   --v-squish: scaleY(0.9);
-  --folder:#161411;
-  --folder-edge:rgba(245,242,235,0.12);
+  --jade-hi:#2a4c42;
+  --jade:#1b362f;
+  --jade-lo:#0f201b;
+  --tab-hi:#c7bfdb;
+  --tab:#aea5c6;
 
   --sans: "Helvetica Neue","Helvetica",Arial,sans-serif;
   --serif: "Times New Roman", Times, Georgia, serif;
@@ -70,8 +73,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .emblem img{ display:block; width:100%; height:100%; }
 .emblem:hover{ opacity:0.85; transform:scale(1.04); }
 .wordmark{
+  display:inline-block; transform:scaleY(0.9); transform-origin:center;
   font-family:"Brand", var(--serif); color:var(--fg);
-  font-size:clamp(18px,2.4vw,25px); letter-spacing:0.12em; font-weight:400;
+  font-size:clamp(16px,2.1vw,22px); letter-spacing:0.12em; font-weight:400;
   cursor:pointer; white-space:nowrap;
 }
 .subtitle-wrap{ height:20px; overflow:hidden; position:relative; }
@@ -170,38 +174,38 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 
 .filing-cabinet{
-  width:100%; margin:64px 0 0; padding:0 0 110px;
-  display:flex; flex-direction:column; gap:22px;
+  width:100%; margin:56px 0 0; padding:0 0 110px;
+  display:flex; flex-direction:column;
   overflow-x:hidden;
 }
-/* Each folder = a rounded title tab attached to a full-width dark file body */
+/* Folders are filed one in front of the next, like dividers in a drawer:
+   SOUND sits at the back, each following folder overlaps the one behind it. */
 .folder{
+  --body-h:104px;
+  position:relative; z-index:var(--i);
   display:flex; flex-direction:column; align-items:flex-start;
-  width:100%; border:none; background:none; padding:0; margin:0;
-  cursor:pointer; text-align:left; font:inherit; color:inherit; position:relative;
+  width:100%; border:none; background:none; padding:30px 0 0; margin:0;
+  cursor:pointer; text-align:left; font:inherit; color:inherit;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1);
 }
+.folder + .folder{ margin-top:-60px; }
+.folder:hover{ transform:translateY(-7px); }
+
+/* the title card */
 .folder-tab{
-  display:block; position:relative; z-index:2;
-  margin:0 0 -1px 0;            /* overlaps the body's top edge so tab + body read as one piece */
-  padding:12px 26px 11px;
-  background:var(--folder);
-  border:1px solid var(--folder-edge); border-bottom:none;
-  border-radius:14px 14px 0 0;
+  position:relative; z-index:2; display:block;
+  margin:0 0 -1px 0; padding:10px 24px 9px;
   max-width:calc(100% - 32px);
-  transition:background .3s ease;
+  background:linear-gradient(180deg, var(--tab-hi) 0%, var(--tab) 100%);
+  border-radius:12px 12px 0 0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.35);
+  transition:filter .3s ease;
 }
-/* curved shoulders where the tab meets the file body */
-.folder-tab::before, .folder-tab::after{
-  content:""; position:absolute; bottom:0; width:14px; height:14px;
-  pointer-events:none;
-}
-.folder-tab::before{ left:-15px;  background:radial-gradient(circle at 0 0, transparent 13px, var(--folder-edge) 13px, var(--folder-edge) 14px, var(--folder) 14px); }
-.folder-tab::after { right:-15px; background:radial-gradient(circle at 100% 0, transparent 13px, var(--folder-edge) 13px, var(--folder-edge) 14px, var(--folder) 14px); }
 .folder-label{
-  font-weight:500; font-size:11.5px; letter-spacing:0.14em; color:var(--fg);
+  font-weight:500; font-size:11.5px; letter-spacing:0.14em; color:#221d2c;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block;
 }
-/* Hand-placed offsets so the tabs never line up in a column */
+/* hand-placed so the tabs never line up in a column */
 .folder:nth-child(1) .folder-tab{ margin-left:68%; }
 .folder:nth-child(2) .folder-tab{ margin-left:8%; }
 .folder:nth-child(3) .folder-tab{ margin-left:42%; }
@@ -210,46 +214,56 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .folder:nth-child(6) .folder-tab{ margin-left:4%; }
 .folder:nth-child(7) .folder-tab{ margin-left:31%; }
 
+/* the dark jade casing */
 .folder-body{
-  display:block; position:relative;
-  width:100%; height:150px;
-  background:linear-gradient(180deg, var(--folder) 0%, #0D0C0B 100%);
-  border-top:1px solid var(--folder-edge);
-  box-shadow:0 -1px 0 rgba(0,0,0,0.6), 0 20px 34px rgba(0,0,0,0.5);
-  overflow:hidden;
-  transition:background .3s ease;
+  position:relative; z-index:1; display:block;
+  width:100%; height:var(--body-h);
+  background:
+    linear-gradient(104deg, rgba(170,235,205,0.07) 0%, transparent 28%, rgba(170,235,205,0.045) 56%, transparent 74%),
+    linear-gradient(180deg, var(--jade-hi) 0%, var(--jade) 38%, var(--jade-lo) 100%);
+  border-radius:4px 4px 0 0;
+  box-shadow:0 -12px 26px rgba(0,0,0,0.5), inset 0 1px 0 rgba(190,245,220,0.2);
+  transition:filter .3s ease;
 }
-/* fold crease along the top of the file */
-.folder-body::before{
-  content:""; position:absolute; left:0; right:0; top:14px; height:1px;
-  background:linear-gradient(90deg, transparent, rgba(245,242,235,0.07) 8%, rgba(245,242,235,0.07) 92%, transparent);
+.folder-no, .folder-lock{
+  position:absolute; top:15px;
+  font-family:var(--sans); font-style:normal; font-weight:400;
+  font-size:10.5px; letter-spacing:0.26em; color:rgba(215,238,227,0.72);
+  font-variant-numeric:tabular-nums; white-space:nowrap;
 }
-/* stitched inner border */
-.folder-body::after{
-  content:""; position:absolute; top:30px; bottom:18px; left:28px; right:28px;
-  border:1px dashed rgba(245,242,235,0.06); border-radius:4px;
-}
-/* a document sheet tucked inside the file, edge peeking at the top */
-.folder-sheet{
-  position:absolute; top:22px; right:9%; width:min(300px,34%); height:200px;
-  background:#1D1A16; border:1px solid rgba(245,242,235,0.08); border-radius:2px;
-  background-image:repeating-linear-gradient(180deg, transparent 0 17px, rgba(245,242,235,0.045) 17px 18px);
-  background-position:0 26px;
-  transform:rotate(-0.6deg);
-  transition:transform .45s cubic-bezier(.4,0,.2,1);
-}
-.folder-meta{
-  position:absolute; left:46px; right:calc(9% + min(300px,34%) + 34px); bottom:34px;
-  display:flex; align-items:center; gap:16px;
-  font-size:9.5px; letter-spacing:0.24em; color:var(--muted); font-weight:300;
-}
-.folder-no{ font-family:var(--serif); font-style:italic; letter-spacing:0.08em; font-size:12px; color:#CFCAC0; }
-.folder-rule{ flex:1; height:1px; background:rgba(245,242,235,0.1); min-width:20px; }
-.folder-lock{ white-space:nowrap; }
+.folder-no{ left:26px; }
+.folder-lock{ right:26px; font-size:9.5px; color:rgba(215,238,227,0.45); }
 
-.folder:hover .folder-tab, .folder:hover .folder-body{ --folder:#221E19; }
-.folder:hover .folder-sheet{ transform:translateY(-8px) rotate(-0.6deg); }
-.folder:focus-visible .folder-body{ outline:1px solid var(--fg); outline-offset:-2px; }
+/* papers tucked into each file, peeking out above it */
+.folder-papers{
+  position:absolute; left:0; right:0; top:0; bottom:var(--body-h);
+  z-index:0; pointer-events:none;
+}
+.paper{
+  position:absolute; bottom:-12px; left:var(--x); width:var(--w); height:calc(var(--h) + 12px);
+  transform:rotate(var(--r)); transform-origin:bottom center;
+  border-radius:1px;
+  box-shadow:0 -1px 0 rgba(255,255,255,0.25), 0 2px 5px rgba(0,0,0,0.35);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.paper--cream{ background:linear-gradient(180deg, #efe7d3, #e2d8bf); }
+.paper--aged{ background:linear-gradient(180deg, #e2cf98, #cdb57a); }
+.paper--kraft{ background:linear-gradient(180deg, #b28f60, #9b774b); }
+.paper--photo, .paper--photo-b{
+  border:3px solid #ece8de; border-bottom:none;
+  background:
+    radial-gradient(ellipse 40% 55% at 30% 70%, rgba(255,255,255,0.22), transparent 70%),
+    linear-gradient(165deg, #a8a7a2 0%, #5c5b58 45%, #262625 100%);
+}
+.paper--photo-b{
+  background:
+    radial-gradient(ellipse 30% 60% at 68% 60%, rgba(0,0,0,0.45), transparent 70%),
+    linear-gradient(200deg, #d3d1cb 0%, #8a8984 50%, #434240 100%);
+}
+.folder:hover .paper{ transform:translateY(-5px) rotate(var(--r)); }
+.folder:hover .folder-body{ filter:brightness(1.12); }
+.folder:hover .folder-tab{ filter:brightness(1.06); }
+.folder:focus-visible .folder-tab{ outline:1px solid var(--fg); outline-offset:2px; }
 
 .site-footer{ padding:30px 20px 44px; border-top:1px solid var(--hairline); }
 .home-footer{ text-align:center; font-size:10px; letter-spacing:0.2em; color:var(--muted); font-weight:300; }
@@ -388,24 +402,22 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 @media (max-width:900px){
   .tiles-row{ grid-template-columns:1fr; max-width:420px; margin:0 auto; }
-  .folder-body{ height:120px; }
-  .folder:nth-child(1) .folder-tab{ margin-left:4%; }
-  .folder:nth-child(2) .folder-tab{ margin-left:30%; }
-  .folder:nth-child(3) .folder-tab{ margin-left:12%; }
-  .folder:nth-child(4) .folder-tab{ margin-left:22%; }
-  .folder:nth-child(5) .folder-tab{ margin-left:6%; }
-  .folder:nth-child(6) .folder-tab{ margin-left:34%; }
-  .folder:nth-child(7) .folder-tab{ margin-left:16%; }
-  .folder-sheet{ right:6%; width:38%; }
-  .folder-meta{ left:26px; right:calc(6% + 38% + 20px); bottom:26px; }
-  .folder-body::after{ left:14px; right:14px; }
+  .folder{ --body-h:92px; }
+  .folder + .folder{ margin-top:-54px; }
+  .folder:nth-child(1) .folder-tab{ margin-left:40%; }
+  .folder:nth-child(2) .folder-tab{ margin-left:6%; }
+  .folder:nth-child(3) .folder-tab{ margin-left:30%; }
+  .folder:nth-child(4) .folder-tab{ margin-left:12%; }
+  .folder:nth-child(5) .folder-tab{ margin-left:36%; }
+  .folder:nth-child(6) .folder-tab{ margin-left:4%; }
+  .folder:nth-child(7) .folder-tab{ margin-left:22%; }
   .folder-lock{ display:none; }
 }
 @media (max-width:640px){
   .bar-inner{ grid-template-columns:auto 1fr auto; gap:10px; padding:12px 16px; }
   .emblem{ width:40px; height:40px; }
   .subtitle-wrap{ display:none; }
-  .wordmark{ font-size:17px; letter-spacing:0.1em; }
+  .wordmark{ font-size:15.5px; letter-spacing:0.1em; }
   .bar-right{ gap:14px; }
   .enquire-btn{ padding:7px 12px; font-size:11.5px; letter-spacing:0.16em; }
   .lang-toggle > span{ display:none; }
