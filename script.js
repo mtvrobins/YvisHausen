@@ -1,9 +1,9 @@
 // ---------- Loader (index page only) ----------
-// The coin is a still PNG; on top of it a small WebGL pass animates only the
-// metal flames: the strands above the wings, the flame-feathered wing panels
-// and the wisps of the lower body. The bird itself, the lettering and the
-// rest of the coin stay perfectly still.
-const LOADER_MS = 3200;
+// The coin is a still PNG; on top of it a small WebGL pass sets it alight:
+// liquid-metal fire catches at the tail, climbs up behind the body and is
+// drawn up into the flame-shaped inflections above the wings, passing behind
+// the raised relief and lettering. The bird's head turns gently.
+const LOADER_MS = 4200;
 let stopCoinFire = null;
 
 window.addEventListener('load', () => {
@@ -25,8 +25,8 @@ function startCoinFire(canvas){
   const fs = `
     precision mediump float;
     varying vec2 uv;
-    uniform sampler2D coin;    // the finished coin
-    uniform sampler2D flames;  // r: how freely each flame may move (0 held still, 1 free)
+    uniform sampler2D coin;    // the finished medal
+    uniform sampler2D flames;  // r: where fire may burn, g: raised relief it passes behind, b: head weight
     uniform float t;
     float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
     float noise(vec2 p){
@@ -36,38 +36,48 @@ function startCoinFire(canvas){
                  mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
     }
     float fbm(vec2 p){ return 0.65 * noise(p) + 0.35 * noise(p * 2.07 + 5.3); }
-    // tall, narrow tongues of flame that rise and sway over time
+    // liquid-metal flame: a slowly warping field whose ridges are drawn upward
     float flame(vec2 p){
-      vec2 q = vec2(p.x * 17.0 + sin(p.y * 9.0 + t * 1.7) * 0.7, p.y * 5.5 + t * 1.25);
+      vec2 w = vec2(fbm(p * vec2(3.0, 2.0) + vec2(0.0, t * 0.5)),
+                    fbm(p * vec2(3.0, 2.0) + vec2(4.7, t * 0.5 + 2.3)));
+      vec2 q = vec2(p.x * 12.0 + (w.x - 0.5) * 3.2, p.y * 3.6 + t * 0.95 + (w.y - 0.5) * 1.4);
       float r = 1.0 - abs(fbm(q) * 2.0 - 1.0);
-      r = r * r * r;
-      return r * smoothstep(0.25, 0.75, fbm(vec2(p.x * 7.0, p.y * 3.0 + t * 1.5)));
+      return smoothstep(0.35, 1.0, r);
     }
     void main(){
-      float w = texture2D(flames, uv).r;
+      vec3 m = texture2D(flames, uv).rgb;
       vec2 st = uv;
-      float h = 0.0;
-      vec3 n = vec3(0.0, 0.0, 1.0);
-      if(w > 0.001){
-        // the existing metal sways from its anchored base
-        float phase = uv.y * 95.0 + t * 2.6 + uv.x * 40.0;
-        float sway = 0.7 * sin(phase) + 0.3 * (noise(vec2(uv.x * 30.0, uv.y * 12.0 + t * 0.9)) * 2.0 - 1.0);
-        float lick = 0.5 + 0.5 * sin(phase * 0.5 + 1.3);
-        st += vec2(sway * 0.0075, -lick * 0.0035) * w;
-        // raised metal flames rising through it, lit like the rest of the coin
-        float e = 0.0025;
-        h = flame(uv);
-        float hx = flame(uv + vec2(e, 0.0)), hy = flame(uv + vec2(0.0, e));
-        n = normalize(vec3(-(hx - h) / e * 0.012 * w, -(hy - h) / e * 0.012 * w, 1.0));
+      // the head turns gently about the middle of the neck
+      if(m.b > 0.001){
+        vec2 piv = vec2(0.5207, 0.2563);
+        float a = (0.045 * sin(t * 1.1) + 0.018 * sin(t * 2.3 + 1.0)) * m.b;
+        vec2 d = uv - piv;
+        st = piv + vec2(d.x * cos(a) - d.y * sin(a), d.x * sin(a) + d.y * cos(a));
       }
       vec4 c = texture2D(coin, st);
-      if(w > 0.001){
-        vec3 L = normalize(vec3(-0.5, -0.62, 0.6));
-        vec3 H = normalize(L + vec3(0.0, 0.0, 1.0));
-        float diff = dot(n, L) - L.z;
-        float spec = max(pow(max(dot(n, H), 0.0), 18.0) - pow(H.z, 18.0), 0.0);
-        c.rgb *= 1.0 + (diff * 1.1 + h * 0.18) * smoothstep(0.0, 0.6, w);
-        c.rgb += c.rgb * spec * 1.8;
+      if(m.r > 0.001){
+        // ignition: the fire catches at the bottom and climbs with a ragged,
+        // flickering edge, then keeps being drawn up through the wings
+        float yb = 1.0 - uv.y;
+        float rag = (noise(vec2(uv.x * 9.0, t * 1.6)) - 0.5) * 0.14;
+        float front = t * 0.42 + 0.02;
+        float lit = 1.0 - smoothstep(front - 0.12, front + 0.02, yb + rag);
+        float k = m.r * lit * (1.0 - 0.9 * m.g);
+        if(k > 0.001){
+          float e = 0.003;
+          float h = flame(uv);
+          float hx = flame(uv + vec2(e, 0.0)), hy = flame(uv + vec2(0.0, e));
+          float s = 0.011 * k;
+          vec3 n = normalize(vec3(-(hx - h) / e * s, -(hy - h) / e * s, 1.0));
+          vec3 L = normalize(vec3(-0.5, -0.62, 0.6));
+          vec3 H = normalize(L + vec3(0.0, 0.0, 1.0));
+          float diff = dot(n, L) - L.z;
+          float spec = max(pow(max(dot(n, H), 0.0), 32.0) - pow(H.z, 32.0), 0.0);
+          // a soft bright seam where the fire is catching
+          float seam = exp(-pow((yb + rag - front) / 0.035, 2.0)) * m.r * (1.0 - m.g) * step(front, 1.15);
+          c.rgb *= 1.0 + diff * 1.0 + h * k * 0.12 + seam * 0.25;
+          c.rgb += (c.rgb * 0.6 + 0.2) * spec * 1.4;
+        }
       }
       gl_FragColor = vec4(c.rgb * c.a, c.a);
     }`;
