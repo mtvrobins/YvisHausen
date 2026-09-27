@@ -37,18 +37,27 @@ function startCoinFire(canvas){
     float fbm(vec2 p){ return 0.7 * noise(p) + 0.3 * noise(p * 2.03 + 7.1); }
     void main(){
       float s = texture2D(maps, uv).g;
-      // broad, slow flame field drifting upward: the strands sway sideways and
-      // stretch a touch, rather than jitter
-      vec2 q = vec2(uv.x * 5.0, uv.y * 3.0 + t * 0.38);
-      vec2 d = vec2(fbm(q) - 0.5, (fbm(q + vec2(4.3, 1.9)) - 0.5) * 0.45) * s * 0.008;
+      // flame field rising up the bird: the strands sway sideways and lick
+      // upward in waves, strongest through the wings
+      vec2 q = vec2(uv.x * 5.5 + sin(t * 0.9 + uv.y * 7.0) * 0.35, uv.y * 3.2 + t * 0.75);
+      float sway = fbm(q) - 0.5;
+      float lick = fbm(q * vec2(1.3, 0.8) + vec2(4.3, 1.9)) - 0.32;
+      vec2 d = vec2(sway, lick * 0.9) * s * 0.021;
       vec2 st = uv + d;
       vec4 c = texture2D(coin, st);
       // lift out the inscription where we sample, lay it back where we draw
       c.rgb = c.rgb / max(texture2D(maps, st).r * 2.0, 0.05) * texture2D(maps, uv).r * 2.0;
       // soft glow travelling up the raised metal, tinted by the metal itself
-      float lum = dot(c.rgb, vec3(0.299, 0.587, 0.114));
-      float g = smoothstep(0.62, 0.86, lum) * smoothstep(0.4, 0.75, fbm(q * 0.9 + vec2(2.0, t * 0.15))) * s;
-      c.rgb += c.rgb * g * 0.38;
+      // brightness of the relief, averaged so the metal's grain doesn't sparkle
+      vec3 w = vec3(0.299, 0.587, 0.114);
+      float r = 0.004;
+      float lum = 0.2 * (dot(texture2D(coin, st).rgb, w)
+                       + dot(texture2D(coin, st + vec2( r, 0.0)).rgb, w)
+                       + dot(texture2D(coin, st + vec2(-r, 0.0)).rgb, w)
+                       + dot(texture2D(coin, st + vec2(0.0,  r)).rgb, w)
+                       + dot(texture2D(coin, st + vec2(0.0, -r)).rgb, w));
+      float g = smoothstep(0.6, 0.82, lum) * smoothstep(0.38, 0.72, fbm(q * 0.9 + vec2(2.0, t * 0.3))) * s;
+      c.rgb += c.rgb * g * 0.6;
       gl_FragColor = vec4(c.rgb * c.a, c.a);
     }`;
 
