@@ -1,3 +1,10 @@
+/* Brand (Sensatype Studio) — used only for the YVIS HAUSEN title and ENQUIRE */
+@font-face{
+  font-family:"Brand";
+  src:url("fonts/Brand.woff") format("woff"), url("fonts/Brand.ttf") format("truetype");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+
 :root{
   --bg:#050403;
   --fg:#F5F2EB;
@@ -63,8 +70,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .emblem img{ display:block; width:100%; height:100%; }
 .emblem:hover{ opacity:0.85; transform:scale(1.04); }
 .wordmark{
-  font-family:var(--serif); color:var(--fg);
-  font-size:clamp(15px,2vw,20px); letter-spacing:0.16em; font-weight:700;
+  font-family:"Brand", var(--serif); color:var(--fg);
+  font-size:clamp(18px,2.4vw,25px); letter-spacing:0.12em; font-weight:400;
   cursor:pointer; white-space:nowrap;
 }
 .subtitle-wrap{ height:20px; overflow:hidden; position:relative; }
@@ -78,7 +85,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 .bar-center{ justify-self:center; }
 .enquire-btn{
-  font-family:var(--serif); font-size:11.5px; letter-spacing:0.22em;
+  font-family:"Brand", var(--serif); font-size:13px; letter-spacing:0.2em;
   color:var(--fg); border:1px solid var(--fg); padding:9px 26px;
   white-space:nowrap; transition:background .3s ease, color .3s ease;
 }
@@ -398,9 +405,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .bar-inner{ grid-template-columns:auto 1fr auto; gap:10px; padding:12px 16px; }
   .emblem{ width:40px; height:40px; }
   .subtitle-wrap{ display:none; }
-  .wordmark{ font-size:15px; letter-spacing:0.12em; }
+  .wordmark{ font-size:17px; letter-spacing:0.1em; }
   .bar-right{ gap:14px; }
-  .enquire-btn{ padding:7px 12px; font-size:10.5px; letter-spacing:0.16em; }
+  .enquire-btn{ padding:7px 12px; font-size:11.5px; letter-spacing:0.16em; }
   .lang-toggle > span{ display:none; }
   .lang-globe{ width:17px; height:17px; }
   .header-title{ margin:0 0 26px 20px; font-size:clamp(24px,8vw,40px); }
