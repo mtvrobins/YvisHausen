@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "21st": {
+      "type": "http",
+      "url": "https://21st.dev/api/mcp",
+      "headers": { "x-api-key": "${TWENTY_FIRST_API_KEY}" }
+    },
+    "stitch": {
+      "type": "http",
+      "url": "https://stitch.googleapis.com/mcp",
+      "headers": { "X-Goog-Api-Key": "${STITCH_API_KEY}" }
+    }
+  }
+}
