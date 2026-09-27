@@ -1,6 +1,7 @@
 // ---------- Loader (index page only) ----------
 // The coin is a still PNG; on top of it a small WebGL pass animates only the
-// flame strands rising from the bird's wings. The bird, lettering and the
+// metal flames: the strands above the wings, the flame-feathered wing panels
+// and the wisps of the lower body. The bird itself, the lettering and the
 // rest of the coin stay perfectly still.
 const LOADER_MS = 3200;
 let stopCoinFire = null;
@@ -25,7 +26,7 @@ function startCoinFire(canvas){
     precision mediump float;
     varying vec2 uv;
     uniform sampler2D coin;    // the finished coin
-    uniform sampler2D flames;  // r: how free each flame strand is (0 anchored, 1 at the tip)
+    uniform sampler2D flames;  // r: how freely each flame may move (0 held still, 1 free)
     uniform float t;
     float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
     float noise(vec2 p){
@@ -44,7 +45,7 @@ function startCoinFire(canvas){
         float phase = uv.y * 95.0 + t * 2.4 + uv.x * 40.0;
         float sway = 0.7 * sin(phase) + 0.3 * (noise(vec2(uv.x * 30.0, uv.y * 12.0 + t * 0.9)) * 2.0 - 1.0);
         float lick = 0.5 + 0.5 * sin(phase * 0.5 + 1.3);
-        st += vec2(sway * 0.0042, -lick * 0.0022) * w;
+        st += vec2(sway * 0.0078, -lick * 0.0038) * w;
         // a faint glint of light rising up the strand
         glint = w * smoothstep(0.55, 1.0, sin(uv.y * 38.0 + t * 2.0)) * 0.3;
       }
