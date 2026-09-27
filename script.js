@@ -29,7 +29,6 @@ function startCoinFire(canvas){
     varying vec2 uv;
     uniform sampler2D coin;    // the finished medal
     uniform sampler2D flames;  // r: where fire may burn, g: raised relief it passes behind, b: head weight
-    uniform sampler2D words;   // r: ENDLESSLY BECOMING relief / 2, g: writing order, b: letter coverage
     uniform float t;
     float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
     float noise(vec2 p){
@@ -55,10 +54,10 @@ function startCoinFire(canvas){
         vec2 piv = vec2(0.5207, 0.2563);
         // ...and towards the end bows a little further down
         float dip = smoothstep(2.6, 3.9, t);
-        float a = ((0.045 * sin(t * 1.1) + 0.018 * sin(t * 2.3 + 1.0)) * (1.0 - 0.6 * dip) - 0.11 * dip) * m.b;
+        float a = ((0.014 * sin(t * 0.9) + 0.005 * sin(t * 1.9 + 1.0)) * (1.0 - 0.5 * dip) - 0.035 * dip) * m.b;
         vec2 d = uv - piv;
         st = piv + vec2(d.x * cos(a) - d.y * sin(a), d.x * sin(a) + d.y * cos(a));
-        st.y -= 0.012 * dip * m.b;
+        st.y -= 0.004 * dip * m.b;
       }
       vec4 c = texture2D(coin, st);
       if(m.r > 0.001){
@@ -87,12 +86,6 @@ function startCoinFire(canvas){
           c.rgb += (c.rgb * 0.6 + 0.2) * spec * 1.4;
         }
       }
-      // ENDLESSLY BECOMING is slowly written in along the rim, left to right
-      vec3 wd = texture2D(words, uv).rgb;
-      float p = clamp((t - 0.9) / 2.9, 0.0, 1.0) * 1.1 - 0.04;
-      float shown = clamp((p - wd.g) / 0.05, 0.0, 1.0);
-      c.rgb *= mix(1.0, wd.r * 2.0, shown);
-      c.rgb += c.rgb * exp(-pow((p - wd.g) / 0.018, 2.0)) * wd.b * 0.16 * step(p, 1.0);
       gl_FragColor = vec4(c.rgb * c.a, c.a);
     }`;
 
@@ -144,8 +137,7 @@ function startCoinFire(canvas){
     if(!still) raf = requestAnimationFrame(frame);
   }
   Promise.all([texture(0, 'coin', 'images/yvis-hausen-coin.png'),
-               texture(1, 'flames', 'images/coin-flames.png'),
-               texture(2, 'words', 'images/coin-text.png')])
+               texture(1, 'flames', 'images/coin-flames.png')])
     .then(() => { if(running) raf = requestAnimationFrame(frame); })
     .catch(() => {});
   return () => { running = false; cancelAnimationFrame(raf); };
