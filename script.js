@@ -171,7 +171,7 @@ const I18N = {
     tile_talent_link2_desc:"Representation, placement and career management across fashion and film.",
     tile_creative_title:"CREATIVE HOUSE",
     tile_art_title:"ART & CULTURE",
-    legal_privacy:"PRIVACY POLICY", legal_terms:"TERMS OF SERVICE", legal_cookies:"COOKIE POLICY", legal_settings:"COOKIE SETTINGS",
+    legal_privacy:"PRIVACY POLICY", legal_terms:"TERMS OF USE", legal_cookies:"COOKIE POLICY", legal_settings:"COOKIE SETTINGS",
     nav_ops:"OPERATIONS", nav_creative:"CREATIVE BUREAU", nav_art:"ART & CULTURE",
 
     db_heading_title:"YVIS HAUSEN DATABASE", db_heading_sub:"PROJECT FILING SYSTEM",
@@ -254,7 +254,7 @@ const I18N = {
     tile_talent_link2_desc:"Représentation, placement et gestion de carrière dans la mode et le cinéma.",
     tile_creative_title:"MAISON CRÉATIVE",
     tile_art_title:"ART & CULTURE",
-    legal_privacy:"POLITIQUE DE CONFIDENTIALITÉ", legal_terms:"CONDITIONS DE SERVICE", legal_cookies:"POLITIQUE DE COOKIES", legal_settings:"PARAMÈTRES DES COOKIES",
+    legal_privacy:"POLITIQUE DE CONFIDENTIALITÉ", legal_terms:"CONDITIONS D'UTILISATION", legal_cookies:"POLITIQUE DE COOKIES", legal_settings:"PARAMÈTRES DES COOKIES",
     nav_ops:"OPÉRATIONS", nav_creative:"BUREAU CRÉATIF", nav_art:"ART & CULTURE",
 
     db_heading_title:"BASE DE DONNÉES YVIS HAUSEN", db_heading_sub:"SYSTÈME DE CLASSEMENT DE PROJETS",
@@ -337,7 +337,7 @@ const I18N = {
     tile_talent_link2_desc:"Rappresentanza, collocamento e gestione della carriera in moda e cinema.",
     tile_creative_title:"CASA CREATIVA",
     tile_art_title:"ARTE & CULTURA",
-    legal_privacy:"INFORMATIVA SULLA PRIVACY", legal_terms:"TERMINI DI SERVIZIO", legal_cookies:"COOKIE POLICY", legal_settings:"IMPOSTAZIONI COOKIE",
+    legal_privacy:"INFORMATIVA SULLA PRIVACY", legal_terms:"TERMINI D'USO", legal_cookies:"COOKIE POLICY", legal_settings:"IMPOSTAZIONI COOKIE",
     nav_ops:"OPERAZIONI", nav_creative:"UFFICIO CREATIVO", nav_art:"ARTE & CULTURA",
 
     db_heading_title:"DATABASE YVIS HAUSEN", db_heading_sub:"SISTEMA DI ARCHIVIAZIONE PROGETTI",
