@@ -145,9 +145,9 @@ function startCoinFire(canvas){
 
 // ---------- i18n ----------
 const SUBTITLES = {
-  en: ["International Creative House","Global Ideation Firm","Art & Cultural Advisory","Talent Agency","Brand Governance"],
-  fr: ["Maison Créative Internationale","Cabinet d'Idéation Global","Conseil Art & Culture","Agence de Talents","Gouvernance de Marque"],
-  it: ["Casa Creativa Internazionale","Studio di Ideazione Globale","Consulenza Arte & Cultura","Agenzia di Talenti","Governance del Brand"]
+  en: ["International Creative House","Global Ideation Firm","Global Meta Acquisition","Art & Cultural Advisory","Talent Agency","Brand Governance"],
+  fr: ["Maison Créative Internationale","Cabinet d'Idéation Global","Acquisition Meta Mondiale","Conseil Art & Culture","Agence de Talents","Gouvernance de Marque"],
+  it: ["Casa Creativa Internazionale","Studio di Ideazione Globale","Acquisizione Meta Globale","Consulenza Arte & Cultura","Agenzia di Talenti","Governance del Brand"]
 };
 
 const I18N = {
@@ -155,10 +155,10 @@ const I18N = {
     enquire_btn:"ENQUIRE",
     lang_label:"LANGUAGE", lang_option_en:"English", lang_option_fr:"French", lang_option_it:"Italian",
     group_creative:"CREATIVE HOUSE", group_curation:"CURATION", group_art:"ART & CULTURAL",
-    cat_sound_label:"SOUND", cat_sound_desc:"Original Compositions — Fashion Runway Scores, Sonic Identities, Film Scores, Immersive Soundscapes",
+    cat_sound_label:"SOUND ARCHITECTURE", cat_sound_desc:"Original Compositions — Fashion Runway Scores, Sonic Identities, Film Scores, Immersive Soundscapes",
     cat_visual_label:"VISUAL DIRECTION", cat_visual_desc:"Bespoke visual design for fashion, events and brands — Event Invitation Design, Editorial & Print, Menu Design, Magazine & Publication",
     cat_sceno_label:"SCENOGRAPHY", cat_sceno_desc:"Spatial worlds, sets and environments created for fashion, film, exhibitions and cultural experiences",
-    cat_talent_label:"TALENT REPRESENTATION", cat_talent_desc:"Casting talents for Fashion and Film.",
+    cat_talent_label:"TALENT PORTFOLIOS", cat_talent_desc:"Casting talents for Fashion and Film.",
     cat_event_label:"EVENT CURATION", cat_event_desc:"Bespoke environments, gatherings and experiences for brands, institutions and private clients",
     cat_exhib_label:"EXHIBITIONS", cat_exhib_desc:"Curation and presentation of exhibitions for institutions, galleries and private collections",
     cat_art_label:"PRIVATE ART", cat_art_desc:"Private Art Advisory & Art Sourcing — Research, sourcing, curation and acquisition support for private collections",
@@ -173,7 +173,7 @@ const I18N = {
     tile_art_title:"ART & CULTURE",
 
     db_heading_title:"YVIS HAUSEN DATABASE", db_heading_sub:"PROJECT FILING SYSTEM",
-    code_label:"PRIVATE CODE", code_cancel:"CANCEL", code_error:"ACCESS DENIED",
+    code_label:"PRIVATE CODE", code_cancel:"CANCEL", code_error:"ACCESS DENIED", code_restricted:"ACCESS RESTRICTED. ACCESS CODES ARE PROVIDED BY AUTHORISED AGENTS ONLY",
     db_eyebrow:"PROJECT DATABASE: PORTFOLIO", db_404:"404 ERROR",
 
     page_sound_title:"Sound Architecture", page_sound_lede:"Composition as a spatial and sensory language.",
@@ -236,10 +236,10 @@ const I18N = {
     enquire_btn:"CONTACT",
     lang_label:"LANGUE", lang_option_en:"Anglais", lang_option_fr:"Français", lang_option_it:"Italien",
     group_creative:"MAISON CRÉATIVE", group_curation:"CURATION", group_art:"ART & CULTURE",
-    cat_sound_label:"SON", cat_sound_desc:"Compositions originales — musiques de défilé, identités sonores, musiques de film, paysages sonores immersifs",
+    cat_sound_label:"ARCHITECTURE SONORE", cat_sound_desc:"Compositions originales — musiques de défilé, identités sonores, musiques de film, paysages sonores immersifs",
     cat_visual_label:"DIRECTION VISUELLE", cat_visual_desc:"Design visuel sur mesure pour la mode, les événements et les marques — invitations, édition & impression, design de menus, magazines & publications",
     cat_sceno_label:"SCÉNOGRAPHIE", cat_sceno_desc:"Univers spatiaux, décors et environnements conçus pour la mode, le cinéma, les expositions et les expériences culturelles",
-    cat_talent_label:"REPRÉSENTATION DE TALENTS", cat_talent_desc:"Casting de talents pour la mode et le cinéma.",
+    cat_talent_label:"PORTFOLIOS DE TALENTS", cat_talent_desc:"Casting de talents pour la mode et le cinéma.",
     cat_event_label:"CURATION D'ÉVÉNEMENTS", cat_event_desc:"Environnements, rassemblements et expériences sur mesure pour marques, institutions et clients privés",
     cat_exhib_label:"EXPOSITIONS", cat_exhib_desc:"Commissariat et présentation d'expositions pour institutions, galeries et collections privées",
     cat_art_label:"ART PRIVÉ", cat_art_desc:"Conseil en art privé & sourcing — recherche, sourcing, curation et accompagnement à l'acquisition pour collections privées",
@@ -254,7 +254,7 @@ const I18N = {
     tile_art_title:"ART & CULTURE",
 
     db_heading_title:"BASE DE DONNÉES YVIS HAUSEN", db_heading_sub:"SYSTÈME DE CLASSEMENT DE PROJETS",
-    code_label:"CODE PRIVÉ", code_cancel:"ANNULER", code_error:"ACCÈS REFUSÉ",
+    code_label:"CODE PRIVÉ", code_cancel:"ANNULER", code_error:"ACCÈS REFUSÉ", code_restricted:"ACCÈS RESTREINT. LES CODES D'ACCÈS SONT FOURNIS UNIQUEMENT PAR DES AGENTS AUTORISÉS",
     db_eyebrow:"BASE DE PROJETS : PORTFOLIO", db_404:"ERREUR 404",
 
     page_sound_title:"Architecture Sonore", page_sound_lede:"La composition comme langage spatial et sensoriel.",
@@ -317,10 +317,10 @@ const I18N = {
     enquire_btn:"CONTATTI",
     lang_label:"LINGUA", lang_option_en:"Inglese", lang_option_fr:"Francese", lang_option_it:"Italiano",
     group_creative:"CASA CREATIVA", group_curation:"CURATELA", group_art:"ARTE & CULTURA",
-    cat_sound_label:"SUONO", cat_sound_desc:"Composizioni originali — colonne sonore per sfilate, identità sonore, colonne sonore cinematografiche, paesaggi sonori immersivi",
+    cat_sound_label:"ARCHITETTURA DEL SUONO", cat_sound_desc:"Composizioni originali — colonne sonore per sfilate, identità sonore, colonne sonore cinematografiche, paesaggi sonori immersivi",
     cat_visual_label:"DIREZIONE VISIVA", cat_visual_desc:"Design visivo su misura per moda, eventi e brand — inviti, editoria & stampa, design di menu, riviste & pubblicazioni",
     cat_sceno_label:"SCENOGRAFIA", cat_sceno_desc:"Mondi spaziali, scenografie e ambienti creati per moda, cinema, mostre ed esperienze culturali",
-    cat_talent_label:"RAPPRESENTANZA TALENTI", cat_talent_desc:"Casting di talenti per moda e cinema.",
+    cat_talent_label:"PORTFOLIO TALENTI", cat_talent_desc:"Casting di talenti per moda e cinema.",
     cat_event_label:"CURATELA EVENTI", cat_event_desc:"Ambienti, incontri ed esperienze su misura per brand, istituzioni e clienti privati",
     cat_exhib_label:"MOSTRE", cat_exhib_desc:"Curatela e presentazione di mostre per istituzioni, gallerie e collezioni private",
     cat_art_label:"ARTE PRIVATA", cat_art_desc:"Consulenza artistica privata & sourcing — ricerca, sourcing, curatela e supporto all'acquisizione per collezioni private",
@@ -335,7 +335,7 @@ const I18N = {
     tile_art_title:"ARTE & CULTURA",
 
     db_heading_title:"DATABASE YVIS HAUSEN", db_heading_sub:"SISTEMA DI ARCHIVIAZIONE PROGETTI",
-    code_label:"CODICE PRIVATO", code_cancel:"ANNULLA", code_error:"ACCESSO NEGATO",
+    code_label:"CODICE PRIVATO", code_cancel:"ANNULLA", code_error:"ACCESSO NEGATO", code_restricted:"ACCESSO LIMITATO. I CODICI DI ACCESSO SONO FORNITI SOLO DA AGENTI AUTORIZZATI",
     db_eyebrow:"DATABASE PROGETTI: PORTFOLIO", db_404:"ERRORE 404",
 
     page_sound_title:"Architettura del Suono", page_sound_lede:"La composizione come linguaggio spaziale e sensoriale.",
@@ -467,11 +467,14 @@ const codeModal = document.getElementById('codeModal');
 const codeInput = document.getElementById('codeInput');
 const codeError = document.getElementById('codeError');
 const codeCancel = document.getElementById('codeCancel');
+const codeRestricted = document.getElementById('codeRestricted');
+let failedAttempts = 0;   // after two wrong codes, explain how access works
 
 function openCodeModal(folderKey){
   pendingFolder = folderKey;
   if(!codeModal) return;
   codeError.classList.remove('show');
+  if(codeRestricted) codeRestricted.classList.toggle('show', failedAttempts >= 2);
   codeInput.value = '';
   codeModal.classList.add('open');
   setTimeout(() => codeInput.focus(), 50);
@@ -501,7 +504,9 @@ function submitCode(){
     closeCodeModal();
     goToDatabase(folderKey);
   }else{
+    failedAttempts++;
     codeError.classList.add('show');
+    if(codeRestricted && failedAttempts >= 2) codeRestricted.classList.add('show');
     codeInput.value = '';
   }
 }
@@ -521,3 +526,37 @@ if(codeInput){
 if(codeModal){
   codeModal.addEventListener('click', (e) => { if(e.target === codeModal) closeCodeModal(); });
 }
+
+// ---------- Filing cabinet: papers riffle as the cursor moves along a file ----------
+// The sheets in the file under the cursor lift and tilt towards the pointer,
+// the files either side stir slightly, and everything settles when it leaves.
+(function(){
+  const cabinet = document.querySelector('.filing-cabinet');
+  if(!cabinet || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const folders = Array.from(cabinet.querySelectorAll('.folder'));
+  let raf = 0, lastEvent = null;
+  function settle(folder){
+    folder.querySelectorAll('.paper').forEach(p => { p.style.setProperty('--lift', '0px'); p.style.setProperty('--tilt', '0deg'); });
+  }
+  function update(){
+    raf = 0;
+    const e = lastEvent; if(!e) return;
+    const target = e.target.closest('.folder');
+    const idx = folders.indexOf(target);
+    folders.forEach((folder, i) => {
+      const d = idx < 0 ? 99 : Math.abs(i - idx);
+      if(d > 1){ settle(folder); return; }
+      const r = folder.getBoundingClientRect();
+      const x = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1);
+      const strength = d === 0 ? 1 : 0.35;
+      folder.querySelectorAll('.paper').forEach(p => {
+        const n = parseFloat(getComputedStyle(p).getPropertyValue('--n')) || 1;
+        p.style.setProperty('--lift', (-(2 + n * 1.1) * strength).toFixed(2) + 'px');
+        p.style.setProperty('--tilt', (((x - 0.5) * -0.5) * strength * (1 + n * 0.15)).toFixed(3) + 'deg');
+        p.style.transformOrigin = x < 0.5 ? 'right bottom' : 'left bottom';
+      });
+    });
+  }
+  cabinet.addEventListener('mousemove', e => { lastEvent = e; if(!raf) raf = requestAnimationFrame(update); });
+  cabinet.addEventListener('mouseleave', () => { lastEvent = null; folders.forEach(settle); });
+})();
