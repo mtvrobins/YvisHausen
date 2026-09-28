@@ -5,6 +5,13 @@
   font-weight:400; font-style:normal; font-display:swap;
 }
 
+/* Vilaka (Modern Serif) — installed, ready to be applied */
+@font-face{
+  font-family:"Vilaka";
+  src:url("fonts/Vilaka.woff2") format("woff2"), url("fonts/Vilaka.ttf") format("truetype");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+
 :root{
   --bg:#050403;
   --fg:#F5F2EB;
@@ -253,8 +260,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   position:relative; z-index:1; display:block;
   width:100%; height:var(--body-h);
   /* the supplied brushed-metal texture, darkened */
-  background:#070708 url("images/file-metal.jpg") center / 100% 100% no-repeat;
-  border-top:1px solid rgba(255,255,255,0.20);
+  background:#040405 url("images/file-metal.jpg") center / 100% 100% no-repeat;
+  border-top:1px solid rgba(255,255,255,0.14);
   border-radius:4px 4px 0 0;
   box-shadow:0 -12px 26px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(255,255,255,0.04);
   transition:filter .3s ease;
