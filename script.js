@@ -601,10 +601,11 @@ document.addEventListener('click', () => {
   document.querySelectorAll('.site-index .idx-group.open').forEach(g => { g.classList.remove('open'); g.querySelector('.idx-head').setAttribute('aria-expanded', 'false'); });
 });
 
-// ---------- Cookie settings ----------
-// The site sets no analytics or advertising cookies today; this panel records
-// the visitor's choices (on their own device) so any future categories only
-// run with consent. Opened from "Cookie Settings" in every footer.
+// ---------- Cookie consent: first-visit banner + settings panel ----------
+// The site sets no analytics or advertising cookies today; these record the
+// visitor's choices (on their own device) so any future categories only run
+// with consent. The banner shows once, until a choice is made in either the
+// banner or the panel; the panel opens from "Cookie Settings" in every footer.
 (function(){
   const KEY = 'yh_cookie_prefs';
   function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
@@ -634,7 +635,7 @@ document.addEventListener('click', () => {
           <input type="checkbox" class="cookie-switch" data-cat="marketing">
         </label>
         <div class="cookie-actions">
-          <button type="button" class="cookie-btn" data-act="reject">REJECT OPTIONAL</button>
+          <button type="button" class="cookie-btn" data-act="reject">REJECT ALL</button>
           <button type="button" class="cookie-btn" data-act="accept">ACCEPT ALL</button>
           <button type="button" class="cookie-btn cookie-btn--solid" data-act="save">SAVE SETTINGS</button>
         </div>
@@ -650,6 +651,7 @@ document.addEventListener('click', () => {
       const prefs = { necessary: true };
       boxes.forEach(b => prefs[b.dataset.cat] = b.checked);
       save(prefs);
+      hideBanner();
       close();
     });
     document.addEventListener('keydown', e => { if(e.key === 'Escape' && panel.classList.contains('open')) close(); });
@@ -667,6 +669,42 @@ document.addEventListener('click', () => {
     const t = e.target.closest('[data-cookie-settings]');
     if(t){ e.preventDefault(); open(); }
   });
+
+  // first-visit banner
+  let banner = null;
+  function hideBanner(){
+    if(!banner) return;
+    banner.classList.remove('show');
+    const b = banner; banner = null;
+    setTimeout(() => b.remove(), 600);
+  }
+  function showBanner(){
+    banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Cookie consent');
+    banner.innerHTML = `
+      <p class="cookie-banner-text">We use only what is needed for this website to work. Optional cookies stay off unless you choose otherwise. <a href="cookies.html">Cookie Policy</a></p>
+      <div class="cookie-banner-actions">
+        <button type="button" class="cookie-btn" data-choice="settings">COOKIE SETTINGS</button>
+        <button type="button" class="cookie-btn" data-choice="reject">REJECT ALL</button>
+        <button type="button" class="cookie-btn cookie-btn--solid" data-choice="accept">ACCEPT ALL</button>
+      </div>`;
+    document.body.appendChild(banner);
+    banner.addEventListener('click', e => {
+      const b = e.target.closest('[data-choice]'); if(!b) return;
+      if(b.dataset.choice === 'settings') return open();
+      const all = b.dataset.choice === 'accept';
+      save({ necessary: true, analytics: all, marketing: all });
+      hideBanner();
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => banner && banner.classList.add('show')));
+  }
+  if(!load().updated){
+    // on the homepage, wait for the coin loader to finish first
+    const delay = document.getElementById('loader') ? LOADER_MS + 900 : 700;
+    setTimeout(() => { if(!load().updated) showBanner(); }, delay);
+  }
 })();
 
 // ---------- Legal pages: highlight the section being read in the contents ----------
