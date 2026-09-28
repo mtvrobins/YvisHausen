@@ -528,35 +528,62 @@ if(codeModal){
 }
 
 // ---------- Filing cabinet: papers riffle as the cursor moves along a file ----------
-// The sheets in the file under the cursor lift and tilt towards the pointer,
-// the files either side stir slightly, and everything settles when it leaves.
+// Each sheet eases towards a target on every frame (a soft spring), so the
+// motion stays fluid however fast the cursor moves. Sheets in the file under
+// the cursor lift in a wave that follows the pointer; the neighbouring files
+// stir slightly; everything drifts back when the cursor leaves. The metal
+// sheen on the casing slides a little with the cursor too.
 (function(){
   const cabinet = document.querySelector('.filing-cabinet');
   if(!cabinet || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const folders = Array.from(cabinet.querySelectorAll('.folder'));
-  let raf = 0, lastEvent = null;
-  function settle(folder){
-    folder.querySelectorAll('.paper').forEach(p => { p.style.setProperty('--lift', '0px'); p.style.setProperty('--tilt', '0deg'); });
+  const folders = Array.from(cabinet.querySelectorAll('.folder')).map(el => ({
+    el, body: el.querySelector('.folder-body'),
+    papers: Array.from(el.querySelectorAll('.paper')).map((p, i) => ({ el: p, n: i + 1, y: 0, r: 0, x: 0, vy: 0, vr: 0, vx: 0 }))
+  }));
+  let pointer = null, raf = 0;
+  function targetFor(f, fi, p){
+    if(!pointer) return [0, 0, 0];
+    const d = Math.abs(fi - pointer.fi);
+    if(d > 1) return [0, 0, 0];
+    const r = f.el.getBoundingClientRect();
+    const x = Math.min(Math.max((pointer.x - r.left) / r.width, 0), 1);
+    const k = d === 0 ? 1 : 0.3;
+    // back sheets rise a little more, with a gentle wave travelling across
+    const wave = 0.75 + 0.25 * Math.sin(x * Math.PI * 2 + p.n * 0.9);
+    return [-(1.5 + p.n * 1.2) * wave * k, (0.5 - x) * 0.35 * k, (x - 0.5) * 6 * k];
   }
-  function update(){
-    raf = 0;
-    const e = lastEvent; if(!e) return;
-    const target = e.target.closest('.folder');
-    const idx = folders.indexOf(target);
-    folders.forEach((folder, i) => {
-      const d = idx < 0 ? 99 : Math.abs(i - idx);
-      if(d > 1){ settle(folder); return; }
-      const r = folder.getBoundingClientRect();
-      const x = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1);
-      const strength = d === 0 ? 1 : 0.35;
-      folder.querySelectorAll('.paper').forEach(p => {
-        const n = parseFloat(getComputedStyle(p).getPropertyValue('--n')) || 1;
-        p.style.setProperty('--lift', (-(2 + n * 1.1) * strength).toFixed(2) + 'px');
-        p.style.setProperty('--tilt', (((x - 0.5) * -0.5) * strength * (1 + n * 0.15)).toFixed(3) + 'deg');
-        p.style.transformOrigin = x < 0.5 ? 'right bottom' : 'left bottom';
+  function step(){
+    let moving = false;
+    folders.forEach((f, fi) => {
+      f.papers.forEach(p => {
+        const [ty, tr, tx] = targetFor(f, fi, p);
+        // critically-damped-ish spring; later sheets respond a touch later
+        const stiff = 0.075 - p.n * 0.006, damp = 0.78;
+        p.vy = (p.vy + (ty - p.y) * stiff) * damp; p.y += p.vy;
+        p.vr = (p.vr + (tr - p.r) * stiff) * damp; p.r += p.vr;
+        p.vx = (p.vx + (tx - p.x) * stiff) * damp; p.x += p.vx;
+        if(Math.abs(ty - p.y) + Math.abs(p.vy) + Math.abs(tr - p.r) * 10 + Math.abs(tx - p.x) > 0.02) moving = true;
+        p.el.style.transform = 'translate3d(' + p.x.toFixed(2) + 'px,' + p.y.toFixed(2) + 'px,0) rotate(' + p.r.toFixed(3) + 'deg)';
       });
     });
+    raf = moving ? requestAnimationFrame(step) : 0;
   }
-  cabinet.addEventListener('mousemove', e => { lastEvent = e; if(!raf) raf = requestAnimationFrame(update); });
-  cabinet.addEventListener('mouseleave', () => { lastEvent = null; folders.forEach(settle); });
+  function kick(){ if(!raf) raf = requestAnimationFrame(step); }
+  cabinet.addEventListener('mousemove', e => {
+    const el = e.target.closest('.folder');
+    const fi = folders.findIndex(f => f.el === el);
+    pointer = fi < 0 ? null : { x: e.clientX, fi };
+    if(fi >= 0){
+      const f = folders[fi], r = f.el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      f.body.style.setProperty('--sheen', (30 + x * 40).toFixed(1) + '%');
+      f.body.style.setProperty('--sheen2', (80 - x * 30).toFixed(1) + '%');
+    }
+    kick();
+  });
+  cabinet.addEventListener('mouseleave', () => {
+    pointer = null;
+    folders.forEach(f => { f.body.style.removeProperty('--sheen'); f.body.style.removeProperty('--sheen2'); });
+    kick();
+  });
 })();

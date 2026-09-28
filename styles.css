@@ -216,17 +216,23 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .folder-body{
   position:relative; z-index:1; display:block;
   width:100%; height:var(--body-h);
+  /* jet-black brushed metal: fine horizontal grain, a bright diagonal
+     streak of light and a softer secondary glint, over near-black */
   background:
-    linear-gradient(100deg, rgba(255,255,255,0.00) 8%, rgba(210,210,214,0.05) 22%, rgba(255,255,255,0.00) 34%,
-                            rgba(255,255,255,0.00) 60%, rgba(200,200,205,0.03) 72%, rgba(255,255,255,0.00) 84%),
-    linear-gradient(180deg, rgba(66,66,70,0.62) 0%, rgba(28,28,31,0.84) 22%, rgba(10,10,11,0.93) 55%, rgba(3,3,4,0.97) 100%);
-  -webkit-backdrop-filter:blur(14px) saturate(115%); backdrop-filter:blur(14px) saturate(115%);
-  border-top:1px solid rgba(255,255,255,0.14);
+    repeating-linear-gradient(180deg, rgba(255,255,255,0.028) 0px, rgba(255,255,255,0.028) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 3px),
+    linear-gradient(168deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.05) 40%, rgba(236,236,240,0.30) 46%, rgba(255,255,255,0.07) 51%, rgba(255,255,255,0) 60%),
+    linear-gradient(172deg, rgba(255,255,255,0) 66%, rgba(220,220,226,0.08) 73%, rgba(255,255,255,0) 80%),
+    linear-gradient(180deg, #1c1c1f 0%, #0c0c0e 30%, #060607 70%, #0a0a0b 100%);
+  background-size:100% 100%, 220% 100%, 180% 100%, 100% 100%;
+  background-repeat:no-repeat;
+  background-position:0 0, var(--sheen, 50%) 0, var(--sheen2, 64%) 0, 0 0;
+  border-top:1px solid rgba(255,255,255,0.20);
   border-radius:4px 4px 0 0;
-  box-shadow:0 -12px 26px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.12);
-  transition:filter .3s ease;
+  box-shadow:0 -12px 26px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(255,255,255,0.04);
+  transition:filter .3s ease, background-position .9s cubic-bezier(.2,.7,.2,1);
 }
-/* file number, set like the title cards */
+/* file number, set like the title cards; the "o" of No. is small and raised */
+.folder-no .no-o{ font-size:0.62em; vertical-align:0.5em; letter-spacing:0.02em; margin-right:0.7em; text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:1px; }
 .folder-no{
   position:absolute; top:15px; left:26px;
   font-family:var(--sans); font-style:normal; font-weight:500;
@@ -244,8 +250,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   position:absolute; bottom:-12px; left:var(--l); right:var(--rr); height:calc(var(--h) + 12px);
   border-radius:1px;
   box-shadow:0 -1px 0 rgba(255,255,255,0.28), 0 -3px 8px rgba(0,0,0,0.35);
-  transform:translateY(var(--lift, 0px)) rotate(var(--tilt, 0deg));
-  transition:transform .55s cubic-bezier(.2,.7,.2,1) calc(var(--n, 1) * 35ms);
+  will-change:transform;
 }
 .paper--white{ background:linear-gradient(180deg, #f6f4ee, #e6e3da); }
 .paper--lightyellow{ background:linear-gradient(180deg, #f2e8c2, #e4d7a6); }
@@ -253,7 +258,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .paper--bw{
   background:linear-gradient(90deg, #050505 0%, #2a2a2a 14%, #efefef 26%, #111 41%, #dcdcdc 58%, #080808 72%, #bdbdbd 86%, #0d0d0d 100%);
 }
-.folder:hover .folder-body{ filter:brightness(1.18); }
+.folder:hover .folder-body{ filter:brightness(1.25); }
 .folder:hover .folder-tab{ background:linear-gradient(180deg, rgba(255,248,220,0.40) 0%, rgba(255,242,200,0.2) 100%); }
 .folder:focus-visible .folder-tab{ outline:1px solid var(--fg); outline-offset:2px; }
 
@@ -264,7 +269,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 /* ============ PRIVATE CODE MODAL ============ */
 .code-modal{
   position:fixed; inset:0; z-index:200;
-  background:rgba(0,0,0,0.55);
+  background:rgba(0,0,0,0.7);
   display:flex; align-items:center; justify-content:center;
   opacity:0; visibility:hidden;
   transition:opacity .3s ease, visibility .3s;
@@ -273,7 +278,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .code-modal.open{ opacity:1; visibility:visible; }
 .code-box{
   width:min(90vw,340px);
-  background:rgba(0,0,0,0.88);
+  background:rgba(0,0,0,0.95);
   border:1px solid rgba(245,242,235,0.16);
   padding:56px 44px 44px;
   text-align:center;
