@@ -684,7 +684,7 @@ document.addEventListener('click', () => {
     banner.setAttribute('role', 'region');
     banner.setAttribute('aria-label', 'Cookie consent');
     banner.innerHTML = `
-      <p class="cookie-banner-text">We use only what is needed for this website to work. Optional cookies stay off unless you choose otherwise. <a href="cookies.html">Cookie Policy</a></p>
+      <p class="cookie-banner-text">We use only what this website needs to work. Optional cookies stay off unless you choose otherwise. &nbsp;<a href="cookies.html">Cookie Policy</a></p>
       <div class="cookie-banner-actions">
         <button type="button" class="cookie-btn" data-choice="settings">COOKIE SETTINGS</button>
         <button type="button" class="cookie-btn" data-choice="reject">REJECT ALL</button>
@@ -722,3 +722,18 @@ document.addEventListener('click', () => {
   }, { rootMargin: '-20% 0px -70% 0px' });
   document.querySelectorAll('.legal-sec').forEach(s => io.observe(s));
 })();
+
+// ---------- Legal links always open at the top of the page ----------
+// Pages load at the top rather than restoring an earlier scroll position,
+// and clicking the link for the page you are already on glides back up.
+if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('pageshow', () => { if(!location.hash) window.scrollTo(0, 0); });
+document.querySelectorAll('.legal-links a[href$=".html"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const here = location.pathname.split('/').pop() || 'index.html';
+    if(a.getAttribute('href') === here){
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }
+  });
+});
