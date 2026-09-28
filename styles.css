@@ -70,7 +70,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .wordmark{
   display:inline-block; transform:scaleY(0.9); transform-origin:center;
   font-family:"Brand", var(--serif); color:var(--fg);
-  font-size:clamp(16px,2.1vw,22px); letter-spacing:0.12em; font-weight:400;
+  font-size:clamp(15px,1.8vw,19px); letter-spacing:0.12em; font-weight:400;
   cursor:pointer; white-space:nowrap;
 }
 .subtitle-wrap{ height:20px; overflow:hidden; position:relative; }
@@ -84,8 +84,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 .bar-center{ justify-self:center; }
 .enquire-btn{
-  font-family:"Brand", var(--serif); font-size:11.5px; letter-spacing:0.18em;
-  color:var(--fg); border:1px solid var(--fg); padding:7px 18px;
+  font-family:"Brand", var(--serif); font-size:10.5px; letter-spacing:0.16em;
+  color:var(--fg); border:1px solid var(--fg); padding:6px 14px;
   white-space:nowrap; transition:background .3s ease, color .3s ease;
 }
 .enquire-btn:hover{ background:var(--fg); color:#000; }
@@ -124,6 +124,42 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .lang-option:hover::after{ width:100%; }
 .lang-option.active{ color:var(--fg); }
 .lang-option.active::after{ width:100%; }
+
+/* ============ SECTION INDEX (inner pages, under the header) ============ */
+.site-index{
+  position:relative; z-index:90;
+  display:flex; justify-content:center; gap:clamp(28px,6vw,84px);
+  padding:13px 20px 12px; background:var(--bg);
+  border-bottom:1px solid var(--hairline);
+}
+.idx-group{ position:relative; }
+.idx-head{
+  font-family:var(--sans); font-weight:500; font-size:10.5px; letter-spacing:0.22em;
+  color:var(--fg); opacity:0.6; padding:4px 0;
+  transform:var(--v-squish); transition:opacity .35s ease;
+}
+.idx-menu{
+  position:absolute; top:100%; left:50%; min-width:190px;
+  padding:14px 0 6px; display:flex; flex-direction:column; align-items:center; gap:11px;
+  background:var(--bg); border:1px solid var(--hairline); border-top:none;
+  opacity:0; visibility:hidden; transform:translate(-50%,-6px);
+  transition:opacity .35s ease, transform .35s ease, visibility .35s;
+}
+.idx-menu a{
+  font-size:10px; letter-spacing:0.2em; color:var(--fg); opacity:0.55;
+  text-decoration:none; white-space:nowrap; padding:0 18px 8px;
+  transition:opacity .3s ease;
+}
+.idx-group:hover .idx-head, .idx-group:focus-within .idx-head, .idx-group.open .idx-head{ opacity:1; }
+.idx-group:hover .idx-menu, .idx-group:focus-within .idx-menu, .idx-group.open .idx-menu{
+  opacity:1; visibility:visible; transform:translate(-50%,0);
+}
+.idx-menu a:hover, .idx-menu a:focus-visible{ opacity:1; outline:none; }
+@media (max-width:640px){
+  .site-index{ gap:18px; padding:11px 12px 10px; }
+  .idx-head{ font-size:9px; letter-spacing:0.14em; }
+  .idx-menu{ min-width:150px; }
+}
 
 /* ============ HOMEPAGE — FRONT PAGE (first screen: 3 tiles) ============ */
 .front-page{ max-width:1240px; margin:0 auto; padding:70px 32px 90px; }
@@ -216,20 +252,12 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .folder-body{
   position:relative; z-index:1; display:block;
   width:100%; height:var(--body-h);
-  /* jet-black brushed metal: fine horizontal grain, a bright diagonal
-     streak of light and a softer secondary glint, over near-black */
-  background:
-    repeating-linear-gradient(180deg, rgba(255,255,255,0.028) 0px, rgba(255,255,255,0.028) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 3px),
-    linear-gradient(168deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.05) 40%, rgba(236,236,240,0.30) 46%, rgba(255,255,255,0.07) 51%, rgba(255,255,255,0) 60%),
-    linear-gradient(172deg, rgba(255,255,255,0) 66%, rgba(220,220,226,0.08) 73%, rgba(255,255,255,0) 80%),
-    linear-gradient(180deg, #1c1c1f 0%, #0c0c0e 30%, #060607 70%, #0a0a0b 100%);
-  background-size:100% 100%, 220% 100%, 180% 100%, 100% 100%;
-  background-repeat:no-repeat;
-  background-position:0 0, var(--sheen, 50%) 0, var(--sheen2, 64%) 0, 0 0;
+  /* the supplied brushed-metal texture, darkened */
+  background:#070708 url("images/file-metal.jpg") center / 100% 100% no-repeat;
   border-top:1px solid rgba(255,255,255,0.20);
   border-radius:4px 4px 0 0;
   box-shadow:0 -12px 26px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(255,255,255,0.04);
-  transition:filter .3s ease, background-position .9s cubic-bezier(.2,.7,.2,1);
+  transition:filter .3s ease;
 }
 /* file number, set like the title cards; the "o" of No. is small and raised */
 .folder-no .no-o{ font-size:0.62em; vertical-align:0.5em; letter-spacing:0.02em; margin-right:0.7em; text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:1px; }
@@ -422,9 +450,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .bar-inner{ grid-template-columns:auto 1fr auto; gap:10px; padding:12px 16px; }
   .emblem{ width:40px; height:40px; }
   .subtitle-wrap{ display:none; }
-  .wordmark{ font-size:15.5px; letter-spacing:0.1em; }
+  .wordmark{ font-size:14.5px; letter-spacing:0.1em; }
   .bar-right{ gap:14px; }
-  .enquire-btn{ padding:6px 10px; font-size:10.5px; letter-spacing:0.14em; }
+  .enquire-btn{ padding:5px 9px; font-size:9.5px; letter-spacing:0.12em; }
   .lang-toggle > span{ display:none; }
   .lang-globe{ width:17px; height:17px; }
   .header-title{ margin:0 0 26px 20px; font-size:clamp(24px,8vw,40px); }

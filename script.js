@@ -145,9 +145,9 @@ function startCoinFire(canvas){
 
 // ---------- i18n ----------
 const SUBTITLES = {
-  en: ["International Creative House","Global Ideation Firm","Global Meta Acquisition","Private Art Office","Artist Agency","Brand Governance"],
-  fr: ["Maison Créative Internationale","Cabinet d'Idéation Global","Acquisition Meta Mondiale","Bureau d'Art Privé","Agence d'Artistes","Gouvernance de Marque"],
-  it: ["Casa Creativa Internazionale","Studio di Ideazione Globale","Acquisizione Meta Globale","Ufficio d'Arte Privato","Agenzia di Artisti","Governance del Brand"]
+  en: ["International Creative House","Global Meta Acquisition","Private Art Office","Global Ideation Firm","Artist Agency","Brand Governance"],
+  fr: ["Maison Créative Internationale","Acquisition Meta Mondiale","Bureau d'Art Privé","Cabinet d'Idéation Global","Agence d'Artistes","Gouvernance de Marque"],
+  it: ["Casa Creativa Internazionale","Acquisizione Meta Globale","Ufficio d'Arte Privato","Studio di Ideazione Globale","Agenzia di Artisti","Governance del Brand"]
 };
 
 const I18N = {
@@ -171,6 +171,7 @@ const I18N = {
     tile_talent_link2_desc:"Representation, placement and career management across fashion and film.",
     tile_creative_title:"CREATIVE HOUSE",
     tile_art_title:"ART & CULTURE",
+    nav_ops:"OPERATIONS", nav_creative:"CREATIVE BUREAU", nav_art:"ART & CULTURE",
 
     db_heading_title:"YVIS HAUSEN DATABASE", db_heading_sub:"PROJECT FILING SYSTEM",
     code_label:"PRIVATE CODE", code_cancel:"CANCEL", code_error:"ACCESS DENIED", code_restricted:"ACCESS RESTRICTED. ACCESS CODES ARE PROVIDED BY AUTHORISED AGENTS ONLY",
@@ -252,6 +253,7 @@ const I18N = {
     tile_talent_link2_desc:"Représentation, placement et gestion de carrière dans la mode et le cinéma.",
     tile_creative_title:"MAISON CRÉATIVE",
     tile_art_title:"ART & CULTURE",
+    nav_ops:"OPÉRATIONS", nav_creative:"BUREAU CRÉATIF", nav_art:"ART & CULTURE",
 
     db_heading_title:"BASE DE DONNÉES YVIS HAUSEN", db_heading_sub:"SYSTÈME DE CLASSEMENT DE PROJETS",
     code_label:"CODE PRIVÉ", code_cancel:"ANNULER", code_error:"ACCÈS REFUSÉ", code_restricted:"ACCÈS RESTREINT. LES CODES D'ACCÈS SONT FOURNIS UNIQUEMENT PAR DES AGENTS AUTORISÉS",
@@ -333,6 +335,7 @@ const I18N = {
     tile_talent_link2_desc:"Rappresentanza, collocamento e gestione della carriera in moda e cinema.",
     tile_creative_title:"CASA CREATIVA",
     tile_art_title:"ARTE & CULTURA",
+    nav_ops:"OPERAZIONI", nav_creative:"UFFICIO CREATIVO", nav_art:"ARTE & CULTURA",
 
     db_heading_title:"DATABASE YVIS HAUSEN", db_heading_sub:"SISTEMA DI ARCHIVIAZIONE PROGETTI",
     code_label:"CODICE PRIVATO", code_cancel:"ANNULLA", code_error:"ACCESSO NEGATO", code_restricted:"ACCESSO LIMITATO. I CODICI DI ACCESSO SONO FORNITI SOLO DA AGENTI AUTORIZZATI",
@@ -531,8 +534,7 @@ if(codeModal){
 // Each sheet eases towards a target on every frame (a soft spring), so the
 // motion stays fluid however fast the cursor moves. Sheets in the file under
 // the cursor lift in a wave that follows the pointer; the neighbouring files
-// stir slightly; everything drifts back when the cursor leaves. The metal
-// sheen on the casing slides a little with the cursor too.
+// stir slightly; everything drifts back when the cursor leaves.
 (function(){
   const cabinet = document.querySelector('.filing-cabinet');
   if(!cabinet || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -573,17 +575,25 @@ if(codeModal){
     const el = e.target.closest('.folder');
     const fi = folders.findIndex(f => f.el === el);
     pointer = fi < 0 ? null : { x: e.clientX, fi };
-    if(fi >= 0){
-      const f = folders[fi], r = f.el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      f.body.style.setProperty('--sheen', (30 + x * 40).toFixed(1) + '%');
-      f.body.style.setProperty('--sheen2', (80 - x * 30).toFixed(1) + '%');
-    }
     kick();
   });
   cabinet.addEventListener('mouseleave', () => {
     pointer = null;
-    folders.forEach(f => { f.body.style.removeProperty('--sheen'); f.body.style.removeProperty('--sheen2'); });
     kick();
   });
 })();
+
+// ---------- Section index (inner pages): touch devices open a group on tap ----------
+document.querySelectorAll('.site-index .idx-group > .idx-head').forEach(head => {
+  head.addEventListener('click', e => {
+    const g = head.parentElement;
+    const open = !g.classList.contains('open');
+    document.querySelectorAll('.site-index .idx-group.open').forEach(x => x.classList.remove('open'));
+    g.classList.toggle('open', open);
+    head.setAttribute('aria-expanded', open);
+    e.stopPropagation();
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.site-index .idx-group.open').forEach(g => { g.classList.remove('open'); g.querySelector('.idx-head').setAttribute('aria-expanded', 'false'); });
+});
