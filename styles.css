@@ -45,7 +45,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 #loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
 .loader-coin{
-  position:relative; width:min(50vw,44vh,300px); aspect-ratio:1/1;
+  position:relative; width:min(42vw,38vh,250px); aspect-ratio:1/1;
   opacity:0; transform:scale(0.985);
   animation:coinIn 1.4s cubic-bezier(.2,.7,.2,1) .15s forwards;
 }
@@ -217,23 +217,23 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   position:relative; z-index:1; display:block;
   width:100%; height:var(--body-h);
   background:
-    linear-gradient(100deg, rgba(255,255,255,0.00) 8%, rgba(210,210,214,0.10) 22%, rgba(255,255,255,0.00) 34%,
-                            rgba(255,255,255,0.00) 60%, rgba(200,200,205,0.06) 72%, rgba(255,255,255,0.00) 84%),
-    linear-gradient(180deg, rgba(120,120,126,0.42) 0%, rgba(44,44,48,0.72) 28%, rgba(14,14,16,0.86) 70%, rgba(6,6,7,0.92) 100%);
+    linear-gradient(100deg, rgba(255,255,255,0.00) 8%, rgba(210,210,214,0.05) 22%, rgba(255,255,255,0.00) 34%,
+                            rgba(255,255,255,0.00) 60%, rgba(200,200,205,0.03) 72%, rgba(255,255,255,0.00) 84%),
+    linear-gradient(180deg, rgba(66,66,70,0.62) 0%, rgba(28,28,31,0.84) 22%, rgba(10,10,11,0.93) 55%, rgba(3,3,4,0.97) 100%);
   -webkit-backdrop-filter:blur(14px) saturate(115%); backdrop-filter:blur(14px) saturate(115%);
-  border-top:1px solid rgba(255,255,255,0.22);
+  border-top:1px solid rgba(255,255,255,0.14);
   border-radius:4px 4px 0 0;
   box-shadow:0 -12px 26px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.12);
   transition:filter .3s ease;
 }
-.folder-no, .folder-lock{
-  position:absolute; top:15px;
-  font-family:var(--sans); font-style:normal; font-weight:400;
-  font-size:10.5px; letter-spacing:0.26em; color:rgba(236,236,240,0.78);
+/* file number, set like the title cards */
+.folder-no{
+  position:absolute; top:15px; left:26px;
+  font-family:var(--sans); font-style:normal; font-weight:500;
+  font-size:11.5px; letter-spacing:0.14em; color:rgba(236,236,240,0.8);
   font-variant-numeric:tabular-nums; white-space:nowrap;
+  transform:var(--v-squish); transform-origin:top left;
 }
-.folder-no{ left:26px; }
-.folder-lock{ right:26px; font-size:9.5px; color:rgba(236,236,240,0.5); }
 
 /* papers filed inside: long strips running the full width, stacked back to front */
 .folder-papers{
@@ -259,7 +259,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 .site-footer{ padding:30px 20px 44px; border-top:1px solid var(--hairline); }
 .home-footer{ text-align:center; font-size:10px; letter-spacing:0.2em; color:var(--muted); font-weight:300; }
-.cities-line{ text-align:center; padding-top:12px; font-size:11px; letter-spacing:0.2em; color:var(--muted); font-weight:300; }
+.cities-line{ text-align:center; padding-top:24px; font-size:9.5px; letter-spacing:0.2em; color:var(--muted); font-weight:300; }
 
 /* ============ PRIVATE CODE MODAL ============ */
 .code-modal{
@@ -296,11 +296,13 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 .code-error.show{ opacity:1; }
 .code-restricted{
-  font-size:9px; line-height:1.7; letter-spacing:0.22em; color:var(--muted);
-  margin:10px 0 0; max-height:0; opacity:0; overflow:hidden;
-  transition:opacity .4s ease, max-height .4s ease;
+  font-size:8px; line-height:1.8; letter-spacing:0.2em; color:var(--muted);
+  max-width:230px; margin:0 auto; max-height:0; opacity:0; overflow:hidden;
+  transition:opacity .4s ease, max-height .4s ease, margin .4s ease;
 }
-.code-restricted.show{ opacity:1; max-height:60px; }
+/* when shown, it sits midway between ACCESS DENIED and CANCEL */
+.code-restricted.show{ opacity:1; max-height:60px; margin-top:24px; }
+.code-restricted.show + .code-cancel{ margin-top:24px; }
 .code-cancel{
   display:inline-block; margin-top:44px;
   font-family:var(--sans); font-weight:500; font-size:9.5px; letter-spacing:0.26em;
@@ -410,7 +412,6 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .folder:nth-child(5) .folder-tab{ margin-left:36%; }
   .folder:nth-child(6) .folder-tab{ margin-left:4%; }
   .folder:nth-child(7) .folder-tab{ margin-left:22%; }
-  .folder-lock{ display:none; }
 }
 @media (max-width:640px){
   .bar-inner{ grid-template-columns:auto 1fr auto; gap:10px; padding:12px 16px; }

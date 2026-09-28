@@ -145,9 +145,9 @@ function startCoinFire(canvas){
 
 // ---------- i18n ----------
 const SUBTITLES = {
-  en: ["International Creative House","Global Ideation Firm","Global Meta Acquisition","Art & Cultural Advisory","Talent Agency","Brand Governance"],
-  fr: ["Maison Créative Internationale","Cabinet d'Idéation Global","Acquisition Meta Mondiale","Conseil Art & Culture","Agence de Talents","Gouvernance de Marque"],
-  it: ["Casa Creativa Internazionale","Studio di Ideazione Globale","Acquisizione Meta Globale","Consulenza Arte & Cultura","Agenzia di Talenti","Governance del Brand"]
+  en: ["International Creative House","Global Ideation Firm","Global Meta Acquisition","Private Art Office","Artist Agency","Brand Governance"],
+  fr: ["Maison Créative Internationale","Cabinet d'Idéation Global","Acquisition Meta Mondiale","Bureau d'Art Privé","Agence d'Artistes","Gouvernance de Marque"],
+  it: ["Casa Creativa Internazionale","Studio di Ideazione Globale","Acquisizione Meta Globale","Ufficio d'Arte Privato","Agenzia di Artisti","Governance del Brand"]
 };
 
 const I18N = {
