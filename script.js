@@ -171,6 +171,7 @@ const I18N = {
     tile_talent_link2_desc:"Representation, placement and career management across fashion and film.",
     tile_creative_title:"CREATIVE HOUSE",
     tile_art_title:"ART & CULTURE",
+    legal_privacy:"PRIVACY POLICY", legal_terms:"TERMS OF SERVICE", legal_cookies:"COOKIE POLICY", legal_settings:"COOKIE SETTINGS",
     nav_ops:"OPERATIONS", nav_creative:"CREATIVE BUREAU", nav_art:"ART & CULTURE",
 
     db_heading_title:"YVIS HAUSEN DATABASE", db_heading_sub:"PROJECT FILING SYSTEM",
@@ -253,6 +254,7 @@ const I18N = {
     tile_talent_link2_desc:"Représentation, placement et gestion de carrière dans la mode et le cinéma.",
     tile_creative_title:"MAISON CRÉATIVE",
     tile_art_title:"ART & CULTURE",
+    legal_privacy:"POLITIQUE DE CONFIDENTIALITÉ", legal_terms:"CONDITIONS DE SERVICE", legal_cookies:"POLITIQUE DE COOKIES", legal_settings:"PARAMÈTRES DES COOKIES",
     nav_ops:"OPÉRATIONS", nav_creative:"BUREAU CRÉATIF", nav_art:"ART & CULTURE",
 
     db_heading_title:"BASE DE DONNÉES YVIS HAUSEN", db_heading_sub:"SYSTÈME DE CLASSEMENT DE PROJETS",
@@ -335,6 +337,7 @@ const I18N = {
     tile_talent_link2_desc:"Rappresentanza, collocamento e gestione della carriera in moda e cinema.",
     tile_creative_title:"CASA CREATIVA",
     tile_art_title:"ARTE & CULTURA",
+    legal_privacy:"INFORMATIVA SULLA PRIVACY", legal_terms:"TERMINI DI SERVIZIO", legal_cookies:"COOKIE POLICY", legal_settings:"IMPOSTAZIONI COOKIE",
     nav_ops:"OPERAZIONI", nav_creative:"UFFICIO CREATIVO", nav_art:"ARTE & CULTURA",
 
     db_heading_title:"DATABASE YVIS HAUSEN", db_heading_sub:"SISTEMA DI ARCHIVIAZIONE PROGETTI",
@@ -597,3 +600,87 @@ document.querySelectorAll('.site-index .idx-group > .idx-head').forEach(head => 
 document.addEventListener('click', () => {
   document.querySelectorAll('.site-index .idx-group.open').forEach(g => { g.classList.remove('open'); g.querySelector('.idx-head').setAttribute('aria-expanded', 'false'); });
 });
+
+// ---------- Cookie settings ----------
+// The site sets no analytics or advertising cookies today; this panel records
+// the visitor's choices (on their own device) so any future categories only
+// run with consent. Opened from "Cookie Settings" in every footer.
+(function(){
+  const KEY = 'yh_cookie_prefs';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+  function save(p){ try { localStorage.setItem(KEY, JSON.stringify(Object.assign(p, { updated: new Date().toISOString() }))); } catch(e){} }
+  let panel = null;
+  function build(){
+    panel = document.createElement('div');
+    panel.className = 'cookie-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    panel.setAttribute('aria-labelledby', 'cookieTitle');
+    panel.innerHTML = `
+      <div class="cookie-card">
+        <p class="cookie-eyebrow">YVIS HAUSEN</p>
+        <h2 class="cookie-title" id="cookieTitle">Cookie Settings</h2>
+        <p class="cookie-text">We use only what is needed for this website to work. Optional categories stay off unless you choose otherwise. <a href="cookies.html">Cookie Policy</a></p>
+        <div class="cookie-row">
+          <div><p class="cookie-name">Strictly necessary</p><p class="cookie-desc">Required for the site to function. Always on.</p></div>
+          <span class="cookie-always">ALWAYS ON</span>
+        </div>
+        <label class="cookie-row">
+          <div><p class="cookie-name">Analytics</p><p class="cookie-desc">Understanding how the site is used. Not currently in use.</p></div>
+          <input type="checkbox" class="cookie-switch" data-cat="analytics">
+        </label>
+        <label class="cookie-row">
+          <div><p class="cookie-name">Marketing</p><p class="cookie-desc">Measuring or personalising advertising. Not currently in use.</p></div>
+          <input type="checkbox" class="cookie-switch" data-cat="marketing">
+        </label>
+        <div class="cookie-actions">
+          <button type="button" class="cookie-btn" data-act="reject">REJECT OPTIONAL</button>
+          <button type="button" class="cookie-btn" data-act="accept">ACCEPT ALL</button>
+          <button type="button" class="cookie-btn cookie-btn--solid" data-act="save">SAVE SETTINGS</button>
+        </div>
+        <button type="button" class="cookie-close" aria-label="Close">&times;</button>
+      </div>`;
+    document.body.appendChild(panel);
+    panel.addEventListener('click', e => {
+      if(e.target === panel || e.target.closest('.cookie-close')) return close();
+      const act = e.target.closest('[data-act]'); if(!act) return;
+      const boxes = panel.querySelectorAll('.cookie-switch');
+      if(act.dataset.act === 'accept') boxes.forEach(b => b.checked = true);
+      if(act.dataset.act === 'reject') boxes.forEach(b => b.checked = false);
+      const prefs = { necessary: true };
+      boxes.forEach(b => prefs[b.dataset.cat] = b.checked);
+      save(prefs);
+      close();
+    });
+    document.addEventListener('keydown', e => { if(e.key === 'Escape' && panel.classList.contains('open')) close(); });
+  }
+  let lastFocus = null;
+  function open(){
+    if(!panel) build();
+    const prefs = load();
+    panel.querySelectorAll('.cookie-switch').forEach(b => b.checked = !!prefs[b.dataset.cat]);
+    lastFocus = document.activeElement;
+    requestAnimationFrame(() => { panel.classList.add('open'); panel.querySelector('.cookie-btn--solid').focus(); });
+  }
+  function close(){ panel.classList.remove('open'); if(lastFocus) lastFocus.focus(); }
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-cookie-settings]');
+    if(t){ e.preventDefault(); open(); }
+  });
+})();
+
+// ---------- Legal pages: highlight the section being read in the contents ----------
+(function(){
+  const toc = document.querySelectorAll('.legal-toc a');
+  if(!toc.length || !('IntersectionObserver' in window)) return;
+  const map = new Map(Array.from(toc).map(a => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        toc.forEach(a => a.classList.remove('active'));
+        const a = map.get(en.target.id); if(a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  document.querySelectorAll('.legal-sec').forEach(s => io.observe(s));
+})();
