@@ -175,7 +175,7 @@ const I18N = {
     nav_ops:"OPERATIONS", nav_creative:"CREATIVE BUREAU", nav_art:"ART & CULTURE",
 
     db_heading_title:"YVIS HAUSEN DATABASE", db_heading_sub:"PROJECT FILING SYSTEM",
-    code_label:"PRIVATE CODE", code_cancel:"CANCEL", code_error:"ACCESS DENIED", code_restricted:"ACCESS RESTRICTED. ACCESS CODES ARE PROVIDED BY AUTHORISED AGENTS ONLY",
+    code_label:"PRIVATE CODE", code_cancel:"CANCEL", code_error:"ACCESS DENIED", code_restricted:"ACCESS RESTRICTED. ACCESS CODES ARE PROVIDED BY AUTHORISED AGENTS ONLY", code_engine:"THE ENGINE CONTAINS PROPRIETARY YVIS HAUSEN METHODOLOGY AND IS AVAILABLE BY PRIVATE ACCESS ONLY. ACCESS DETAILS ARE PROVIDED TO PROSPECTIVE CLIENTS FOLLOWING A DISCOVERY CONVERSATION.", code_book_call:"BOOK CALL", code_book:"BOOK",
     db_eyebrow:"PROJECT DATABASE: PORTFOLIO", db_404:"404 ERROR",
 
     page_sound_title:"Sound Architecture", page_sound_lede:"Composition as a spatial and sensory language.",
@@ -258,7 +258,7 @@ const I18N = {
     nav_ops:"OPÉRATIONS", nav_creative:"BUREAU CRÉATIF", nav_art:"ART & CULTURE",
 
     db_heading_title:"BASE DE DONNÉES YVIS HAUSEN", db_heading_sub:"SYSTÈME DE CLASSEMENT DE PROJETS",
-    code_label:"CODE PRIVÉ", code_cancel:"ANNULER", code_error:"ACCÈS REFUSÉ", code_restricted:"ACCÈS RESTREINT. LES CODES D'ACCÈS SONT FOURNIS UNIQUEMENT PAR DES AGENTS AUTORISÉS",
+    code_label:"CODE PRIVÉ", code_cancel:"ANNULER", code_error:"ACCÈS REFUSÉ", code_restricted:"ACCÈS RESTREINT. LES CODES D'ACCÈS SONT FOURNIS UNIQUEMENT PAR DES AGENTS AUTORISÉS", code_engine:"LE MOTEUR CONTIENT UNE MÉTHODOLOGIE PROPRIÉTAIRE YVIS HAUSEN, ACCESSIBLE UNIQUEMENT SUR ACCÈS PRIVÉ. LES DÉTAILS D'ACCÈS SONT COMMUNIQUÉS AUX CLIENTS POTENTIELS APRÈS UN ENTRETIEN DE DÉCOUVERTE.", code_book_call:"RÉSERVER UN APPEL", code_book:"RÉSERVER",
     db_eyebrow:"BASE DE PROJETS : PORTFOLIO", db_404:"ERREUR 404",
 
     page_sound_title:"Architecture Sonore", page_sound_lede:"La composition comme langage spatial et sensoriel.",
@@ -341,7 +341,7 @@ const I18N = {
     nav_ops:"OPERAZIONI", nav_creative:"UFFICIO CREATIVO", nav_art:"ARTE & CULTURA",
 
     db_heading_title:"DATABASE YVIS HAUSEN", db_heading_sub:"SISTEMA DI ARCHIVIAZIONE PROGETTI",
-    code_label:"CODICE PRIVATO", code_cancel:"ANNULLA", code_error:"ACCESSO NEGATO", code_restricted:"ACCESSO LIMITATO. I CODICI DI ACCESSO SONO FORNITI SOLO DA AGENTI AUTORIZZATI",
+    code_label:"CODICE PRIVATO", code_cancel:"ANNULLA", code_error:"ACCESSO NEGATO", code_restricted:"ACCESSO LIMITATO. I CODICI DI ACCESSO SONO FORNITI SOLO DA AGENTI AUTORIZZATI", code_engine:"IL MOTORE CONTIENE LA METODOLOGIA PROPRIETARIA DI YVIS HAUSEN ED È DISPONIBILE SOLO SU ACCESSO PRIVATO. I DETTAGLI DI ACCESSO VENGONO FORNITI AI POTENZIALI CLIENTI DOPO UN COLLOQUIO CONOSCITIVO.", code_book_call:"PRENOTA UNA CHIAMATA", code_book:"PRENOTA",
     db_eyebrow:"DATABASE PROGETTI: PORTFOLIO", db_404:"ERRORE 404",
 
     page_sound_title:"Architettura del Suono", page_sound_lede:"La composizione come linguaggio spaziale e sensoriale.",
@@ -468,19 +468,27 @@ const FOLDER_CODES = {
   'private-art':'0000'
 };
 
-let pendingFolder = null;
+// Other private areas outside the cabinet (e.g. the Engine on the Marketing
+// page) use the same modal: a link with data-gate="<key>" and its own code.
+const GATE_CODES = {
+  'engine':'0000'
+};
+
+let pendingFolder = null;   // folder key, or a gate { key, href }
 const codeModal = document.getElementById('codeModal');
 const codeInput = document.getElementById('codeInput');
 const codeError = document.getElementById('codeError');
 const codeCancel = document.getElementById('codeCancel');
 const codeRestricted = document.getElementById('codeRestricted');
-let failedAttempts = 0;   // after two wrong codes, explain how access works
+let failedAttempts = 0;   // after enough wrong codes, explain how access works
+// how many wrong codes before the note appears (the cabinet waits for two)
+const restrictAfter = codeModal ? parseInt(codeModal.getAttribute('data-restrict-after') || '2', 10) : 2;
 
 function openCodeModal(folderKey){
   pendingFolder = folderKey;
   if(!codeModal) return;
   codeError.classList.remove('show');
-  if(codeRestricted) codeRestricted.classList.toggle('show', failedAttempts >= 2);
+  if(codeRestricted) codeRestricted.classList.toggle('show', failedAttempts >= restrictAfter);
   codeInput.value = '';
   codeModal.classList.add('open');
   setTimeout(() => codeInput.focus(), 50);
@@ -502,17 +510,23 @@ function goToDatabase(folderKey){
   }
 }
 
+function expectedCode(){
+  if(!pendingFolder) return undefined;
+  return typeof pendingFolder === 'string' ? FOLDER_CODES[pendingFolder] : GATE_CODES[pendingFolder.key];
+}
+
 function submitCode(){
   if(!pendingFolder) return;
-  const expected = FOLDER_CODES[pendingFolder];
+  const expected = expectedCode();
   if(expected !== undefined && codeInput.value === expected){
-    const folderKey = pendingFolder;
+    const target = pendingFolder;
     closeCodeModal();
-    goToDatabase(folderKey);
+    if(typeof target === 'string') goToDatabase(target);
+    else window.location.href = target.href;
   }else{
     failedAttempts++;
     codeError.classList.add('show');
-    if(codeRestricted && failedAttempts >= 2) codeRestricted.classList.add('show');
+    if(codeRestricted && failedAttempts >= restrictAfter) codeRestricted.classList.add('show');
     codeInput.value = '';
   }
 }
@@ -520,18 +534,27 @@ function submitCode(){
 document.querySelectorAll('.folder').forEach(f => {
   f.addEventListener('click', () => openCodeModal(f.getAttribute('data-folder')));
 });
+document.querySelectorAll('[data-gate]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    openCodeModal({ key: a.getAttribute('data-gate'), href: a.getAttribute('href') });
+  });
+});
 
 if(codeCancel){ codeCancel.addEventListener('click', closeCodeModal); }
 if(codeInput){
   codeInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') submitCode(); });
   codeInput.addEventListener('input', () => {
-    const expected = pendingFolder ? FOLDER_CODES[pendingFolder] : null;
+    const expected = expectedCode();
     if(expected && codeInput.value.length === expected.length) submitCode();
   });
 }
 if(codeModal){
   codeModal.addEventListener('click', (e) => { if(e.target === codeModal) closeCodeModal(); });
 }
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && codeModal && codeModal.classList.contains('open')) closeCodeModal();
+});
 
 // ---------- Filing cabinet: papers riffle as the cursor moves along a file ----------
 // Each sheet eases towards a target on every frame (a soft spring), so the
