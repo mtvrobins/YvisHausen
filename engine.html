@@ -53,8 +53,8 @@
   .stage-statement{ font-size:clamp(14px,1.6vw,16.5px); line-height:1.55; font-weight:700; margin:0 0 18px; max-width:460px; }
   .stage-body{ font-size:13px; line-height:1.8; color:var(--muted); margin:0 0 18px; max-width:480px; }
   .stage-list{ list-style:none; margin:0; padding:0; max-width:480px; border-top:1px solid var(--line); }
-  .stage-list li{ display:flex; gap:14px; padding:11px 0; border-bottom:1px solid var(--line); font-size:12.5px; line-height:1.5; color:#d6d5cf; }
-  .stage-list li b{ flex:none; width:118px; font-weight:600; font-size:9.5px; letter-spacing:0.18em; color:var(--fg); padding-top:2px; }
+  .stage-list li{ display:flex; gap:20px; padding:11px 0; border-bottom:1px solid var(--line); font-size:12.5px; line-height:1.5; color:#d6d5cf; }
+  .stage-list li b{ flex:none; width:142px; font-weight:600; font-size:9.5px; letter-spacing:0.18em; color:var(--fg); padding-top:2px; }
   .stage-ill{ position:relative; }
   .stage-ill svg{ display:block; width:100%; height:auto; overflow:visible; }
 
@@ -107,12 +107,27 @@
 
 
   /* note markers and notes */
-  .fn{ display:inline-block; margin-left:3px; font-size:0.62em; font-weight:500; letter-spacing:0.04em; line-height:1; vertical-align:super; color:var(--muted); text-decoration:none; opacity:0.85; transition:opacity .3s ease, color .3s ease; }
+  .fn{ display:inline; margin-left:3px; font-size:0.62em; font-weight:500; letter-spacing:0.04em; line-height:1; vertical-align:super; color:var(--muted); text-decoration:none; opacity:0.85; transition:opacity .3s ease, color .3s ease; }
   .fn:hover, .fn:focus-visible{ color:var(--fg); opacity:1; outline:none; }
   .stage-title .fn, .sec-title .fn{ font-size:0.34em; vertical-align:top; margin-top:0.3em; }
   .stage-list li span{ flex:1; }
   .sec-lede{ max-width:620px; margin:-22px 0 36px; font-size:13.5px; line-height:1.75; color:var(--muted); }
-  .notes{ padding:56px 0 64px; border-top:1px solid var(--line); }
+  .notes{ padding:18px 0 34px; border-top:1px solid var(--line); text-align:center; }
+  .notes-toggle{
+    display:inline-flex; align-items:center; gap:12px; padding:10px 4px; background:none; border:none; cursor:pointer;
+    font-family:var(--sans); font-size:9.5px; font-weight:500; letter-spacing:0.26em; color:var(--fg); opacity:0.5;
+    transition:opacity .3s ease;
+  }
+  .notes-toggle:hover, .notes-toggle:focus-visible, .notes-toggle[aria-expanded="true"]{ opacity:1; outline:none; }
+  .notes-toggle i{ position:relative; width:9px; height:9px; }
+  .notes-toggle i::before, .notes-toggle i::after{ content:""; position:absolute; left:0; top:4px; width:9px; height:1px; background:currentColor; transition:transform .4s cubic-bezier(.16,.8,.24,1); }
+  .notes-toggle i::after{ transform:rotate(90deg); }
+  .notes-toggle[aria-expanded="true"] i::after{ transform:rotate(0deg); }
+  .notes-body{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .6s cubic-bezier(.16,.8,.24,1); text-align:left; }
+  .notes-body.open{ grid-template-rows:1fr; }
+  .notes-inner{ overflow:hidden; min-height:0; }
+  .notes-inner .notes-list{ padding:30px 0 26px; opacity:0; transition:opacity .45s ease; }
+  .notes-body.open .notes-list{ opacity:1; transition-delay:.15s; }
   .notes-list{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:22px 48px; }
   .notes-list li{ display:flex; gap:14px; scroll-margin-top:110px; }
   .notes-list li:target b, .notes-list li:target .note-mark{ color:var(--fg); }
@@ -160,7 +175,7 @@
   /* CTA */
   .sp-cta{ padding:88px 0 80px; text-align:center; background:var(--p1); }
   .sp-cta h2{ font-size:clamp(22px,3.4vw,36px); line-height:1.2; margin:0 0 16px; font-weight:700; }
-  .sp-cta p{ max-width:480px; margin:0 auto 30px; font-size:13px; line-height:1.7; color:var(--muted); }
+  .sp-cta p{ max-width:640px; margin:0 auto 34px; font-size:13px; line-height:1.7; color:var(--muted); }
   .sp-btn{ position:relative; display:inline-block; padding:14px 36px; border:1px solid var(--fg); color:var(--fg); text-decoration:none; font-size:11px; letter-spacing:0.2em; font-weight:600; overflow:hidden; transition:color .4s ease; }
   .sp-btn::before{ content:""; position:absolute; inset:0; background:var(--fg); transform:translateY(101%); transition:transform .4s cubic-bezier(.16,.8,.24,1); }
   .sp-btn span{ position:relative; }
@@ -182,7 +197,8 @@
     .sp-wrap{ padding:0 20px; }
     .stage, .inc, .tl, .split, .adv{ padding:60px 0; }
     .inc-grid, .split-grid, .adv-grid, .notes-list{ grid-template-columns:1fr; }
-    .stage-list li b{ width:96px; }
+    .stage-list li{ flex-direction:column; gap:5px; }
+    .stage-list li b{ width:auto; }
     .sp-btn--ghost{ margin:12px 0 0; }
   }
   @media (prefers-reduced-motion: reduce){
@@ -253,7 +269,7 @@
     <div class="sp-wrap">
       <a class="sp-back" href="marketing.html">&larr;&nbsp;&nbsp;MARKETING</a>
       <h1 class="sp-title rv">Explore the System</h1>
-      <p class="sp-lede rv rv-1">A closer look at the Meta advertising system we build with you: how it is audited, set up and tracked, how it is structured and tested, and how it is reviewed and refined over time. We build the infrastructure and guide the strategy. Your team runs it, with full ownership and control.<a class="fn" href="#note-5" aria-label="See note 5">*5</a> Ten parts, one system.</p>
+      <p class="sp-lede rv rv-1">A closer look at the Meta advertising system we build with you: how it is audited, set up and tracked, how it is structured and tested, and how it is reviewed and refined over time. We build the infrastructure and guide the strategy. Your team runs it, with full ownership and <span style="white-space:nowrap">control.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></span> Ten parts, one system.</p>
       <ol class="sp-map rv rv-2">
         <li><a href="#audit"><span>01</span>AUDIT</a></li>
         <li><a href="#foundation"><span>02</span>TRACKING</a></li>
@@ -332,12 +348,12 @@
       <div class="stage-copy">
         <p class="stage-num rv">02 — SET UP &amp; TRACKING</p>
         <h2 class="stage-title rv rv-1">Built on clear signal.</h2>
-        <p class="stage-statement rv rv-2">The system can only learn from what it can see, so tracking comes first.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></p>
+        <p class="stage-statement rv rv-2">The system can only learn from what it can see, so tracking comes <span style="white-space:nowrap">first.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></span></p>
         <p class="stage-body rv">We set up and configure your Meta foundations inside accounts you own: Business Portfolio, ad account, Facebook Page and Instagram, with permissions structured correctly. Then the tracking: the Meta Pixel in the browser and the Conversions API on the server, for more accurate, privacy-resilient signal, with the events that matter to your business configured and tested.</p>
         <ul class="stage-list rv">
           <li><b>ACCOUNTS</b><span>Business Portfolio, ad account, Page and Instagram set up and connected, with you as owner.</span></li>
           <li><b>META PIXEL</b><span>Full Pixel integration, configured and tested for your account.</span></li>
-          <li><b>CONVERSIONS API</b><span>Server-side tracking set up where your website platform supports it.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></span></li>
+          <li><b>CONVERSIONS API</b><span>Server-side tracking set up where your website platform supports <span style="white-space:nowrap">it.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></span></span></li>
           <li><b>CUSTOM EVENTS</b><span>Button clicks, form submissions, purchases and more, mapped to what matters for your business.</span></li>
           <li><b>FRAMEWORKS</b><span>UTM parameters and naming conventions, so results can be traced to their source.</span></li>
         </ul>
@@ -417,7 +433,7 @@
           <li><b>PERSONAS</b><span>Buyer personas built from demographic, geographic and interest data.</span></li>
           <li><b>BROAD</b><span>Open prospecting that gives Meta&rsquo;s delivery room to find new buyers.</span></li>
           <li><b>LOOKALIKES</b><span>New prospects who mirror your best customers.</span></li>
-          <li><b>CUSTOM</b><span>Website visitors, engagers and your existing customer lists.<a class="fn" href="#note-4" aria-label="See note 4">*4</a></span></li>
+          <li><b>CUSTOM</b><span>Website visitors, engagers and your existing customer <span style="white-space:nowrap">lists.<a class="fn" href="#note-4" aria-label="See note 4">*4</a></span></span></li>
           <li><b>CUSTOMERS</b><span>Past buyers handled with care: excluded from prospecting, or invited back.</span></li>
         </ul>
       </div>
@@ -524,7 +540,7 @@
         <p class="stage-num rv">04 — STRUCTURE</p>
         <h2 class="stage-title rv rv-1">A place for everything.</h2>
         <p class="stage-statement rv rv-2">Your campaign architecture is mapped around your goals, not a template.</p>
-        <p class="stage-body rv">Before launch, the full architecture is designed: which campaigns serve awareness, leads and sales, how testing, scaling and retargeting are kept apart, and how budget could be weighted between them. It is documented with naming conventions and templates, and your team is trained to run it with confidence.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></p>
+        <p class="stage-body rv">Before launch, the full architecture is designed: which campaigns serve awareness, leads and sales, how testing, scaling and retargeting are kept apart, and how budget could be weighted between them. It is documented with naming conventions and templates, and your team is trained to run it with <span style="white-space:nowrap">confidence.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></span></p>
         <ul class="stage-list rv">
           <li><b>ARCHITECTURE</b><span>Awareness, lead and sales campaigns, each with a clear role.</span></li>
           <li><b>TEST</b><span>A controlled space for new ideas, with clear hypotheses and evaluation windows.</span></li>
@@ -585,7 +601,7 @@
           <li><b>MESSAGING</b><span>Positioning and messaging guidance for your ad copy and creative.</span></li>
           <li><b>SPECIFICATIONS</b><span>Creative specifications for each format and placement.</span></li>
           <li><b>SIGNALS</b><span>Hook rate, click-through, cost per result and conversion rate, read in context.</span></li>
-          <li><b>YOUR APPROVAL</b><span>Your team produces, approves and publishes every ad.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></span></li>
+          <li><b>YOUR APPROVAL</b><span>Your team produces, approves and publishes every <span style="white-space:nowrap">ad.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></span></span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -618,7 +634,7 @@
           <li><b>TOP OF FUNNEL</b><span>Cold traffic: new audiences meeting your brand for the first time.</span></li>
           <li><b>MIDDLE</b><span>Retargeting: people who engaged, visited or added to cart.</span></li>
           <li><b>BOTTOM</b><span>Existing customers: retention, repeat purchase and lifetime value.</span></li>
-          <li><b>FULL BUILDS</b><span>Fully built multi-stage funnels are available through Advanced Support.<a class="fn" href="#note-10" aria-label="See note 10">*10</a></span></li>
+          <li><b>FULL BUILDS</b><span>Fully built multi-stage funnels are available through Advanced <span style="white-space:nowrap">Support.<a class="fn" href="#note-10" aria-label="See note 10">*10</a></span></span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -662,12 +678,12 @@
         <p class="stage-num rv">07 — REVIEW</p>
         <h2 class="stage-title rv rv-1">Reviewed, then refined.</h2>
         <p class="stage-statement rv rv-2">Regular performance reviews, with clear, actionable recommendations: not just numbers, but what to do with them.</p>
-        <p class="stage-body rv">We review your campaigns, audiences, creative and tracking against the goals agreed with you. You receive recommendations on which campaigns to scale and which to rework, backed by the data, with budget pacing guidance to help you avoid early-month overspend. Your team decides what to act on, and we talk it through together on your monthly strategy call.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></p>
+        <p class="stage-body rv">We review your campaigns, audiences, creative and tracking against the goals agreed with you. You receive recommendations on which campaigns to scale and which to rework, backed by the data, with budget pacing guidance to help you avoid early-month overspend. Your team decides what to act on, and we talk it through together on your monthly strategy <span style="white-space:nowrap">call.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></span></p>
         <ul class="stage-list rv">
-          <li><b>REVIEWS</b><span>Campaign, audience, creative and tracking reviews at regular intervals.<a class="fn" href="#note-1" aria-label="See note 1">*1</a></span></li>
+          <li><b>REVIEWS</b><span>Campaign, audience, creative and tracking reviews at regular <span style="white-space:nowrap">intervals.<a class="fn" href="#note-1" aria-label="See note 1">*1</a></span></span></li>
           <li><b>RECOMMENDATIONS</b><span>What to scale, what to rework and what to test next, backed by the data.</span></li>
-          <li><b>PACING</b><span>Budget pacing guidance to help avoid early-month overspend.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></span></li>
-          <li><b>TROUBLESHOOTING</b><span>Help diagnosing what is not working as expected.<a class="fn" href="#note-3" aria-label="See note 3">*3</a></span></li>
+          <li><b>PACING</b><span>Budget pacing guidance to help avoid early-month <span style="white-space:nowrap">overspend.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></span></span></li>
+          <li><b>TROUBLESHOOTING</b><span>Help diagnosing what is not working as <span style="white-space:nowrap">expected.<a class="fn" href="#note-3" aria-label="See note 3">*3</a></span></span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -715,7 +731,7 @@
       <div class="stage-copy">
         <p class="stage-num rv">08 — SCALE</p>
         <h2 class="stage-title rv rv-1">Grow what is proven.</h2>
-        <p class="stage-statement rv rv-2">Scaling is where many accounts break, so it is planned in measured steps, and every spend decision stays yours.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></p>
+        <p class="stage-statement rv rv-2">Scaling is where many accounts break, so it is planned in measured steps, and every spend decision stays <span style="white-space:nowrap">yours.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></span></p>
         <p class="stage-body rv">When something is working, we recommend how to grow it. Vertically, by raising budget on proven campaigns in measured steps, so delivery stays stable. Horizontally, by carrying winning creative into new audiences, placements and markets. You set the budget and approve every step.</p>
         <ul class="stage-list rv">
           <li><b>VERTICAL</b><span>Recommendations for raising budget in controlled steps, reviewed at each one.</span></li>
@@ -828,10 +844,10 @@
         <p class="stage-num rv">10 — REPORTING</p>
         <h2 class="stage-title rv rv-1">Clear reports. Clear next moves.</h2>
         <p class="stage-statement rv rv-2">You know what is happening, why, and what we recommend next.</p>
-        <p class="stage-body rv">Each month you receive a clear performance breakdown, as a written report or a recorded video walkthrough,<a class="fn" href="#note-8" aria-label="See note 8">*8</a> with strategic direction for the month ahead: what to test, what to pivot, and where to double down. Learnings are documented as they build, so each new campaign starts from what has already been learned, not from zero.</p>
+        <p class="stage-body rv">Each month you receive a clear performance breakdown, as a written report or a recorded video <span style="white-space:nowrap">walkthrough,<a class="fn" href="#note-8" aria-label="See note 8">*8</a></span> with strategic direction for the month ahead: what to test, what to pivot, and where to double down. Learnings are documented as they build, so each new campaign starts from what has already been learned, not from zero.</p>
         <ul class="stage-list rv">
           <li><b>MONTHLY BREAKDOWN</b><span>Performance, spend and results against the goals agreed with you.</span></li>
-          <li><b>STRATEGY CALL</b><span>A 60-minute strategy call each month to talk it through.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></span></li>
+          <li><b>STRATEGY CALL</b><span>A 60-minute strategy call each month to talk it <span style="white-space:nowrap">through.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></span></span></li>
           <li><b>DIRECTION</b><span>What to test, pivot or double down on next month.</span></li>
           <li><b>LEARNINGS</b><span>Insights documented in your reports, so progress builds over time.</span></li>
         </ul>
@@ -883,14 +899,14 @@
   <section class="inc">
     <div class="sp-wrap">
       <p class="sec-kicker rv">THE PROGRAMME</p>
-      <h2 class="sec-title rv rv-1">What working together includes.<a class="fn" href="#note-1" aria-label="See note 1">*1</a></h2>
+      <h2 class="sec-title rv rv-1">What working together <span style="white-space:nowrap">includes.<a class="fn" href="#note-1" aria-label="See note 1">*1</a></span></h2>
       <div class="inc-grid rv rv-2">
         <div class="inc-item"><span class="inc-no">01</span><h3>STRATEGIC AUDIT</h3><p>Website conversion readiness, competitor research and a tailored funnel strategy.</p></div>
-        <div class="inc-item"><span class="inc-no">02</span><h3>SET UP &amp; TRACKING</h3><p>Business Portfolio, ad account, Pixel, Conversions API and custom event tracking, configured and tested.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></p></div>
+        <div class="inc-item"><span class="inc-no">02</span><h3>SET UP &amp; TRACKING</h3><p>Business Portfolio, ad account, Pixel, Conversions API and custom event tracking, configured and <span style="white-space:nowrap">tested.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></span></p></div>
         <div class="inc-item"><span class="inc-no">03</span><h3>AUDIENCE ARCHITECTURE</h3><p>Buyer personas, Custom Audiences and Lookalikes, designed in layers.</p></div>
         <div class="inc-item"><span class="inc-no">04</span><h3>CAMPAIGN STRATEGY</h3><p>Campaign architecture, A/B testing frameworks and messaging guidance.</p></div>
         <div class="inc-item"><span class="inc-no">05</span><h3>TRAINING</h3><p>Your nominated team member trained to operate the system with confidence.</p></div>
-        <div class="inc-item"><span class="inc-no">06</span><h3>REVIEWS &amp; REPORTING</h3><p>Regular reviews, monthly breakdowns, recommendations and a monthly strategy call.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></p></div>
+        <div class="inc-item"><span class="inc-no">06</span><h3>REVIEWS &amp; REPORTING</h3><p>Regular reviews, monthly breakdowns, recommendations and a monthly strategy <span style="white-space:nowrap">call.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></span></p></div>
       </div>
     </div>
   </section>
@@ -900,13 +916,13 @@
     <div class="sp-wrap">
       <p class="sec-kicker rv">ADVANCED SUPPORT</p>
       <h2 class="sec-title rv rv-1">For growing and established brands.</h2>
-      <p class="sec-lede rv rv-1">For businesses ready to scale spend and complexity, we also offer deeper technical and strategic work, scoped separately, by conversation, and quoted individually.<a class="fn" href="#note-10" aria-label="See note 10">*10</a></p>
+      <p class="sec-lede rv rv-1">For businesses ready to scale spend and complexity, we also offer deeper technical and strategic work, scoped separately, by conversation, and quoted <span style="white-space:nowrap">individually.<a class="fn" href="#note-10" aria-label="See note 10">*10</a></span></p>
       <div class="adv-grid rv rv-2">
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.30s;--du:1.1s" d="M6,8 H34 V18 H6 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.45s;--du:1.1s" d="M6,22 H34 V32 H6 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.60s;--du:1.1s" d="M28,13 H29 M28,27 H29" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.75s;--du:1.1s" d="M11,13 H20 M11,27 H20" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>ADVANCED TRACKING</h3><p>Advanced server-side tracking (Conversions API via Stape or Meta&rsquo;s Gateway), offline event tracking and GA4 integration.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.30s;--du:1.1s" d="M6,8 H34 V18 H6 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.45s;--du:1.1s" d="M6,22 H34 V32 H6 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.60s;--du:1.1s" d="M28,13 H29 M28,27 H29" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.75s;--du:1.1s" d="M11,13 H20 M11,27 H20" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>ADVANCED TRACKING</h3><p>Advanced server-side tracking (Conversions API via Stape or Meta&rsquo;s Gateway), offline event tracking and GA4 <span style="white-space:nowrap">integration.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></span></p></div>
         <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.42s;--du:1.1s" d="M4,6 H36 L28,16 H12 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.57s;--du:1.1s" d="M12,20 H28 L24,27 H16 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.72s;--du:1.1s" d="M17,31 H23 L21,36 H19 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>MULTI-STAGE FUNNELS</h3><p>Funnel design across cold traffic, retargeting and retention, built as one connected system.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.54s;--du:1.1s" d="M6,34 V24 M14,34 V18 M22,34 V12 M30,34 V6" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.69s;--du:1.1s" d="M4,36 H36" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>LARGER BUDGETS</h3><p>Support for larger advertising budgets, where deeper analysis and testing rigour matter most.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.54s;--du:1.1s" d="M6,34 V24 M14,34 V18 M22,34 V12 M30,34 V6" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.69s;--du:1.1s" d="M4,36 H36" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>LARGER BUDGETS</h3><p>Support for larger advertising budgets, where deeper analysis and testing rigour matter <span style="white-space:nowrap">most.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></span></p></div>
         <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.66s;--du:1.1s" d="M3,7 H37 V29 H3 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.81s;--du:1.1s" d="M17,13 L25,18 L17,23 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.96s;--du:1.1s" d="M13,35 H27" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>ENHANCED REPORTING</h3><p>Custom live dashboards and more frequent recorded video walkthroughs.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.78s;--du:1.1s" d="M5,8 H35 V26 H18 L10,33 V26 H5 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.93s;--du:1.1s" d="M11,15 H29 M11,20 H23" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>MORE FREQUENT CALLS</h3><p>Strategy calls every two weeks, for brands moving at pace.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.78s;--du:1.1s" d="M5,8 H35 V26 H18 L10,33 V26 H5 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.93s;--du:1.1s" d="M11,15 H29 M11,20 H23" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>MORE FREQUENT CALLS</h3><p>Strategy calls every two weeks, for brands moving at <span style="white-space:nowrap">pace.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></span></p></div>
         <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.90s;--du:1.1s" d="M17,5 A12,12 0 1 1 16.99,5" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.05s;--du:1.1s" d="M25.5,25.5 L35,35" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.20s;--du:1.1s" d="M12,17 H22 M17,12 V22" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>BROADER CONSULTING</h3><p>Strategic advice across your offers, landing pages and wider marketing direction.</p></div>
       </div>
     </div>
@@ -923,7 +939,7 @@
         <div class="tl-step" style="--k:1"><p class="tl-when">MONTH 1</p><h3>BUILD</h3><p>Accounts, tracking, audience framework, campaign architecture and initial strategy, then training for your team.</p></div>
         <div class="tl-step" style="--k:2"><p class="tl-when">MONTH 2</p><h3>REVIEW &amp; IMPROVE</h3><p>Your first campaigns reviewed, with testing and structure recommendations and written action points.</p></div>
         <div class="tl-step" style="--k:3"><p class="tl-when">MONTH 3</p><h3>OPTIMISE &amp; PLAN</h3><p>A broader review, a testing and scaling roadmap, and a plan for the next quarter.</p></div>
-        <div class="tl-step" style="--k:4"><p class="tl-when">ONGOING</p><h3>MONTHLY SUPPORT</h3><p>Reviews, reporting, recommendations and a strategy call each month, with reasonable support in between.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></p></div>
+        <div class="tl-step" style="--k:4"><p class="tl-when">ONGOING</p><h3>MONTHLY SUPPORT</h3><p>Reviews, reporting, recommendations and a strategy call each month, with reasonable support in <span style="white-space:nowrap">between.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></span></p></div>
       </div>
     </div>
   </section>
@@ -938,8 +954,8 @@
           <h3>YOU</h3>
           <ul>
             <li>Ownership of your Business Portfolio, ad account, pages, pixel, audiences and data, throughout.</li>
-            <li>A nominated team member to create, publish and operate your campaigns, trained by us.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></li>
-            <li>Your advertising spend, set by you and paid directly to Meta, separate from our fees.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></li>
+            <li>A nominated team member to create, publish and operate your campaigns, trained by <span style="white-space:nowrap">us.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></span></li>
+            <li>Your advertising spend, set by you and paid directly to Meta, separate from our <span style="white-space:nowrap">fees.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></span></li>
             <li>Images and video, and final approval of every ad and every word that goes live.</li>
             <li>Your website, landing pages, lead handling and customer service.</li>
             <li>Decisions on which recommendations to put into practice.</li>
@@ -949,16 +965,16 @@
           <h3>WE</h3>
           <ul>
             <li>Strategic audit and competitor research.</li>
-            <li>Account set up and tracking configuration.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></li>
+            <li>Account set up and tracking <span style="white-space:nowrap">configuration.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></span></li>
             <li>Audience architecture and campaign structure.</li>
             <li>Testing frameworks, messaging and creative guidance.</li>
             <li>Training for your team.</li>
             <li>Reviews, reporting, recommendations and a monthly strategy call.</li>
-            <li>Reasonable support by message or email during business hours.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></li>
+            <li>Reasonable support by message or email during business <span style="white-space:nowrap">hours.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></span></li>
           </ul>
         </div>
       </div>
-      <p class="split-note rv">Advertising outcomes depend on many factors, including your product, pricing, website and market, and on Meta&rsquo;s own systems. We do not promise specific results. We offer a disciplined system, honest reporting and recommendations grounded in evidence.<a class="fn" href="#note-9" aria-label="See note 9">*9</a></p>
+      <p class="split-note rv">Advertising outcomes depend on many factors, including your product, pricing, website and market, and on Meta&rsquo;s own systems. We do not promise specific results. We offer a disciplined system, honest reporting and recommendations grounded in <span style="white-space:nowrap">evidence.<a class="fn" href="#note-9" aria-label="See note 9">*9</a></span></p>
     </div>
   </section>
 
@@ -966,10 +982,9 @@
   <section class="sp-cta">
     <div class="sp-wrap">
       <h2 class="rv">Want to see the system on your brand?</h2>
-      <p class="rv rv-1">Get in touch to talk through what your business actually needs. Every plan is built around your goals, not a fixed checklist.</p>
+      <p class="rv rv-1">From here, we shape the practice around your business.<br>Its objectives, its opportunities and what the system requires to perform.<br>Continue with Yvis Hausen. The next step is to define what the programme needs to do for you.</p>
       <div class="rv rv-2">
-        <a class="sp-btn" href="book.html"><span>BOOK A CALL</span></a>
-        <a class="sp-btn sp-btn--ghost" href="mailto:enquire@yvishausens.com"><span>ENQUIRE</span></a>
+        <a class="sp-btn" href="book.html"><span>TAKE THE NEXT STEP</span></a>
       </div>
     </div>
   </section>
@@ -977,7 +992,9 @@
   <!-- NOTES -->
   <section class="notes" aria-label="Notes">
     <div class="sp-wrap">
-      <p class="sec-kicker">NOTES</p>
+      <button class="notes-toggle" type="button" aria-expanded="false" aria-controls="notesBody"><span>TERMS AND CONDITIONS</span><i aria-hidden="true"></i></button>
+      <div class="notes-body" id="notesBody">
+      <div class="notes-inner">
       <ol class="notes-list">
         <li id="note-1"><span class="note-mark">*1</span><div><b>TAILORED SCOPE</b><p>Every programme is tailored. Account and tracking set up, initial strategy and campaign architecture, training and a monthly strategy call are included as standard. Other elements described on this page are provided where they are relevant to your account, industry and objectives. The exact scope is confirmed in writing before we begin.</p></div></li>
         <li id="note-2"><span class="note-mark">*2</span><div><b>TRACKING</b><p>Tracking is configured to the extent your website platform and systems technically support it, and relies on Meta&rsquo;s own tools, which Meta may change. Advanced server-side set ups form part of Advanced Support.</p></div></li>
@@ -990,6 +1007,8 @@
         <li id="note-9"><span class="note-mark">*9</span><div><b>RESULTS</b><p>We do not guarantee any particular results, including impressions, clicks, leads, sales, revenue, cost per result or return on ad spend. Performance depends on many factors outside our control, including your product, pricing, website, market and Meta&rsquo;s own systems. Any forecasts, targets or benchmarks we share are estimates only. Figures shown in the illustrations on this page are illustrative and are not real client results.</p></div></li>
         <li id="note-10"><span class="note-mark">*10</span><div><b>ADVANCED SUPPORT</b><p>Advanced Support is scoped, quoted and agreed in writing separately, and is only provided once agreed.</p></div></li>
       </ol>
+      </div>
+      </div>
     </div>
   </section>
 
@@ -1010,6 +1029,26 @@
 <script>
   (function(){
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // terms and conditions (notes) fold open from the toggle or any asterisk
+    var nt = document.querySelector('.notes-toggle'), nb = document.getElementById('notesBody');
+    function setNotes(open){
+      if(!nt || !nb) return;
+      nb.classList.toggle('open', open);
+      nt.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    if(nt){ nt.addEventListener('click', function(){ setNotes(nt.getAttribute('aria-expanded') !== 'true'); }); }
+    document.querySelectorAll('.sp .fn').forEach(function(a){
+      a.addEventListener('click', function(e){
+        var target = document.getElementById(a.getAttribute('href').slice(1));
+        if(!target) return;
+        e.preventDefault();
+        setNotes(true);
+        history.replaceState(null, '', a.getAttribute('href'));
+        setTimeout(function(){ target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }, reduce ? 0 : 320);
+      });
+    });
+    if(/^#note-/.test(location.hash)) setNotes(true);
+
     // reveal copy and start each illustration as it scrolls into view
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
