@@ -644,3 +644,64 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
 }
+
+/* ============ PAGE ILLUSTRATIONS (one per section page) ============ */
+.page-ill{ margin:54px 0 62px; padding:0; }
+.page-ill svg{ display:block; width:100%; height:auto; overflow:visible; }
+.page-ill figcaption{
+  margin-top:16px; text-align:center; font-family:var(--sans); font-size:8.5px; font-weight:500;
+  letter-spacing:0.28em; color:var(--muted); opacity:0; transition:opacity 1s ease 1.2s;
+}
+.page-ill.in figcaption{ opacity:1; }
+@media (min-width:900px){ .page-ill{ margin-left:-90px; margin-right:-90px; } }
+@media (max-width:640px){ .page-ill{ margin-left:-18px; margin-right:-18px; } }
+.page-ill .t{ font-family:var(--sans); font-size:7.6px; font-weight:500; letter-spacing:0.18em; fill:#87867F; }
+.page-ill .t-b{ fill:#F2F1EC; }
+.page-ill .t-s{ font-size:6.4px; letter-spacing:0.1em; font-weight:400; }
+.page-ill .t-serif{ font-family:var(--serif); letter-spacing:0.02em; font-weight:400; }
+/* intro: plays once when the figure scrolls in */
+.page-ill .fi{ opacity:0; }
+.page-ill.in .fi{ animation:piFade .9s ease var(--dl,0s) forwards; }
+.page-ill .dr{ stroke-dasharray:100; stroke-dashoffset:100; }
+.page-ill.in .dr{ animation:piDraw var(--du,1.4s) cubic-bezier(.45,.05,.25,1) var(--dl,0s) forwards; }
+.page-ill .gx{ transform-box:fill-box; transform-origin:0 50%; transform:scaleX(0); }
+.page-ill.in .gx{ animation:piGx var(--du,1.6s) cubic-bezier(.16,1,.3,1) var(--dl,0s) forwards; }
+.page-ill .gy{ transform-box:fill-box; transform-origin:50% 100%; transform:scaleY(0); }
+.page-ill.in .gy{ animation:piGy var(--du,.9s) cubic-bezier(.16,1,.3,1) var(--dl,0s) forwards; }
+.page-ill .pop{ transform-box:fill-box; transform-origin:center; transform:scale(0); opacity:0; }
+.page-ill.in .pop{ animation:piPop .6s cubic-bezier(.34,1.6,.5,1) var(--dl,0s) forwards; }
+.page-ill.in .dim{ animation:piDim 1s ease var(--dl,2s) forwards; }
+.page-ill.in .lit{ animation:piLit 1s ease var(--dl,2s) forwards; }
+.page-ill .flow{ opacity:0; transition:opacity .8s ease; }
+.page-ill.in .flow{ opacity:1; transition-delay:var(--dl,1.5s); }
+.page-ill .fly{ opacity:0; transform-box:fill-box; transform-origin:0 0; }
+.page-ill.in .fly{ animation:piFly 1.6s cubic-bezier(.6,0,.2,1) var(--dl,2.4s) forwards; }
+/* loops: start once visible, pause when off screen */
+.page-ill .ripple{ transform-box:fill-box; transform-origin:center; opacity:0; }
+.page-ill.in .ripple{ animation:piRipple var(--d,4.2s) ease-out var(--dl,1s) infinite; }
+.page-ill .bar{ transform-box:fill-box; transform-origin:center; }
+.page-ill.in .bar{ animation:piBar var(--d,1.6s) ease-in-out var(--dl,0s) infinite alternate; }
+.page-ill.in .flicker{ animation:piFlicker var(--d,2.2s) ease-in-out var(--dl,0s) infinite alternate; }
+.page-ill .sway{ transform-box:view-box; transform-origin:var(--ox) var(--oy); }
+.page-ill.in .sway{ animation:piSway var(--d,5s) ease-in-out var(--dl,0s) infinite alternate; }
+.page-ill.in .scan{ animation:piScan var(--d,7s) linear var(--dl,1.5s) infinite; }
+.page-ill.off *{ animation-play-state:paused !important; }
+@keyframes piFade{ to{ opacity:1; } }
+@keyframes piDraw{ to{ stroke-dashoffset:0; } }
+@keyframes piGx{ to{ transform:scaleX(1); } }
+@keyframes piGy{ to{ transform:scaleY(1); } }
+@keyframes piPop{ to{ transform:scale(1); opacity:1; } }
+@keyframes piDim{ to{ opacity:0.32; } }
+@keyframes piLit{ to{ stroke:#F2F1EC; } }
+@keyframes piFly{ 0%{ opacity:0; transform:none; } 14%{ opacity:1; transform:none; } 100%{ opacity:1; transform:translate(var(--tx),var(--ty)) scale(var(--s)); } }
+@keyframes piRipple{ 0%{ opacity:0.55; transform:scale(1); } 100%{ opacity:0; transform:scale(var(--k,3.4)); } }
+@keyframes piBar{ from{ transform:scaleY(var(--lo,.3)); } to{ transform:scaleY(1); } }
+@keyframes piFlicker{ 0%{ opacity:var(--a,.35); } 40%{ opacity:1; } 55%{ opacity:.7; } 100%{ opacity:.95; } }
+@keyframes piSway{ from{ transform:rotate(var(--r0,-7deg)); } to{ transform:rotate(var(--r1,7deg)); } }
+@keyframes piScan{ 0%{ transform:translateX(0); opacity:0; } 6%{ opacity:.55; } 94%{ opacity:.55; } 100%{ transform:translateX(var(--w,512px)); opacity:0; } }
+@media (prefers-reduced-motion: reduce){
+  .page-ill .fi, .page-ill .flow, .page-ill .fly, .page-ill figcaption{ opacity:1 !important; animation:none !important; transition:none !important; }
+  .page-ill .dr{ stroke-dashoffset:0 !important; animation:none !important; }
+  .page-ill .gx, .page-ill .gy, .page-ill .pop{ transform:none !important; opacity:1 !important; animation:none !important; }
+  .page-ill .ripple, .page-ill .bar, .page-ill .flicker, .page-ill .sway, .page-ill .scan{ animation:none !important; }
+}

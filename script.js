@@ -760,3 +760,25 @@ document.querySelectorAll('.legal-links a[href$=".html"]').forEach(a => {
     }
   });
 });
+
+// ---------- Section-page illustrations: play on scroll, rest when off screen ----------
+(function(){
+  const figs = document.querySelectorAll('.page-ill');
+  if(!figs.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveal = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); reveal.unobserve(e.target); } });
+  }, { threshold: 0.3 });
+  const vis = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const svg = e.target.querySelector('svg');
+      e.target.classList.toggle('off', !e.isIntersecting);
+      if(svg && svg.pauseAnimations){ e.isIntersecting && !reduce ? svg.unpauseAnimations() : svg.pauseAnimations(); }
+    });
+  }, { threshold: 0 });
+  figs.forEach(f => {
+    const svg = f.querySelector('svg');
+    if(svg && svg.pauseAnimations) svg.pauseAnimations();
+    reveal.observe(f); vis.observe(f);
+  });
+})();
