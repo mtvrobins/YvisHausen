@@ -105,9 +105,24 @@
   .inc-item p{ margin:0; font-size:12.5px; line-height:1.7; color:var(--muted); }
   .inc-no{ display:block; font-size:10px; letter-spacing:0.14em; color:var(--muted); margin-bottom:16px; }
 
-  /* BEYOND THE STANDARD */
+
+  /* note markers and notes */
+  .fn{ display:inline-block; margin-left:3px; font-size:0.62em; font-weight:500; letter-spacing:0.04em; line-height:1; vertical-align:super; color:var(--muted); text-decoration:none; opacity:0.85; transition:opacity .3s ease, color .3s ease; }
+  .fn:hover, .fn:focus-visible{ color:var(--fg); opacity:1; outline:none; }
+  .stage-title .fn, .sec-title .fn{ font-size:0.34em; vertical-align:top; margin-top:0.3em; }
+  .stage-list li span{ flex:1; }
+  .sec-lede{ max-width:620px; margin:-22px 0 36px; font-size:13.5px; line-height:1.75; color:var(--muted); }
+  .notes{ padding:56px 0 64px; border-top:1px solid var(--line); }
+  .notes-list{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:22px 48px; }
+  .notes-list li{ display:flex; gap:14px; scroll-margin-top:110px; }
+  .notes-list li:target b, .notes-list li:target .note-mark{ color:var(--fg); }
+  .note-mark{ flex:none; width:24px; font-size:10px; letter-spacing:0.06em; color:var(--muted); padding-top:1px; }
+  .notes-list b{ display:block; font-size:9px; letter-spacing:0.22em; font-weight:600; color:#b9b8b1; margin:0 0 6px; transition:color .3s ease; }
+  .notes-list p{ margin:0; font-size:11.5px; line-height:1.75; color:var(--muted); }
+
+  /* ADVANCED SUPPORT */
   .adv{ padding:84px 0; background:var(--p1); }
-  .adv-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .adv-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
   .adv-item{ background:#0B0B0A; padding:26px 22px 28px; transition:background .4s ease; }
   .adv-item:hover{ background:#141413; }
   .adv-item svg{ display:block; width:40px; height:40px; margin:0 0 20px; overflow:visible; }
@@ -166,7 +181,7 @@
   @media (max-width:640px){
     .sp-wrap{ padding:0 20px; }
     .stage, .inc, .tl, .split, .adv{ padding:60px 0; }
-    .inc-grid, .split-grid, .adv-grid{ grid-template-columns:1fr; }
+    .inc-grid, .split-grid, .adv-grid, .notes-list{ grid-template-columns:1fr; }
     .stage-list li b{ width:96px; }
     .sp-btn--ghost{ margin:12px 0 0; }
   }
@@ -238,15 +253,15 @@
     <div class="sp-wrap">
       <a class="sp-back" href="marketing.html">&larr;&nbsp;&nbsp;MARKETING</a>
       <h1 class="sp-title rv">Explore the System</h1>
-      <p class="sp-lede rv rv-1">A closer look at the Meta advertising system we build, run and refine for our clients: from the first audit and the tracking beneath it, to how it learns, how proven work is scaled, and how every result is reported and kept. Ten parts, one system.</p>
+      <p class="sp-lede rv rv-1">A closer look at the Meta advertising system we build with you: how it is audited, set up and tracked, how it is structured and tested, and how it is reviewed and refined over time. We build the infrastructure and guide the strategy. Your team runs it, with full ownership and control.<a class="fn" href="#note-5" aria-label="See note 5">*5</a> Ten parts, one system.</p>
       <ol class="sp-map rv rv-2">
         <li><a href="#audit"><span>01</span>AUDIT</a></li>
         <li><a href="#foundation"><span>02</span>TRACKING</a></li>
         <li><a href="#audiences"><span>03</span>AUDIENCES</a></li>
-        <li><a href="#creative"><span>04</span>CREATIVE &amp; COPY</a></li>
-        <li><a href="#structure"><span>05</span>STRUCTURE</a></li>
+        <li><a href="#structure"><span>04</span>STRUCTURE</a></li>
+        <li><a href="#creative"><span>05</span>CREATIVE</a></li>
         <li><a href="#funnel"><span>06</span>FUNNEL</a></li>
-        <li><a href="#optimise"><span>07</span>OPTIMISE</a></li>
+        <li><a href="#optimise"><span>07</span>REVIEW</a></li>
         <li><a href="#scale"><span>08</span>SCALE</a></li>
         <li><a href="#reconnect"><span>09</span>RECONNECT</a></li>
         <li><a href="#archive"><span>10</span>REPORTING</a></li>
@@ -260,13 +275,13 @@
       <div class="stage-copy">
         <p class="stage-num rv">01 — AUDIT</p>
         <h2 class="stage-title rv rv-1">Understand before you spend.</h2>
-        <p class="stage-statement rv rv-2">Onboarding begins with a deep-dive strategy audit, not with ads.</p>
-        <p class="stage-body rv">Before anything launches, we study the whole picture: how well your website converts, what your competitors are running and saying, and what your account history already tells us. From this we map a funnel strategy tailored to your brand, your margins and your buyers.</p>
+        <p class="stage-statement rv rv-2">Every programme begins with a strategic audit, not with ads.</p>
+        <p class="stage-body rv">Before anything is built, we study the whole picture: how ready your website is to convert, what your competitors are running and where the gaps are, and what your account history already tells us. From this we shape a funnel strategy built around your business, not a one-size-fits-all playbook.</p>
         <ul class="stage-list rv">
-          <li><b>WEBSITE</b>Conversion rate, landing pages and checkout reviewed for friction.</li>
-          <li><b>COMPETITORS</b>Competitors&rsquo; live ads analysed for angles, offers and formats.</li>
-          <li><b>ACCOUNT</b>Past campaigns, tracking and spend reviewed for what has and has not worked.</li>
-          <li><b>FUNNEL MAP</b>A tailored plan from first impression to repeat purchase.</li>
+          <li><b>WEBSITE</b><span>Your website and landing pages reviewed for conversion readiness, with clear recommendations.</span></li>
+          <li><b>COMPETITORS</b><span>What your competitors are running, researched through the Meta Ad Library, and where the gaps are.</span></li>
+          <li><b>ACCOUNT</b><span>Existing campaigns, tracking and set up reviewed for what has and has not worked.</span></li>
+          <li><b>FUNNEL STRATEGY</b><span>A tailored plan from first impression to repeat purchase.</span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -311,20 +326,20 @@
     </div>
   </section>
 
-  <!-- 02 TRACKING -->
+  <!-- 02 SET UP & TRACKING -->
   <section class="stage flip" id="foundation">
     <div class="sp-wrap stage-grid">
       <div class="stage-copy">
-        <p class="stage-num rv">02 — TRACKING</p>
-        <h2 class="stage-title rv rv-1">Tracking you can trust.</h2>
-        <p class="stage-statement rv rv-2">Every decision the system makes is only as good as the signal it receives.</p>
-        <p class="stage-body rv">Before a single ad runs, we make sure Meta can see what actually happens on your website, and beyond it. Events are sent twice, from the visitor&rsquo;s browser through the Meta Pixel and from your server through the Conversions API, then matched and de-duplicated so nothing is lost and nothing is counted twice. Every event is tested and verified before launch.</p>
+        <p class="stage-num rv">02 — SET UP &amp; TRACKING</p>
+        <h2 class="stage-title rv rv-1">Built on clear signal.</h2>
+        <p class="stage-statement rv rv-2">The system can only learn from what it can see, so tracking comes first.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></p>
+        <p class="stage-body rv">We set up and configure your Meta foundations inside accounts you own: Business Portfolio, ad account, Facebook Page and Instagram, with permissions structured correctly. Then the tracking: the Meta Pixel in the browser and the Conversions API on the server, for more accurate, privacy-resilient signal, with the events that matter to your business configured and tested.</p>
         <ul class="stage-list rv">
-          <li><b>META PIXEL</b>Integrated and maintained: page views, product views, add to cart, checkout and purchase.</li>
-          <li><b>CONVERSIONS API</b>Full server-side installation, so data stays accurate despite ad blockers and browser limits.</li>
-          <li><b>CUSTOM EVENTS</b>Custom conversions and event tracking for button clicks, form submissions, leads and purchases.</li>
-          <li><b>OFFLINE EVENTS</b>Sales made by phone, in person or in store matched back to the ads that drove them.</li>
-          <li><b>VERIFICATION</b>Business Manager, domain verification, event priorities and match quality checked before launch.</li>
+          <li><b>ACCOUNTS</b><span>Business Portfolio, ad account, Page and Instagram set up and connected, with you as owner.</span></li>
+          <li><b>META PIXEL</b><span>Full Pixel integration, configured and tested for your account.</span></li>
+          <li><b>CONVERSIONS API</b><span>Server-side tracking set up where your website platform supports it.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></span></li>
+          <li><b>CUSTOM EVENTS</b><span>Button clicks, form submissions, purchases and more, mapped to what matters for your business.</span></li>
+          <li><b>FRAMEWORKS</b><span>UTM parameters and naming conventions, so results can be traced to their source.</span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -390,20 +405,20 @@
     </div>
   </section>
 
-  <!-- 02 AUDIENCES -->
+  <!-- 03 AUDIENCES -->
   <section class="stage" id="audiences">
     <div class="sp-wrap stage-grid">
       <div class="stage-copy">
         <p class="stage-num rv">03 — AUDIENCES</p>
         <h2 class="stage-title rv rv-1">From everyone, to your people.</h2>
-        <p class="stage-statement rv rv-2">Audiences are built in layers, each warmer and more valuable than the last.</p>
-        <p class="stage-body rv">It begins with your buyer. We build target personas from demographic, geographic and interest data, then turn them into audiences: broad prospecting that gives Meta room to find buyers, Lookalikes modelled on your best customers, and Custom Audiences of the people who already know you, each spoken to differently and never over-served.</p>
+        <p class="stage-statement rv rv-2">Audiences are designed in layers, each warmer and more valuable than the last.</p>
+        <p class="stage-body rv">It begins with your buyer. We build precise buyer personas from demographic, geographic and interest data, then design an audience architecture around them: broad prospecting that gives Meta room to find buyers, Lookalikes that mirror your best customers, and Custom Audiences of the people who already know you.</p>
         <ul class="stage-list rv">
-          <li><b>PERSONAS</b>Target buyer personas built from demographic, geographic and interest filters.</li>
-          <li><b>BROAD</b>Open prospecting that lets the algorithm find new buyers at scale.</li>
-          <li><b>LOOKALIKES</b>Audiences modelled on your purchasers and highest-value customers, to find more like them.</li>
-          <li><b>CUSTOM</b>Website visitors, video viewers, engagers and uploaded customer lists.</li>
-          <li><b>CUSTOMERS</b>Past buyers, handled with care: excluded from acquisition, or invited back.</li>
+          <li><b>PERSONAS</b><span>Buyer personas built from demographic, geographic and interest data.</span></li>
+          <li><b>BROAD</b><span>Open prospecting that gives Meta&rsquo;s delivery room to find new buyers.</span></li>
+          <li><b>LOOKALIKES</b><span>New prospects who mirror your best customers.</span></li>
+          <li><b>CUSTOM</b><span>Website visitors, engagers and your existing customer lists.<a class="fn" href="#note-4" aria-label="See note 4">*4</a></span></li>
+          <li><b>CUSTOMERS</b><span>Past buyers handled with care: excluded from prospecting, or invited back.</span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -502,53 +517,20 @@
     </div>
   </section>
 
-  <!-- 03 CREATIVE -->
-  <section class="stage flip" id="creative">
-    <div class="sp-wrap stage-grid">
-      <div class="stage-copy">
-        <p class="stage-num rv">04 — CREATIVE &amp; COPY</p>
-        <h2 class="stage-title rv rv-1">Test the idea, not the guess.</h2>
-        <p class="stage-statement rv rv-2">Creative is the largest lever in modern Meta advertising, so it is tested with discipline.</p>
-        <p class="stage-body rv">You provide the raw images and videos; we write the ad copy, headlines and primary text around them. Then we test with rigour: A/B split tests on hooks, headlines, angles, formats, landing pages and audience segments, one variable at a time. Each variant gets a fair budget and a fair window, and is judged on data, not guesswork.</p>
-        <ul class="stage-list rv">
-          <li><b>COPYWRITING</b>Ad copy, headlines and primary text, written for your brand and your buyer.</li>
-          <li><b>SPLIT TESTS</b>A/B tests on headlines, hooks, angles and formats, one variable at a time.</li>
-          <li><b>BEYOND THE AD</b>Landing pages and audience segments tested with the same discipline.</li>
-          <li><b>FORMATS</b>Static, video, carousel, feed, story and reel placements.</li>
-          <li><b>SIGNALS</b>Hook rate, click-through, cost per result and conversion rate.</li>
-        </ul>
-      </div>
-      <figure class="stage-ill rv" aria-hidden="true">
-        <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
-          <g class="dim" style="--dl:2.6s"><g class="fi" style="--dl:0.00s"><rect x="14" y="16" width="64" height="112" rx="7" fill="#0B0B0A" stroke="#3A3A36"/><rect x="40" y="20" width="12" height="2" rx="1" fill="#262624"/><rect x="20" y="28" width="52" height="46" rx="2" fill="#111110" stroke="#1E1E1C"/><circle cx="46" cy="46" r="10" fill="none" stroke="#5C5C56"/><path d="M32,66 C36,56 56,56 60,66" fill="none" stroke="#5C5C56"/><rect x="20" y="80" width="40" height="3" rx="1.5" fill="#4A4A45"/><rect x="20" y="87" width="30" height="3" rx="1.5" fill="#3A3A36"/><rect x="20" y="94" width="36" height="3" rx="1.5" fill="#3A3A36"/><rect x="20" y="106" width="52" height="12" rx="6" fill="none" stroke="#5C5C56"/><text class="t t-s" x="46" y="114" text-anchor="middle">SHOP NOW</text><text class="t" x="46" y="142" text-anchor="middle">HOOK A</text><rect x="14" y="150" width="64" height="4" rx="2" fill="#1C1C1A"/><rect x="14" y="160" width="64" height="4" rx="2" fill="#1C1C1A"/></g><rect class="gx" style="--dl:1.30s;--du:1.3s" x="14" y="150" width="29.4" height="4" rx="2" fill="#F2F1EC"/><rect class="gx" style="--dl:1.50s;--du:1.3s" x="14" y="160" width="33.3" height="4" rx="2" fill="#8A8A82"/></g>
-          <g class="dim" style="--dl:2.6s"><g class="fi" style="--dl:0.15s"><rect x="90" y="16" width="64" height="112" rx="7" fill="#0B0B0A" stroke="#3A3A36"/><rect x="116" y="20" width="12" height="2" rx="1" fill="#262624"/><rect x="96" y="28" width="52" height="46" rx="2" fill="#111110" stroke="#1E1E1C"/><circle cx="122" cy="48" r="11" fill="none" stroke="#5C5C56"/><path d="M119,43 L127,48 L119,53 Z" fill="#8A8A82"/><rect x="96" y="80" width="40" height="3" rx="1.5" fill="#4A4A45"/><rect x="96" y="87" width="30" height="3" rx="1.5" fill="#3A3A36"/><rect x="96" y="94" width="36" height="3" rx="1.5" fill="#3A3A36"/><rect x="96" y="106" width="52" height="12" rx="6" fill="none" stroke="#5C5C56"/><text class="t t-s" x="122" y="114" text-anchor="middle">SHOP NOW</text><text class="t" x="122" y="142" text-anchor="middle">HOOK B</text><rect x="90" y="150" width="64" height="4" rx="2" fill="#1C1C1A"/><rect x="90" y="160" width="64" height="4" rx="2" fill="#1C1C1A"/></g><rect class="gx" style="--dl:1.42s;--du:1.3s" x="90" y="150" width="39.7" height="4" rx="2" fill="#F2F1EC"/><rect class="gx" style="--dl:1.62s;--du:1.3s" x="90" y="160" width="25.6" height="4" rx="2" fill="#8A8A82"/></g>
-          <g><g class="fi" style="--dl:0.30s"><rect x="166" y="16" width="64" height="112" rx="7" fill="#0B0B0A" stroke="#3A3A36" class="lit" style="--dl:2.8s"/><rect x="192" y="20" width="12" height="2" rx="1" fill="#262624"/><rect x="172" y="28" width="52" height="46" rx="2" fill="#111110" stroke="#1E1E1C"/><rect x="180" y="36" width="36" height="5" rx="1" fill="#F2F1EC" fill-opacity=".85"/><rect x="180" y="45" width="28" height="5" rx="1" fill="#F2F1EC" fill-opacity=".85"/><rect x="180" y="54" width="32" height="5" rx="1" fill="#F2F1EC" fill-opacity=".5"/><rect x="172" y="80" width="40" height="3" rx="1.5" fill="#4A4A45"/><rect x="172" y="87" width="30" height="3" rx="1.5" fill="#3A3A36"/><rect x="172" y="94" width="36" height="3" rx="1.5" fill="#3A3A36"/><rect x="172" y="106" width="52" height="12" rx="6" fill="none" stroke="#5C5C56"/><text class="t t-s" x="198" y="114" text-anchor="middle">SHOP NOW</text><text class="t t-b" x="198" y="142" text-anchor="middle">HOOK C</text><rect x="166" y="150" width="64" height="4" rx="2" fill="#1C1C1A"/><rect x="166" y="160" width="64" height="4" rx="2" fill="#1C1C1A"/></g><rect class="gx" style="--dl:1.54s;--du:1.3s" x="166" y="150" width="58.9" height="4" rx="2" fill="#F2F1EC"/><rect class="gx" style="--dl:1.74s;--du:1.3s" x="166" y="160" width="53.8" height="4" rx="2" fill="#8A8A82"/></g>
-          <g class="dim" style="--dl:2.6s"><g class="fi" style="--dl:0.45s"><rect x="242" y="16" width="64" height="112" rx="7" fill="#0B0B0A" stroke="#3A3A36"/><rect x="268" y="20" width="12" height="2" rx="1" fill="#262624"/><rect x="248" y="28" width="52" height="46" rx="2" fill="#111110" stroke="#1E1E1C"/><rect x="254" y="36" width="26" height="26" fill="none" stroke="#5C5C56"/><rect x="284" y="36" width="12" height="26" fill="none" stroke="#3A3A36"/><circle cx="270" cy="68" r="1" fill="#8A8A82"/><circle cx="274" cy="68" r="1" fill="#3A3A36"/><circle cx="278" cy="68" r="1" fill="#3A3A36"/><rect x="248" y="80" width="40" height="3" rx="1.5" fill="#4A4A45"/><rect x="248" y="87" width="30" height="3" rx="1.5" fill="#3A3A36"/><rect x="248" y="94" width="36" height="3" rx="1.5" fill="#3A3A36"/><rect x="248" y="106" width="52" height="12" rx="6" fill="none" stroke="#5C5C56"/><text class="t t-s" x="274" y="114" text-anchor="middle">SHOP NOW</text><text class="t" x="274" y="142" text-anchor="middle">HOOK D</text><rect x="242" y="150" width="64" height="4" rx="2" fill="#1C1C1A"/><rect x="242" y="160" width="64" height="4" rx="2" fill="#1C1C1A"/></g><rect class="gx" style="--dl:1.66s;--du:1.3s" x="242" y="150" width="24.3" height="4" rx="2" fill="#F2F1EC"/><rect class="gx" style="--dl:1.86s;--du:1.3s" x="242" y="160" width="35.8" height="4" rx="2" fill="#8A8A82"/></g>
-          <circle class="ping" style="--dl:3.1s" cx="230" cy="16" r="8" fill="none" stroke="#F2F1EC" stroke-width="0.9"/>
-          <g class="pop" style="--dl:2.9s"><circle cx="230" cy="16" r="8" fill="#F2F1EC"/><path d="M226,16 L229,19 L234.5,13" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
-          <text class="t t-b fi" style="--dl:3.2s" x="198" y="184" text-anchor="middle">WINNER · MOVES TO SCALE</text>
-          <g class="fi" style="--dl:1.2s">
-            <rect x="14" y="200" width="8" height="3" rx="1.5" fill="#F2F1EC"/><text class="t t-s" x="26" y="203">Hook rate</text>
-            <rect x="74" y="200" width="8" height="3" rx="1.5" fill="#8A8A82"/><text class="t t-s" x="86" y="203">Click-through</text>
-          </g>
-        </svg>
-      </figure>
-    </div>
-  </section>
-
   <!-- 04 STRUCTURE -->
-  <section class="stage" id="structure">
+  <section class="stage flip" id="structure">
     <div class="sp-wrap stage-grid">
       <div class="stage-copy">
-        <p class="stage-num rv">05 — STRUCTURE</p>
+        <p class="stage-num rv">04 — STRUCTURE</p>
         <h2 class="stage-title rv rv-1">A place for everything.</h2>
-        <p class="stage-statement rv rv-2">Testing, scaling and retargeting each run in their own space, so one never disrupts another.</p>
-        <p class="stage-body rv">The campaign structure is mapped before anything launches: campaigns, ad sets, budgets and naming. New ideas are proven in a controlled testing environment. Only what earns it graduates into scaling, where budget is concentrated. Warm audiences are handled separately again. Budget flows towards evidence, never away from it.</p>
+        <p class="stage-statement rv rv-2">Your campaign architecture is mapped around your goals, not a template.</p>
+        <p class="stage-body rv">Before launch, the full architecture is designed: which campaigns serve awareness, leads and sales, how testing, scaling and retargeting are kept apart, and how budget could be weighted between them. It is documented with naming conventions and templates, and your team is trained to run it with confidence.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></p>
         <ul class="stage-list rv">
-          <li><b>MAPPED</b>A clear campaign map before launch, so every pound has a place and a purpose.</li>
-          <li><b>TEST</b>Controlled budgets, clear hypotheses, fixed evaluation windows.</li>
-          <li><b>SCALE</b>Proven winners only, with budget concentrated where it performs.</li>
-          <li><b>RETARGET</b>Warm audiences, with messages matched to where they left off.</li>
+          <li><b>ARCHITECTURE</b><span>Awareness, lead and sales campaigns, each with a clear role.</span></li>
+          <li><b>TEST</b><span>A controlled space for new ideas, with clear hypotheses and evaluation windows.</span></li>
+          <li><b>SCALE</b><span>A separate space for what has proven itself.</span></li>
+          <li><b>RETARGET</b><span>Warm audiences, reached with messages matched to where they left off.</span></li>
+          <li><b>TRAINING</b><span>Hands-on training so your nominated team member can operate the system.</span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -579,12 +561,46 @@
             <circle r="2.2" fill="#F2F1EC"><animateMotion dur="3.3s" begin="1.7s" repeatCount="indefinite" path="M196,120 C206,120 210,95 220,95 C232,95 234,76 236,76"/></circle>
             <circle r="2.2" fill="#F2F1EC"><animateMotion dur="3.3s" begin="2.6s" repeatCount="indefinite" path="M196,120 C206,120 210,95 220,95 C232,95 234,76 236,76"/></circle>
           </g>
-          <g class="fi" style="--dl:1.7s"><text class="t t-s" x="12" y="164">BUDGET</text><text class="t t-s t-b" x="100" y="164" text-anchor="end">30%</text><rect x="12" y="169" width="88" height="4" rx="2" fill="#1C1C1A"/><text class="t t-s" x="12" y="188">Prove the idea</text></g>
-          <rect class="gx" style="--dl:2.0s;--du:1.4s" x="12" y="169" width="26.4" height="4" rx="2" fill="#8A8A82"/>
-          <g class="fi" style="--dl:1.9s"><text class="t t-s" x="116" y="164">BUDGET</text><text class="t t-s t-b" x="204" y="164" text-anchor="end">85%</text><rect x="116" y="169" width="88" height="4" rx="2" fill="#1C1C1A"/><text class="t t-s" x="116" y="188">Concentrate spend</text></g>
-          <rect class="gx" style="--dl:2.2s;--du:1.4s" x="116" y="169" width="74.8" height="4" rx="2" fill="#F2F1EC"/>
-          <g class="fi" style="--dl:2.1s"><text class="t t-s" x="220" y="164">BUDGET</text><text class="t t-s t-b" x="308" y="164" text-anchor="end">50%</text><rect x="220" y="169" width="88" height="4" rx="2" fill="#1C1C1A"/><text class="t t-s" x="220" y="188">Reconnect</text></g>
-          <rect class="gx" style="--dl:2.4s;--du:1.4s" x="220" y="169" width="44.0" height="4" rx="2" fill="#8A8A82"/>
+          <g class="fi" style="--dl:1.7s"><text class="t t-s" x="12" y="164">SUGGESTED SHARE</text><text class="t t-s t-b" x="100" y="164" text-anchor="end">20%</text><rect x="12" y="169" width="88" height="4" rx="2" fill="#1C1C1A"/><text class="t t-s" x="12" y="188">Prove the idea</text></g>
+          <rect class="gx" style="--dl:2.0s;--du:1.4s" x="12" y="169" width="17.6" height="4" rx="2" fill="#8A8A82"/>
+          <g class="fi" style="--dl:1.9s"><text class="t t-s" x="116" y="164">SUGGESTED SHARE</text><text class="t t-s t-b" x="204" y="164" text-anchor="end">60%</text><rect x="116" y="169" width="88" height="4" rx="2" fill="#1C1C1A"/><text class="t t-s" x="116" y="188">Grow what works</text></g>
+          <rect class="gx" style="--dl:2.2s;--du:1.4s" x="116" y="169" width="52.8" height="4" rx="2" fill="#F2F1EC"/>
+          <g class="fi" style="--dl:2.1s"><text class="t t-s" x="220" y="164">SUGGESTED SHARE</text><text class="t t-s t-b" x="308" y="164" text-anchor="end">20%</text><rect x="220" y="169" width="88" height="4" rx="2" fill="#1C1C1A"/><text class="t t-s" x="220" y="188">Reconnect</text></g>
+          <rect class="gx" style="--dl:2.4s;--du:1.4s" x="220" y="169" width="17.6" height="4" rx="2" fill="#8A8A82"/>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 05 CREATIVE STRATEGY -->
+  <section class="stage" id="creative">
+    <div class="sp-wrap stage-grid">
+      <div class="stage-copy">
+        <p class="stage-num rv">05 — CREATIVE STRATEGY</p>
+        <h2 class="stage-title rv rv-1">Test the idea, not the guess.</h2>
+        <p class="stage-statement rv rv-2">Creative is the largest lever in Meta advertising, so it is tested with a framework, not by instinct.</p>
+        <p class="stage-body rv">We design A/B testing frameworks for your headlines, hooks, angles and formats, one variable at a time, each judged on the signals that matter at its stage. Alongside, we give messaging and positioning guidance: we shape the strategy behind what converts; you own and approve every word that goes live.</p>
+        <ul class="stage-list rv">
+          <li><b>FRAMEWORKS</b><span>A/B tests planned for headlines, angles and formats.</span></li>
+          <li><b>MESSAGING</b><span>Positioning and messaging guidance for your ad copy and creative.</span></li>
+          <li><b>SPECIFICATIONS</b><span>Creative specifications for each format and placement.</span></li>
+          <li><b>SIGNALS</b><span>Hook rate, click-through, cost per result and conversion rate, read in context.</span></li>
+          <li><b>YOUR APPROVAL</b><span>Your team produces, approves and publishes every ad.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></span></li>
+        </ul>
+      </div>
+      <figure class="stage-ill rv" aria-hidden="true">
+        <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+          <g class="dim" style="--dl:2.6s"><g class="fi" style="--dl:0.00s"><rect x="14" y="16" width="64" height="112" rx="7" fill="#0B0B0A" stroke="#3A3A36"/><rect x="40" y="20" width="12" height="2" rx="1" fill="#262624"/><rect x="20" y="28" width="52" height="46" rx="2" fill="#111110" stroke="#1E1E1C"/><circle cx="46" cy="46" r="10" fill="none" stroke="#5C5C56"/><path d="M32,66 C36,56 56,56 60,66" fill="none" stroke="#5C5C56"/><rect x="20" y="80" width="40" height="3" rx="1.5" fill="#4A4A45"/><rect x="20" y="87" width="30" height="3" rx="1.5" fill="#3A3A36"/><rect x="20" y="94" width="36" height="3" rx="1.5" fill="#3A3A36"/><rect x="20" y="106" width="52" height="12" rx="6" fill="none" stroke="#5C5C56"/><text class="t t-s" x="46" y="114" text-anchor="middle">SHOP NOW</text><text class="t" x="46" y="142" text-anchor="middle">HOOK A</text><rect x="14" y="150" width="64" height="4" rx="2" fill="#1C1C1A"/><rect x="14" y="160" width="64" height="4" rx="2" fill="#1C1C1A"/></g><rect class="gx" style="--dl:1.30s;--du:1.3s" x="14" y="150" width="29.4" height="4" rx="2" fill="#F2F1EC"/><rect class="gx" style="--dl:1.50s;--du:1.3s" x="14" y="160" width="33.3" height="4" rx="2" fill="#8A8A82"/></g>
+          <g class="dim" style="--dl:2.6s"><g class="fi" style="--dl:0.15s"><rect x="90" y="16" width="64" height="112" rx="7" fill="#0B0B0A" stroke="#3A3A36"/><rect x="116" y="20" width="12" height="2" rx="1" fill="#262624"/><rect x="96" y="28" width="52" height="46" rx="2" fill="#111110" stroke="#1E1E1C"/><circle cx="122" cy="48" r="11" fill="none" stroke="#5C5C56"/><path d="M119,43 L127,48 L119,53 Z" fill="#8A8A82"/><rect x="96" y="80" width="40" height="3" rx="1.5" fill="#4A4A45"/><rect x="96" y="87" width="30" height="3" rx="1.5" fill="#3A3A36"/><rect x="96" y="94" width="36" height="3" rx="1.5" fill="#3A3A36"/><rect x="96" y="106" width="52" height="12" rx="6" fill="none" stroke="#5C5C56"/><text class="t t-s" x="122" y="114" text-anchor="middle">SHOP NOW</text><text class="t" x="122" y="142" text-anchor="middle">HOOK B</text><rect x="90" y="150" width="64" height="4" rx="2" fill="#1C1C1A"/><rect x="90" y="160" width="64" height="4" rx="2" fill="#1C1C1A"/></g><rect class="gx" style="--dl:1.42s;--du:1.3s" x="90" y="150" width="39.7" height="4" rx="2" fill="#F2F1EC"/><rect class="gx" style="--dl:1.62s;--du:1.3s" x="90" y="160" width="25.6" height="4" rx="2" fill="#8A8A82"/></g>
+          <g><g class="fi" style="--dl:0.30s"><rect x="166" y="16" width="64" height="112" rx="7" fill="#0B0B0A" stroke="#3A3A36" class="lit" style="--dl:2.8s"/><rect x="192" y="20" width="12" height="2" rx="1" fill="#262624"/><rect x="172" y="28" width="52" height="46" rx="2" fill="#111110" stroke="#1E1E1C"/><rect x="180" y="36" width="36" height="5" rx="1" fill="#F2F1EC" fill-opacity=".85"/><rect x="180" y="45" width="28" height="5" rx="1" fill="#F2F1EC" fill-opacity=".85"/><rect x="180" y="54" width="32" height="5" rx="1" fill="#F2F1EC" fill-opacity=".5"/><rect x="172" y="80" width="40" height="3" rx="1.5" fill="#4A4A45"/><rect x="172" y="87" width="30" height="3" rx="1.5" fill="#3A3A36"/><rect x="172" y="94" width="36" height="3" rx="1.5" fill="#3A3A36"/><rect x="172" y="106" width="52" height="12" rx="6" fill="none" stroke="#5C5C56"/><text class="t t-s" x="198" y="114" text-anchor="middle">SHOP NOW</text><text class="t t-b" x="198" y="142" text-anchor="middle">HOOK C</text><rect x="166" y="150" width="64" height="4" rx="2" fill="#1C1C1A"/><rect x="166" y="160" width="64" height="4" rx="2" fill="#1C1C1A"/></g><rect class="gx" style="--dl:1.54s;--du:1.3s" x="166" y="150" width="58.9" height="4" rx="2" fill="#F2F1EC"/><rect class="gx" style="--dl:1.74s;--du:1.3s" x="166" y="160" width="53.8" height="4" rx="2" fill="#8A8A82"/></g>
+          <g class="dim" style="--dl:2.6s"><g class="fi" style="--dl:0.45s"><rect x="242" y="16" width="64" height="112" rx="7" fill="#0B0B0A" stroke="#3A3A36"/><rect x="268" y="20" width="12" height="2" rx="1" fill="#262624"/><rect x="248" y="28" width="52" height="46" rx="2" fill="#111110" stroke="#1E1E1C"/><rect x="254" y="36" width="26" height="26" fill="none" stroke="#5C5C56"/><rect x="284" y="36" width="12" height="26" fill="none" stroke="#3A3A36"/><circle cx="270" cy="68" r="1" fill="#8A8A82"/><circle cx="274" cy="68" r="1" fill="#3A3A36"/><circle cx="278" cy="68" r="1" fill="#3A3A36"/><rect x="248" y="80" width="40" height="3" rx="1.5" fill="#4A4A45"/><rect x="248" y="87" width="30" height="3" rx="1.5" fill="#3A3A36"/><rect x="248" y="94" width="36" height="3" rx="1.5" fill="#3A3A36"/><rect x="248" y="106" width="52" height="12" rx="6" fill="none" stroke="#5C5C56"/><text class="t t-s" x="274" y="114" text-anchor="middle">SHOP NOW</text><text class="t" x="274" y="142" text-anchor="middle">HOOK D</text><rect x="242" y="150" width="64" height="4" rx="2" fill="#1C1C1A"/><rect x="242" y="160" width="64" height="4" rx="2" fill="#1C1C1A"/></g><rect class="gx" style="--dl:1.66s;--du:1.3s" x="242" y="150" width="24.3" height="4" rx="2" fill="#F2F1EC"/><rect class="gx" style="--dl:1.86s;--du:1.3s" x="242" y="160" width="35.8" height="4" rx="2" fill="#8A8A82"/></g>
+          <circle class="ping" style="--dl:3.1s" cx="230" cy="16" r="8" fill="none" stroke="#F2F1EC" stroke-width="0.9"/>
+          <g class="pop" style="--dl:2.9s"><circle cx="230" cy="16" r="8" fill="#F2F1EC"/><path d="M226,16 L229,19 L234.5,13" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g>
+          <text class="t t-b fi" style="--dl:3.2s" x="198" y="184" text-anchor="middle">WINNER · READY TO SCALE</text>
+          <g class="fi" style="--dl:1.2s">
+            <rect x="14" y="200" width="8" height="3" rx="1.5" fill="#F2F1EC"/><text class="t t-s" x="26" y="203">Hook rate</text>
+            <rect x="74" y="200" width="8" height="3" rx="1.5" fill="#8A8A82"/><text class="t t-s" x="86" y="203">Click-through</text>
+          </g>
         </svg>
       </figure>
     </div>
@@ -595,13 +611,14 @@
     <div class="sp-wrap stage-grid">
       <div class="stage-copy">
         <p class="stage-num rv">06 — FUNNEL</p>
-        <h2 class="stage-title rv rv-1">Every stage, at once.</h2>
-        <p class="stage-statement rv rv-2">Cold traffic, retargeting and existing customers run side by side, each with its own campaign and its own message.</p>
-        <p class="stage-body rv">Most accounts only chase new customers. We manage the full funnel simultaneously: prospecting at the top, retargeting in the middle, and retention at the bottom, where lifetime value is built. Each stage feeds the next, and each is measured on what it is there to do.</p>
+        <h2 class="stage-title rv rv-1">Every stage, working together.</h2>
+        <p class="stage-statement rv rv-2">Cold traffic, retargeting and existing customers each need their own role and their own message.</p>
+        <p class="stage-body rv">Many accounts only chase new customers. Your funnel strategy maps how people move from first impression to repeat purchase: prospecting at the top, retargeting in the middle, and retention at the bottom, where lifetime value is built. Each stage feeds the next, and each is measured on what it is there to do.</p>
         <ul class="stage-list rv">
-          <li><b>TOP OF FUNNEL</b>Cold traffic: new audiences meeting your brand for the first time.</li>
-          <li><b>MIDDLE</b>Retargeting: people who engaged, visited or added to cart.</li>
-          <li><b>BOTTOM</b>Existing customers: retention, repeat purchase and lifetime value.</li>
+          <li><b>TOP OF FUNNEL</b><span>Cold traffic: new audiences meeting your brand for the first time.</span></li>
+          <li><b>MIDDLE</b><span>Retargeting: people who engaged, visited or added to cart.</span></li>
+          <li><b>BOTTOM</b><span>Existing customers: retention, repeat purchase and lifetime value.</span></li>
+          <li><b>FULL BUILDS</b><span>Fully built multi-stage funnels are available through Advanced Support.<a class="fn" href="#note-10" aria-label="See note 10">*10</a></span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -632,31 +649,30 @@
           <g class="fi" style="--dl:1.5s"><g class="spin" style="--ox:108px;--oy:196px;animation-duration:8s"><path d="M96,196 A12,12 0 1 1 108,208" fill="none" stroke="#F2F1EC" stroke-width="1" stroke-linecap="round"/><path d="M104,205 L108,208 L104,211" fill="none" stroke="#F2F1EC" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></g><text class="t t-b" x="108" y="198.3" text-anchor="middle" style="font-size:5.6px">LTV</text></g>
           <path class="dr" pathLength="100" style="--dl:1.4s;--du:.5s" d="M108,176 L108,184" fill="none" stroke="#5C5C56" stroke-width="0.8"/>
           <text class="t t-s fi" style="--dl:1.8s" x="128" y="200">Repeat, refer, return</text>
-          <text class="t fi" style="--dl:0.1s" x="20" y="20">ONE FUNNEL, RUN SIMULTANEOUSLY</text>
+          <text class="t fi" style="--dl:0.1s" x="20" y="20">ONE FUNNEL, EVERY STAGE</text>
         </svg>
       </figure>
     </div>
   </section>
 
-  <!-- 07 OPTIMISE -->
+  <!-- 07 REVIEW -->
   <section class="stage" id="optimise">
     <div class="sp-wrap stage-grid">
       <div class="stage-copy">
-        <p class="stage-num rv">07 — OPTIMISE</p>
-        <h2 class="stage-title rv rv-1">Watched, not left.</h2>
-        <p class="stage-statement rv rv-2">Performance is monitored continuously, and every change has a reason behind it.</p>
-        <p class="stage-body rv">Every day we check click-through rate, cost per lead, cost per purchase, return on ad spend, frequency and creative fatigue against the targets agreed with you. Budgets are paced across the month so spend is never front-loaded. When something drifts, we act: shutting down what has stopped working, iterating on what is close, and scaling what is winning.</p>
+        <p class="stage-num rv">07 — REVIEW</p>
+        <h2 class="stage-title rv rv-1">Reviewed, then refined.</h2>
+        <p class="stage-statement rv rv-2">Regular performance reviews, with clear, actionable recommendations: not just numbers, but what to do with them.</p>
+        <p class="stage-body rv">We review your campaigns, audiences, creative and tracking against the goals agreed with you. You receive recommendations on which campaigns to scale and which to rework, backed by the data, with budget pacing guidance to help you avoid early-month overspend. Your team decides what to act on, and we talk it through together on your monthly strategy call.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></p>
         <ul class="stage-list rv">
-          <li><b>DAILY</b>CTR, cost per lead and return on ad spend monitored every day.</li>
-          <li><b>PACING</b>Spend paced across the month, to prevent overspending early.</li>
-          <li><b>SHUT DOWN</b>Underperforming ads and audiences switched off before they waste budget.</li>
-          <li><b>ITERATE</b>New versions of promising creative, before fatigue sets in.</li>
-          <li><b>SCALE</b>More budget behind the campaigns consistently beating target.</li>
+          <li><b>REVIEWS</b><span>Campaign, audience, creative and tracking reviews at regular intervals.<a class="fn" href="#note-1" aria-label="See note 1">*1</a></span></li>
+          <li><b>RECOMMENDATIONS</b><span>What to scale, what to rework and what to test next, backed by the data.</span></li>
+          <li><b>PACING</b><span>Budget pacing guidance to help avoid early-month overspend.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></span></li>
+          <li><b>TROUBLESHOOTING</b><span>Help diagnosing what is not working as expected.<a class="fn" href="#note-3" aria-label="See note 3">*3</a></span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
         <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
-          <rect class="fi" x="8" y="8" width="304" height="204" rx="6" fill="#0B0B0A" stroke="#2A2A27"/>
+          <rect class="fi" x="8" y="8" width="304" height="200" rx="6" fill="#0B0B0A" stroke="#2A2A27"/>
           <!-- KPI tiles -->
           <g class="fi" style="--dl:0.2s"><rect x="20" y="20" width="88" height="34" rx="3" fill="none" stroke="#262624"/><text class="t" x="28" y="31">CTR</text><rect x="28" y="40" width="72" height="4" rx="2" fill="#262624"/></g>
           <rect class="gx" style="--dl:0.6s" x="28" y="40" width="58" height="4" rx="2" fill="#F2F1EC"/>
@@ -681,30 +697,31 @@
           <circle class="ping" style="--dl:2.7s" cx="191" cy="81" r="7" fill="none" stroke="#F2F1EC" stroke-width="0.9"/>
           <text class="t t-s fi" style="--dl:1.4s" x="300" y="124" text-anchor="end">Ad A</text>
           <text class="t t-s fi" style="--dl:1.6s" x="300" y="72" text-anchor="end">Ad B</text>
-          <!-- decisions -->
-          <g class="fi" style="--dl:1.6s">
-            <rect x="24" y="170" width="84" height="24" rx="3" fill="none" stroke="#3A3A36" class="lit" style="--dl:3.1s"/><text class="t" x="66" y="185" text-anchor="middle">PAUSE B</text>
-            <rect x="118" y="170" width="84" height="24" rx="3" fill="none" stroke="#3A3A36" class="lit" style="--dl:3.6s"/><text class="t" x="160" y="185" text-anchor="middle">ITERATE</text>
-            <rect x="212" y="170" width="84" height="24" rx="3" fill="none" stroke="#3A3A36" class="lit" style="--dl:4.1s"/><text class="t" x="254" y="185" text-anchor="middle">SCALE A</text>
+          <!-- recommendations -->
+          <text class="t t-s fi" style="--dl:1.6s" x="24" y="166">RECOMMENDATIONS</text>
+          <g class="fi" style="--dl:1.7s">
+            <rect x="24" y="172" width="84" height="24" rx="3" fill="none" stroke="#3A3A36" class="lit" style="--dl:3.1s"/><text class="t" x="66" y="187" text-anchor="middle">REWORK B</text>
+            <rect x="118" y="172" width="84" height="24" rx="3" fill="none" stroke="#3A3A36" class="lit" style="--dl:3.6s"/><text class="t" x="160" y="187" text-anchor="middle">TEST NEXT</text>
+            <rect x="212" y="172" width="84" height="24" rx="3" fill="none" stroke="#3A3A36" class="lit" style="--dl:4.1s"/><text class="t" x="254" y="187" text-anchor="middle">SCALE A</text>
           </g>
         </svg>
       </figure>
     </div>
   </section>
 
-  <!-- 06 SCALE -->
+  <!-- 08 SCALE -->
   <section class="stage flip" id="scale">
     <div class="sp-wrap stage-grid">
       <div class="stage-copy">
         <p class="stage-num rv">08 — SCALE</p>
         <h2 class="stage-title rv rv-1">Grow what is proven.</h2>
-        <p class="stage-statement rv rv-2">Scaling is where most accounts break. Ours is measured, and always within budgets you approve.</p>
-        <p class="stage-body rv">We scale in two directions. Vertically, by raising budgets on proven campaigns in measured steps, so delivery stays stable. Horizontally, by carrying winning creative into new audiences, placements and markets.</p>
+        <p class="stage-statement rv rv-2">Scaling is where many accounts break, so it is planned in measured steps, and every spend decision stays yours.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></p>
+        <p class="stage-body rv">When something is working, we recommend how to grow it. Vertically, by raising budget on proven campaigns in measured steps, so delivery stays stable. Horizontally, by carrying winning creative into new audiences, placements and markets. You set the budget and approve every step.</p>
         <ul class="stage-list rv">
-          <li><b>VERTICAL</b>Budget increased in controlled steps, with performance checked at each one.</li>
-          <li><b>HORIZONTAL</b>Proven ads extended to new audiences, placements and regions.</li>
-          <li><b>AT SCALE</b>Active management of larger budgets, typically &pound;3,000 to &pound;10,000+ a month in ad spend, where small optimisations save thousands.</li>
-          <li><b>GUARDRAILS</b>Spend limits and approvals agreed with you before scaling begins.</li>
+          <li><b>VERTICAL</b><span>Recommendations for raising budget in controlled steps, reviewed at each one.</span></li>
+          <li><b>HORIZONTAL</b><span>Proven ads carried into new audiences, placements and regions.</span></li>
+          <li><b>ROADMAP</b><span>A testing and scaling roadmap for the quarter ahead.</span></li>
+          <li><b>YOUR DECISION</b><span>Budgets, limits and approvals always stay with you.</span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -748,18 +765,18 @@
     </div>
   </section>
 
-  <!-- 07 RECONNECT -->
+  <!-- 09 RECONNECT -->
   <section class="stage" id="reconnect">
     <div class="sp-wrap stage-grid">
       <div class="stage-copy">
         <p class="stage-num rv">09 — RECONNECT</p>
         <h2 class="stage-title rv rv-1">Bring them back.</h2>
-        <p class="stage-statement rv rv-2">Most people do not buy on their first visit. The system remembers them.</p>
-        <p class="stage-body rv">Visitors who viewed a product or left a basket are reached again with messages that match where they stopped: a reminder, a reassurance, a reason to return. Frequency is capped so it stays welcome, never intrusive.</p>
+        <p class="stage-statement rv rv-2">Most people do not buy on their first visit. A well-designed system remembers them.</p>
+        <p class="stage-body rv">We design retargeting journeys for people who viewed a product or left a basket, with messages matched to where they stopped: a reminder, a reassurance, a reason to return. Frequency is kept in check so it stays welcome, never intrusive.</p>
         <ul class="stage-list rv">
-          <li><b>VIEWED</b>A reminder of what caught their eye.</li>
-          <li><b>ADDED TO CART</b>Reassurance: delivery, returns, reviews, the finer details.</li>
-          <li><b>PURCHASED</b>Excluded from acquisition, or invited back at the right time.</li>
+          <li><b>VIEWED</b><span>A reminder of what caught their eye.</span></li>
+          <li><b>ADDED TO CART</b><span>Reassurance: delivery, returns, reviews, the finer details.</span></li>
+          <li><b>PURCHASED</b><span>Excluded from prospecting, or invited back at the right time.</span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -804,19 +821,19 @@
     </div>
   </section>
 
-  <!-- 08 REPORT & ARCHIVE -->
+  <!-- 10 REPORTING -->
   <section class="stage flip" id="archive">
     <div class="sp-wrap stage-grid">
       <div class="stage-copy">
-        <p class="stage-num rv">10 — REPORTING &amp; ARCHIVE</p>
+        <p class="stage-num rv">10 — REPORTING</p>
         <h2 class="stage-title rv rv-1">Clear reports. Clear next moves.</h2>
-        <p class="stage-statement rv rv-2">You always know what is happening, why, and what we recommend next.</p>
-        <p class="stage-body rv">Not a static PDF at the end of the month. You receive monthly or bi-weekly performance dashboards and recorded video walkthroughs that explain the data and our next strategic move: how to pivot, or how to scale, for the month ahead. Every winning hook, frame and edit is catalogued in your archive, so each new campaign starts from what has already been proven.</p>
+        <p class="stage-statement rv rv-2">You know what is happening, why, and what we recommend next.</p>
+        <p class="stage-body rv">Each month you receive a clear performance breakdown, as a written report or a recorded video walkthrough,<a class="fn" href="#note-8" aria-label="See note 8">*8</a> with strategic direction for the month ahead: what to test, what to pivot, and where to double down. Learnings are documented as they build, so each new campaign starts from what has already been learned, not from zero.</p>
         <ul class="stage-list rv">
-          <li><b>DASHBOARDS</b>Monthly or bi-weekly: spend, results and performance against target.</li>
-          <li><b>WALKTHROUGHS</b>Recorded video breakdowns of the numbers and what we will do next.</li>
-          <li><b>STRATEGY</b>Recommendations on how to pivot or scale for the following month.</li>
-          <li><b>ARCHIVE</b>A growing library of proven creative and learnings, owned by you.</li>
+          <li><b>MONTHLY BREAKDOWN</b><span>Performance, spend and results against the goals agreed with you.</span></li>
+          <li><b>STRATEGY CALL</b><span>A 60-minute strategy call each month to talk it through.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></span></li>
+          <li><b>DIRECTION</b><span>What to test, pivot or double down on next month.</span></li>
+          <li><b>LEARNINGS</b><span>Insights documented in your reports, so progress builds over time.</span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -839,7 +856,7 @@
           <rect class="gx" style="--dl:1.76s" x="34" y="141" width="60" height="2.4" rx="1.2" fill="#3A3A36"/>
           <g class="fi" style="--dl:1.9s"><rect x="34" y="152" width="60" height="28" rx="2" fill="none" stroke="#5C5C56" stroke-dasharray="2 2"/></g>
           <text class="t t-s fi" style="--dl:1.9s" x="100" y="168">INSIGHT</text>
-          <g class="fi" style="--dl:0.4s"><rect x="176" y="46" width="124" height="142" rx="4" fill="#0B0B0A" stroke="#3A3A36"/><text class="t t-b" x="186" y="62">ARCHIVE</text><text class="t t-s" x="290" y="62" text-anchor="end">OWNED BY YOU</text><line x1="186" y1="68" x2="290" y2="68" stroke="#262624"/></g>
+          <g class="fi" style="--dl:0.4s"><rect x="176" y="46" width="124" height="142" rx="4" fill="#0B0B0A" stroke="#3A3A36"/><text class="t t-b" x="186" y="62">LEARNINGS</text><text class="t t-s" x="290" y="62" text-anchor="end">DOCUMENTED</text><line x1="186" y1="68" x2="290" y2="68" stroke="#262624"/></g>
           <g class="fi" style="--dl:0.60s"><rect x="186" y="78" width="30" height="20" rx="1.5" fill="#111110" stroke="#2A2A27"/><rect x="189" y="81" width="7" height="14" fill="#3A3A36"/><rect x="199" y="83" width="13" height="1.8" fill="#4A4A45"/><rect x="199" y="88" width="9" height="1.8" fill="#3A3A36"/></g>
           <g class="fi" style="--dl:0.67s"><rect x="220" y="78" width="30" height="20" rx="1.5" fill="#111110" stroke="#2A2A27"/><rect x="223" y="81" width="7" height="14" fill="#3A3A36"/><rect x="233" y="83" width="13" height="1.8" fill="#4A4A45"/><rect x="233" y="88" width="9" height="1.8" fill="#3A3A36"/></g>
           <g class="fi" style="--dl:0.74s"><rect x="254" y="78" width="30" height="20" rx="1.5" fill="#111110" stroke="#2A2A27"/><rect x="257" y="81" width="7" height="14" fill="#3A3A36"/><rect x="267" y="83" width="13" height="1.8" fill="#4A4A45"/><rect x="267" y="88" width="9" height="1.8" fill="#3A3A36"/></g>
@@ -853,7 +870,7 @@
           <rect class="fi" style="--dl:1.2s" x="220" y="156" width="30" height="20" rx="1.5" fill="none" stroke="#5C5C56" stroke-dasharray="2 2"/>
           <g class="fi" style="--dl:1.30s"><rect x="254" y="156" width="30" height="20" rx="1.5" fill="#111110" stroke="#2A2A27"/><rect x="257" y="159" width="7" height="14" fill="#3A3A36"/><rect x="267" y="161" width="13" height="1.8" fill="#4A4A45"/><rect x="267" y="166" width="9" height="1.8" fill="#3A3A36"/></g>
           <circle class="ping" style="--dl:3.8s" cx="235" cy="166" r="14" fill="none" stroke="#F2F1EC" stroke-width="0.8"/>
-          <g class="fi" style="--dl:0.3s"><text class="t t-s" x="24" y="204">Plain-language findings</text><text class="t t-s" x="176" y="204">Every proven idea, kept</text></g>
+          <g class="fi" style="--dl:0.3s"><text class="t t-s" x="24" y="204">Plain-language findings</text><text class="t t-s" x="176" y="204">Every learning, documented</text></g>
           <g class="fly" style="--fly:spFile;--dl:2.4s"><rect x="34" y="152" width="60" height="28" rx="2" fill="#141413" stroke="#F2F1EC"/><rect x="39" y="157" width="14" height="18" fill="#F2F1EC" fill-opacity=".7"/><rect x="57" y="158" width="30" height="2.4" rx="1.2" fill="#cfcec8"/><rect x="57" y="164" width="22" height="2.4" rx="1.2" fill="#8A8A82"/><rect x="57" y="170" width="26" height="2.4" rx="1.2" fill="#3A3A36"/></g>
         </svg>
       </figure>
@@ -862,35 +879,35 @@
 
   <hr class="sp-rule">
 
-  <!-- INCLUDED -->
+  <!-- PROGRAMME -->
   <section class="inc">
     <div class="sp-wrap">
-      <p class="sec-kicker rv">THE SERVICE</p>
-      <h2 class="sec-title rv rv-1">What is included when we run your Meta advertising.</h2>
+      <p class="sec-kicker rv">THE PROGRAMME</p>
+      <h2 class="sec-title rv rv-1">What working together includes.<a class="fn" href="#note-1" aria-label="See note 1">*1</a></h2>
       <div class="inc-grid rv rv-2">
-        <div class="inc-item"><span class="inc-no">01</span><h3>STRATEGY AUDIT</h3><p>Website conversion rate, competitor ads and account history reviewed, and a tailored funnel strategy mapped.</p></div>
-        <div class="inc-item"><span class="inc-no">02</span><h3>SET UP &amp; TRACKING</h3><p>Meta Pixel, Conversions API, custom conversions, event tracking and offline events, installed and verified.</p></div>
-        <div class="inc-item"><span class="inc-no">03</span><h3>AUDIENCE ARCHITECTURE</h3><p>Buyer personas, Custom Audiences and Lookalikes, layered across the full funnel.</p></div>
-        <div class="inc-item"><span class="inc-no">04</span><h3>CAMPAIGNS &amp; COPY</h3><p>Campaign structure mapped, ad copy and headlines written, and A/B split tests set up.</p></div>
-        <div class="inc-item"><span class="inc-no">05</span><h3>DAILY MANAGEMENT</h3><p>Daily monitoring, budget pacing, shutting down what underperforms and scaling what wins.</p></div>
-        <div class="inc-item"><span class="inc-no">06</span><h3>REPORTING &amp; STRATEGY</h3><p>Dashboards, recorded walkthroughs and a clear recommendation for the month ahead.</p></div>
+        <div class="inc-item"><span class="inc-no">01</span><h3>STRATEGIC AUDIT</h3><p>Website conversion readiness, competitor research and a tailored funnel strategy.</p></div>
+        <div class="inc-item"><span class="inc-no">02</span><h3>SET UP &amp; TRACKING</h3><p>Business Portfolio, ad account, Pixel, Conversions API and custom event tracking, configured and tested.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></p></div>
+        <div class="inc-item"><span class="inc-no">03</span><h3>AUDIENCE ARCHITECTURE</h3><p>Buyer personas, Custom Audiences and Lookalikes, designed in layers.</p></div>
+        <div class="inc-item"><span class="inc-no">04</span><h3>CAMPAIGN STRATEGY</h3><p>Campaign architecture, A/B testing frameworks and messaging guidance.</p></div>
+        <div class="inc-item"><span class="inc-no">05</span><h3>TRAINING</h3><p>Your nominated team member trained to operate the system with confidence.</p></div>
+        <div class="inc-item"><span class="inc-no">06</span><h3>REVIEWS &amp; REPORTING</h3><p>Regular reviews, monthly breakdowns, recommendations and a monthly strategy call.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></p></div>
+      </div>
     </div>
   </section>
 
-  <!-- BEYOND THE STANDARD -->
+  <!-- ADVANCED SUPPORT -->
   <section class="adv">
     <div class="sp-wrap">
-      <p class="sec-kicker rv">BEYOND THE STANDARD</p>
-      <h2 class="sec-title rv rv-1">What sets the system apart.</h2>
+      <p class="sec-kicker rv">ADVANCED SUPPORT</p>
+      <h2 class="sec-title rv rv-1">For growing and established brands.</h2>
+      <p class="sec-lede rv rv-1">For businesses ready to scale spend and complexity, we also offer deeper technical and strategic work, scoped separately, by conversation, and quoted individually.<a class="fn" href="#note-10" aria-label="See note 10">*10</a></p>
       <div class="adv-grid rv rv-2">
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.30s;--du:1.1s" d="M6,8 H34 V18 H6 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.45s;--du:1.1s" d="M6,22 H34 V32 H6 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.60s;--du:1.1s" d="M28,13 H29 M28,27 H29" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.75s;--du:1.1s" d="M11,13 H20 M11,27 H20" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>ADVANCED DATA TRACKING</h3><p>Full Conversions API installation through server-side tracking, plus offline event tracking for sales made beyond the website.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.42s;--du:1.1s" d="M4,6 H36 L28,16 H12 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.57s;--du:1.1s" d="M12,20 H28 L24,27 H16 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.72s;--du:1.1s" d="M17,31 H23 L21,36 H19 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>COMPLEX FUNNEL ARCHITECTURE</h3><p>Cold traffic, retargeting and existing-customer retention campaigns managed simultaneously, top to bottom.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.54s;--du:1.1s" d="M6,34 V24 M14,34 V18 M22,34 V12 M30,34 V6" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.69s;--du:1.1s" d="M4,36 H36" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>HIGH BUDGET MANAGEMENT</h3><p>Active management of larger budgets, typically <strong>&pound;3,000 to &pound;10,000+ a month</strong> in ad spend, where micro-optimisations save thousands.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.66s;--du:1.1s" d="M4,6 H17 V34 H4 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.81s;--du:1.1s" d="M23,6 H36 V34 H23 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.96s;--du:1.1s" d="M20,4 V36" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.11s;--du:1.1s" d="M26,22 L29,25 L34,18" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>RIGOROUS A/B TESTING</h3><p>Continuous testing of hooks, copy angles, landing pages and audience segments, backed by data rather than guesswork.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.78s;--du:1.1s" d="M5,8 H35 V26 H18 L10,33 V26 H5 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.93s;--du:1.1s" d="M11,15 H29 M11,20 H23" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>HIGH-TOUCH COMMUNICATION</h3><p>Weekly call updates, and direct strategic advice on your wider marketing, offers and landing-page conversion rates.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.90s;--du:1.1s" d="M17,5 A12,12 0 1 1 16.99,5" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.05s;--du:1.1s" d="M25.5,25.5 L35,35" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.20s;--du:1.1s" d="M12,17 H22 M17,12 V22" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>DEEP-DIVE STRATEGY AUDITS</h3><p>At onboarding, not just a launch: your website&rsquo;s conversion rate audited, competitors&rsquo; ads analysed and a tailored funnel mapped.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:1.02s;--du:1.1s" d="M20,4 A16,16 0 1 1 19.99,4" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.17s;--du:1.1s" d="M20,11 A9,9 0 1 1 19.99,11" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.32s;--du:1.1s" d="M20,1 V8 M20,32 V39 M1,20 H8 M32,20 H39" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.47s;--du:1.1s" d="M16,20 L19,23 L25,16" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>PRECISE IMPLEMENTATION</h3><p>The Conversions API and event tracking for sales, leads and button clicks configured, tested and verified to the event.</p></div>
-        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:1.14s;--du:1.1s" d="M3,7 H37 V29 H3 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.29s;--du:1.1s" d="M17,13 L25,18 L17,23 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.44s;--du:1.1s" d="M13,35 H27" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>PROACTIVE WALKTHROUGHS</h3><p>Not a static PDF at the end of the month: recorded video walkthroughs that explain the data and our next strategic move.</p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.30s;--du:1.1s" d="M6,8 H34 V18 H6 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.45s;--du:1.1s" d="M6,22 H34 V32 H6 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.60s;--du:1.1s" d="M28,13 H29 M28,27 H29" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.75s;--du:1.1s" d="M11,13 H20 M11,27 H20" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>ADVANCED TRACKING</h3><p>Advanced server-side tracking (Conversions API via Stape or Meta&rsquo;s Gateway), offline event tracking and GA4 integration.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.42s;--du:1.1s" d="M4,6 H36 L28,16 H12 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.57s;--du:1.1s" d="M12,20 H28 L24,27 H16 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.72s;--du:1.1s" d="M17,31 H23 L21,36 H19 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>MULTI-STAGE FUNNELS</h3><p>Funnel design across cold traffic, retargeting and retention, built as one connected system.</p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.54s;--du:1.1s" d="M6,34 V24 M14,34 V18 M22,34 V12 M30,34 V6" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.69s;--du:1.1s" d="M4,36 H36" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>LARGER BUDGETS</h3><p>Support for larger advertising budgets, where deeper analysis and testing rigour matter most.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.66s;--du:1.1s" d="M3,7 H37 V29 H3 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.81s;--du:1.1s" d="M17,13 L25,18 L17,23 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.96s;--du:1.1s" d="M13,35 H27" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>ENHANCED REPORTING</h3><p>Custom live dashboards and more frequent recorded video walkthroughs.</p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.78s;--du:1.1s" d="M5,8 H35 V26 H18 L10,33 V26 H5 Z" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:0.93s;--du:1.1s" d="M11,15 H29 M11,20 H23" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>MORE FREQUENT CALLS</h3><p>Strategy calls every two weeks, for brands moving at pace.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></p></div>
+        <div class="adv-item"><svg viewBox="0 0 40 40" aria-hidden="true"><path class="dr" pathLength="100" style="--dl:0.90s;--du:1.1s" d="M17,5 A12,12 0 1 1 16.99,5" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.05s;--du:1.1s" d="M25.5,25.5 L35,35" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path class="dr" pathLength="100" style="--dl:1.20s;--du:1.1s" d="M12,17 H22 M17,12 V22" fill="none" stroke="#F2F1EC" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>BROADER CONSULTING</h3><p>Strategic advice across your offers, landing pages and wider marketing direction.</p></div>
       </div>
     </div>
   </section>
@@ -902,11 +919,11 @@
       <h2 class="sec-title rv rv-1">How working together unfolds.</h2>
       <div class="tl-track rv">
         <span class="tl-bar"></span>
-        <div class="tl-step" style="--k:0"><p class="tl-when">BEFORE</p><h3>DISCOVERY</h3><p>A private conversation about your brand, goals, margins and current advertising.</p></div>
-        <div class="tl-step" style="--k:1"><p class="tl-when">BEFORE</p><h3>AUDIT &amp; PROPOSAL</h3><p>A deep-dive audit of your website, competitors, tracking and past results, then a written proposal and funnel strategy.</p></div>
-        <div class="tl-step" style="--k:2"><p class="tl-when">WEEKS 1&ndash;2</p><h3>FOUNDATION</h3><p>Pixel, Conversions API, events, campaign structure and audiences set up and verified before spend begins.</p></div>
-        <div class="tl-step" style="--k:3"><p class="tl-when">FIRST MONTHS</p><h3>INVESTIGATION</h3><p>Controlled testing cycles to learn what works for your brand and your buyers.</p></div>
-        <div class="tl-step" style="--k:4"><p class="tl-when">ONGOING</p><h3>SCALE &amp; ARCHIVE</h3><p>Proven work scaled within agreed budgets, with weekly calls, dashboards and video walkthroughs throughout.</p></div>
+        <div class="tl-step" style="--k:0"><p class="tl-when">BEFORE</p><h3>DISCOVERY CALL</h3><p>A conversation about your brand, goals and current advertising, followed by a written proposal.</p></div>
+        <div class="tl-step" style="--k:1"><p class="tl-when">MONTH 1</p><h3>BUILD</h3><p>Accounts, tracking, audience framework, campaign architecture and initial strategy, then training for your team.</p></div>
+        <div class="tl-step" style="--k:2"><p class="tl-when">MONTH 2</p><h3>REVIEW &amp; IMPROVE</h3><p>Your first campaigns reviewed, with testing and structure recommendations and written action points.</p></div>
+        <div class="tl-step" style="--k:3"><p class="tl-when">MONTH 3</p><h3>OPTIMISE &amp; PLAN</h3><p>A broader review, a testing and scaling roadmap, and a plan for the next quarter.</p></div>
+        <div class="tl-step" style="--k:4"><p class="tl-when">ONGOING</p><h3>MONTHLY SUPPORT</h3><p>Reviews, reporting, recommendations and a strategy call each month, with reasonable support in between.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></p></div>
       </div>
     </div>
   </section>
@@ -915,32 +932,33 @@
   <section class="split">
     <div class="sp-wrap">
       <p class="sec-kicker rv">RESPONSIBILITIES</p>
-      <h2 class="sec-title rv rv-1">You keep the brand. We handle the system.</h2>
+      <h2 class="sec-title rv rv-1">You own it and run it. We build it and guide it.</h2>
       <div class="split-grid rv rv-2">
         <div class="split-col">
-          <h3>YOU PROVIDE</h3>
+          <h3>YOU</h3>
           <ul>
-            <li>Access to your Business Manager and ad account. You remain the owner throughout.</li>
-            <li>Advertising spend, paid directly to Meta and kept separate from our fees.</li>
-            <li>Raw images and videos, or the resources to produce them from our briefs.</li>
-            <li>Product, pricing, offer and margin information, and access to your website for tracking.</li>
-            <li>Timely feedback and approvals.</li>
+            <li>Ownership of your Business Portfolio, ad account, pages, pixel, audiences and data, throughout.</li>
+            <li>A nominated team member to create, publish and operate your campaigns, trained by us.<a class="fn" href="#note-5" aria-label="See note 5">*5</a></li>
+            <li>Your advertising spend, set by you and paid directly to Meta, separate from our fees.<a class="fn" href="#note-6" aria-label="See note 6">*6</a></li>
+            <li>Images and video, and final approval of every ad and every word that goes live.</li>
+            <li>Your website, landing pages, lead handling and customer service.</li>
+            <li>Decisions on which recommendations to put into practice.</li>
           </ul>
         </div>
         <div class="split-col">
-          <h3>WE HANDLE</h3>
+          <h3>WE</h3>
           <ul>
-            <li>Strategy audit, tracking, set up and account structure.</li>
-            <li>Audiences, campaign structure and testing plans.</li>
-            <li>Ad copy, headlines and primary text.</li>
-            <li>Monitoring, optimisation and scaling within approved budgets.</li>
-            <li>Retargeting journeys.</li>
-            <li>Reporting, video walkthroughs, weekly calls and your creative archive.</li>
-            <li>Strategic advice on your offers, landing pages and wider marketing.</li>
+            <li>Strategic audit and competitor research.</li>
+            <li>Account set up and tracking configuration.<a class="fn" href="#note-2" aria-label="See note 2">*2</a></li>
+            <li>Audience architecture and campaign structure.</li>
+            <li>Testing frameworks, messaging and creative guidance.</li>
+            <li>Training for your team.</li>
+            <li>Reviews, reporting, recommendations and a monthly strategy call.</li>
+            <li>Reasonable support by message or email during business hours.<a class="fn" href="#note-7" aria-label="See note 7">*7</a></li>
           </ul>
         </div>
       </div>
-      <p class="split-note rv">A note on results: advertising outcomes depend on many factors, including your product, pricing, website and market, and on Meta&rsquo;s own systems. We do not promise specific returns. We promise a disciplined system, honest reporting and decisions made on evidence.</p>
+      <p class="split-note rv">Advertising outcomes depend on many factors, including your product, pricing, website and market, and on Meta&rsquo;s own systems. We do not promise specific results. We offer a disciplined system, honest reporting and recommendations grounded in evidence.<a class="fn" href="#note-9" aria-label="See note 9">*9</a></p>
     </div>
   </section>
 
@@ -948,11 +966,30 @@
   <section class="sp-cta">
     <div class="sp-wrap">
       <h2 class="rv">Want to see the system on your brand?</h2>
-      <p class="rv rv-1">Tell us about your brand and where you are today. We will come back with an honest view of what the system could do for you.</p>
+      <p class="rv rv-1">Get in touch to talk through what your business actually needs. Every plan is built around your goals, not a fixed checklist.</p>
       <div class="rv rv-2">
-        <a class="sp-btn" href="mailto:enquire@yvishausens.com"><span>ENQUIRE</span></a>
-        <a class="sp-btn sp-btn--ghost" href="marketing.html"><span>BACK TO MARKETING</span></a>
+        <a class="sp-btn" href="book.html"><span>BOOK A CALL</span></a>
+        <a class="sp-btn sp-btn--ghost" href="mailto:enquire@yvishausens.com"><span>ENQUIRE</span></a>
       </div>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section class="notes" aria-label="Notes">
+    <div class="sp-wrap">
+      <p class="sec-kicker">NOTES</p>
+      <ol class="notes-list">
+        <li id="note-1"><span class="note-mark">*1</span><div><b>TAILORED SCOPE</b><p>Every programme is tailored. Account and tracking set up, initial strategy and campaign architecture, training and a monthly strategy call are included as standard. Other elements described on this page are provided where they are relevant to your account, industry and objectives. The exact scope is confirmed in writing before we begin.</p></div></li>
+        <li id="note-2"><span class="note-mark">*2</span><div><b>TRACKING</b><p>Tracking is configured to the extent your website platform and systems technically support it, and relies on Meta&rsquo;s own tools, which Meta may change. Advanced server-side set ups form part of Advanced Support.</p></div></li>
+        <li id="note-3"><span class="note-mark">*3</span><div><b>META</b><p>Meta is an independent, third-party platform. Ad approvals, account status, targeting options, delivery, attribution and reporting are controlled by Meta and can change without notice.</p></div></li>
+        <li id="note-4"><span class="note-mark">*4</span><div><b>CUSTOMER DATA</b><p>Customer lists and other personal data are only used where you have a lawful basis to do so, on your instruction, and kept to what is needed. You remain responsible for your customers&rsquo; data.</p></div></li>
+        <li id="note-5"><span class="note-mark">*5</span><div><b>OUR ROLE</b><p>Our role is infrastructure, strategy, training, reviews and recommendations. Your nominated team member creates, approves, publishes and operates your campaigns, and you decide whether and how to act on each recommendation. Day-to-day campaign management, daily monitoring and ad creation are not included unless agreed separately in writing.</p></div></li>
+        <li id="note-6"><span class="note-mark">*6</span><div><b>ADVERTISING SPEND</b><p>Advertising spend is set, controlled and paid by you, directly to Meta, and is separate from our fees. Budget, pacing and scaling guidance is a recommendation only; spend decisions remain yours.</p></div></li>
+        <li id="note-7"><span class="note-mark">*7</span><div><b>CALLS &amp; SUPPORT</b><p>The standard service includes one 60-minute strategy call each month. More frequent calls, such as every two weeks, can be arranged as part of Advanced Support. Reasonable support is provided by message or email during business hours. Response times are aims, not guarantees, and this is not a 24-hour or emergency service. Calls may be rescheduled, with notice, during illness or holidays.</p></div></li>
+        <li id="note-8"><span class="note-mark">*8</span><div><b>REPORTING</b><p>The format of your monthly breakdown, a written report or a recorded video walkthrough, is agreed with you.</p></div></li>
+        <li id="note-9"><span class="note-mark">*9</span><div><b>RESULTS</b><p>We do not guarantee any particular results, including impressions, clicks, leads, sales, revenue, cost per result or return on ad spend. Performance depends on many factors outside our control, including your product, pricing, website, market and Meta&rsquo;s own systems. Any forecasts, targets or benchmarks we share are estimates only. Figures shown in the illustrations on this page are illustrative and are not real client results.</p></div></li>
+        <li id="note-10"><span class="note-mark">*10</span><div><b>ADVANCED SUPPORT</b><p>Advanced Support is scoped, quoted and agreed in writing separately, and is only provided once agreed.</p></div></li>
+      </ol>
     </div>
   </section>
 
