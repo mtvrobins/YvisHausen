@@ -217,43 +217,39 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   --cr-squish:scaleY(0.84);
 }
 .cr-statue{
-  position:absolute; right:3%; bottom:0; width:86%; height:auto; pointer-events:none;
-  transform-origin:70% 60%;
-  transition:opacity 1.1s cubic-bezier(.16,.8,.24,1), transform 1.6s cubic-bezier(.16,.8,.24,1), filter 1.1s ease;
+  position:absolute; right:1.5%; bottom:-1.5%; width:86%; height:auto; pointer-events:none;
 }
 .cr-head{ position:absolute; left:3.6cqw; right:4cqw; top:4.2cqw; display:flex; align-items:baseline; justify-content:space-between; gap:3cqw; }
-.cr-title, .cr-year, .cr-label, .cr-desc{ font-family:"Rosie Brown", var(--serif); font-weight:400; }
+.cr-title, .cr-year{ font-family:"Rosie Brown", var(--serif); font-weight:400; }
+.cr-label, .cr-desc{ font-family:var(--serif); font-weight:400; }
 .cr-title{ margin:0; white-space:nowrap; font-size:7cqw; line-height:1; letter-spacing:0.01em; color:#2A2420; transform:var(--cr-squish); transform-origin:left top; }
 .cr-year{ font-size:2.5cqw; letter-spacing:0.06em; color:#2A2420; white-space:nowrap; transform:var(--cr-squish); transform-origin:right top; }
-.cr-links{ position:absolute; left:1cqw; top:16cqw; width:44cqw; display:flex; flex-direction:column; text-align:center; }
-.cr-link{ position:relative; display:block; min-height:16.5cqw; text-decoration:none; transition:opacity .7s ease; }
+.cr-links{ position:absolute; left:4cqw; top:15cqw; width:52cqw; display:flex; flex-direction:column; text-align:left; }
+.cr-link:nth-child(2){ margin-left:5cqw; }
+.cr-link:nth-child(3){ margin-left:10cqw; }
+.cr-link{ position:relative; display:block; min-height:16cqw; text-decoration:none; transition:opacity .5s ease; }
 .cr-label{
-  display:block; white-space:nowrap; font-size:3.5cqw; line-height:1.1; letter-spacing:0.035em; color:#7A1E1E;
-  transform:var(--cr-squish); transform-origin:center top;
-  transition:letter-spacing .9s cubic-bezier(.16,.8,.24,1), color .6s ease, text-shadow .9s ease;
+  display:block; white-space:nowrap; font-size:3.5cqw; line-height:1.1; letter-spacing:0.06em; color:#7A1E1E;
+  transform:var(--cr-squish); transform-origin:left top;
+  transition:color .45s ease;
 }
 .cr-desc{
-  display:block; margin:0.5cqw auto 0; max-width:42cqw; text-transform:uppercase;
-  font-size:2.15cqw; line-height:1.42; letter-spacing:0.04em; color:#5E534C;
-  transform:var(--cr-squish); transform-origin:center top;
-  clip-path:inset(0 50% 0 50%); opacity:0; filter:blur(3px);
-  transition:clip-path 1s cubic-bezier(.16,.8,.24,1), opacity .8s ease, filter 1s ease;
+  display:block; margin:0.6cqw 0 0; max-width:27cqw;
+  font-size:2.3cqw; line-height:1.4; letter-spacing:0.01em; color:#5E534C;
+  transform:var(--cr-squish); transform-origin:left top;
+  opacity:0; transition:opacity .5s ease;
 }
-/* hover: the title opens out from its centre and deepens like wet ink,
-   the subtitle unfolds from the middle outwards, the other categories
-   recede and the statue turns softly away */
-.cr-links:hover .cr-link, .cr-links:focus-within .cr-link{ opacity:0.28; }
+/* hover: quiet and simple. The title deepens, its subtitle fades in,
+   the other categories soften slightly. The statue stays as it is. */
+.cr-links:hover .cr-link, .cr-links:focus-within .cr-link{ opacity:0.45; }
 .cr-links .cr-link:hover, .cr-links .cr-link:focus-visible{ opacity:1; outline:none; }
-.cr-link:hover .cr-label, .cr-link:focus-visible .cr-label{
-  letter-spacing:0.075em; color:#4E0F0F; text-shadow:0 0 0.9cqw rgba(122,30,30,0.18);
-}
-.cr-link:hover .cr-desc, .cr-link:focus-visible .cr-desc{ clip-path:inset(0 0 0 0); opacity:1; filter:blur(0); transition-delay:.1s; }
-.tile-creative:has(.cr-link:hover) .cr-statue, .tile-creative:has(.cr-link:focus-visible) .cr-statue{
-  opacity:0.4; transform:translateX(2.5%) rotate(-1.6deg) scale(1.015); filter:grayscale(1) contrast(.9);
-}
+.cr-link:hover .cr-label, .cr-link:focus-visible .cr-label{ color:#4A0D0D; }
+.cr-link:hover .cr-desc, .cr-link:focus-visible .cr-desc{ opacity:1; }
 /* touch screens have no hover: keep the subtitles readable */
 @media (hover:none){
-  .cr-desc{ clip-path:none; opacity:0.95; filter:none; }
+  .tile-creative{ aspect-ratio:1/1.24; }
+  .cr-link{ min-height:19.5cqw; }
+  .cr-desc{ opacity:0.95; }
   .cr-links:hover .cr-link{ opacity:1; }
 }
 @media (prefers-reduced-motion: reduce){
