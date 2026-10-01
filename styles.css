@@ -218,10 +218,10 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
    across the top; the three categories sit in a centred column on the left
    with room beneath each for its subtitle. Container units keep the
    composition identical at every width. */
-.tiles-row{ grid-template-columns:0.8fr 1.22fr 0.7071fr; align-items:start; }
+.tiles-row{ grid-template-columns:0.7071fr 1.22fr 0.7071fr; align-items:start; }
 /* side tiles match the Creative House panel's height exactly */
 
-.tiles-row .tile{ aspect-ratio:0.8/1; }
+.tiles-row .tile{ aspect-ratio:1/1.4142; }
 .tiles-row .tile-creative{ aspect-ratio:1.22/1; }
 .tiles-row .tile-art{ aspect-ratio:1/1.4142; }
 .tile-creative{
@@ -236,9 +236,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .cr-statue{ height:auto; }
 /* a very faint blue veil, cut to the statue's own silhouette */
 .cr-tint{
-  aspect-ratio:1322/863; background:linear-gradient(160deg, #6F8DB8 0%, #4E6E9C 100%);
+  aspect-ratio:1322/863; background:linear-gradient(160deg, #7C8FA8 0%, #5D708C 100%);
   -webkit-mask:url("images/creative-statue.webp") center/100% 100% no-repeat; mask:url("images/creative-statue.webp") center/100% 100% no-repeat;
-  mix-blend-mode:color; opacity:0.13;
+  mix-blend-mode:color; opacity:0.36;
 }
 .cr-head{ position:absolute; left:3.3cqw; right:4cqw; top:3cqw; display:flex; align-items:baseline; justify-content:space-between; gap:3cqw; }
 /* Rosie Brown is a hairline display face: a fine stroke gives it the weight of the artwork */
@@ -305,18 +305,18 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .ac-sub{ margin-top:3.4cqw !important; font-size:3.2cqw; font-weight:600; letter-spacing:0.2em; margin-right:-0.2em !important; line-height:1; }
 /* the house block starts level with ART & CULTURAL, clear of the title */
 .ac-house{ position:absolute; left:4.5cqw; top:19.2cqw; }
-.ac-brand{ font-size:4.1cqw; font-weight:500; letter-spacing:0.16em; color:var(--ac-red); line-height:1; }
-.ac-division{ margin-top:1.8cqw !important; font-size:2.85cqw; font-weight:600; letter-spacing:0.1em; line-height:1; }
+.ac-brand{ font-size:3.6cqw; font-weight:500; letter-spacing:0.16em; color:var(--ac-red); line-height:1; }
+.ac-division{ margin-top:1.5cqw !important; font-size:2.4cqw; font-weight:600; letter-spacing:0.1em; line-height:1; }
 .ac-division em{ font-style:italic; font-weight:500; letter-spacing:0.03em; margin-left:1cqw; font-size:1.12em; }
-.ac-services{ list-style:none; margin-top:1.8cqw !important; }
-.ac-services li{ font-size:3.25cqw; font-weight:600; letter-spacing:0.07em; line-height:1.38; color:#24201C; }
+.ac-services{ list-style:none; margin-top:1.5cqw !important; }
+.ac-services li{ font-size:2.75cqw; font-weight:600; letter-spacing:0.07em; line-height:1.38; color:#24201C; }
 .ac-cities{
-  position:absolute; left:4.5cqw; right:4.5cqw; top:57cqw;
+  position:absolute; left:4.5cqw; right:4.5cqw; top:53cqw;
   display:flex; justify-content:space-between; align-items:center;
   font-size:3.3cqw; font-weight:600; letter-spacing:0.06em; color:var(--ac-red); line-height:1;
 }
 .ac-cities i{ font-style:normal; font-weight:700; }
-.ac-links{ position:absolute; left:0; right:0; top:68cqw; bottom:0; }
+.ac-links{ position:absolute; left:0; right:0; top:66cqw; bottom:0; }
 .ac-link{ position:absolute; display:block; width:56cqw; text-decoration:none; transition:opacity .25s ease; }
 .ac-link:nth-child(1){ left:6cqw; top:0; }
 .ac-link:nth-child(2){ left:21cqw; top:22.5cqw; }
@@ -339,6 +339,68 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .ac-links:hover .ac-link{ opacity:1; }
 }
 @media (prefers-reduced-motion: reduce){ .ac-link, .ac-label, .ac-desc{ transition:none; } }
+
+/* Operations tile: a grey paper sheet after the supplied design. Ghosted
+   YVIS HAUSEN and COMMUNICATIONS, a handwritten note, OPERATIONS held
+   between two halves of a globe, and the links stacked close together.
+   Hovering a link opens its subtitle and eases the others apart. */
+.tile-ops{
+  container-type:inline-size; overflow:hidden; padding:0; border-color:rgba(245,242,235,0.18);
+  background-color:#E5E2DD;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .4 0 0 0 0 .37 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(120% 90% at 50% 45%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #E8E5E0 0%, #E2DFDA 100%);
+  color:#45413E;
+}
+.op-ghost{
+  position:absolute; left:0; right:0; text-align:center; white-space:nowrap;
+  font-family:var(--serif); font-weight:700; color:#A9A5A0; opacity:0.6; filter:blur(0.55cqw); pointer-events:none;
+}
+.op-ghost-top{ top:15cqw; font-size:8.4cqw; letter-spacing:0.02em; }
+.op-ghost-bottom{ top:122cqw; font-size:7.2cqw; letter-spacing:0.01em; }
+.op-script{ position:absolute; left:52cqw; top:16.5cqw; width:37cqw; height:auto; opacity:0.92; pointer-events:none; }
+.op-whisper{
+  position:absolute; left:0; right:0; top:43cqw; text-align:center; font-family:var(--serif); font-size:1.7cqw;
+  letter-spacing:0.18em; color:#B3AFA9; filter:blur(0.18cqw); pointer-events:none;
+}
+.op-globe{ position:absolute; left:50%; width:26cqw; margin-left:-13cqw; color:#B9B5AF; pointer-events:none; }
+.op-globe svg{ display:block; width:100%; height:auto; overflow:visible; }
+.op-globe-top{ top:46.5cqw; }
+.op-globe-bottom{ top:66cqw; transform:scaleY(-1); }
+.op-title{
+  position:absolute; left:0; right:0; top:57.6cqw; margin:0; text-align:center;
+  font-family:var(--serif); font-weight:700; font-size:7.6cqw; letter-spacing:0.005em; line-height:1; color:#45413E;
+}
+.op-links{
+  position:absolute; left:50%; top:95cqw; width:52cqw; transform:translate(-50%,-50%);
+  padding:4.5cqw 3cqw; text-align:center; background:rgba(255,255,255,0.16);
+  display:flex; flex-direction:column; align-items:center;
+}
+.op-link{ display:block; text-decoration:none; padding:0.7cqw 0; transition:opacity .3s ease; }
+.op-label{
+  display:block; font-family:var(--sans); font-weight:600; font-size:3cqw; letter-spacing:0.09em; line-height:1.1;
+  color:#3E3B38; transition:color .25s ease;
+}
+/* the subtitle opens beneath its link and pushes the others apart */
+.op-desc{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s cubic-bezier(.16,.8,.24,1); }
+.op-desc > span{
+  overflow:hidden; min-height:0; display:block; max-width:44cqw; margin:0 auto;
+  font-family:var(--serif); font-style:italic; font-size:2.75cqw; line-height:1.4; color:#5A5551;
+  opacity:0; transition:opacity .3s ease;
+}
+.op-link:hover .op-desc, .op-link:focus-visible .op-desc{ grid-template-rows:1fr; }
+.op-link:hover .op-desc > span, .op-link:focus-visible .op-desc > span{ opacity:1; padding-top:1.2cqw; padding-bottom:1.4cqw; transition-delay:.08s; }
+.op-links:hover .op-link, .op-links:focus-within .op-link{ opacity:0.55; }
+.op-links .op-link:hover, .op-links .op-link:focus-visible{ opacity:1; outline:none; }
+.op-link:hover .op-label, .op-link:focus-visible .op-label{ color:#1F1D1B; }
+@media (hover:none){
+  .op-desc{ grid-template-rows:1fr; }
+  .op-desc > span{ opacity:0.9; padding-top:0.8cqw; padding-bottom:1.2cqw; }
+  .op-links{ top:97cqw; }
+}
+@media (max-width:900px){ .tiles-row .tile-ops{ aspect-ratio:1/1.4142; } }
+@media (prefers-reduced-motion: reduce){ .op-desc, .op-desc > span, .op-link, .op-label{ transition:none; } }
 
 /* ============ HOMEPAGE — DATABASE SECTION (reached on scroll) ============ */
 .database-section{ border-top:1px solid var(--hairline); }
