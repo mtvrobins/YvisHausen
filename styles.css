@@ -705,3 +705,47 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .page-ill .gx, .page-ill .gy, .page-ill .pop{ transform:none !important; opacity:1 !important; animation:none !important; }
   .page-ill .ripple, .page-ill .bar, .page-ill .flicker, .page-ill .sway, .page-ill .scan{ animation:none !important; }
 }
+
+/* ============ TALENT: coming-soon letter and division contact ============ */
+.talent-letter{ margin:34px auto 0; max-width:560px; }
+.talent-letter img{
+  display:block; width:100%; height:auto;
+  box-shadow:0 30px 70px rgba(0,0,0,0.6), 0 2px 0 rgba(255,255,255,0.03);
+  animation:letterIn 1.6s cubic-bezier(.16,.8,.24,1) both .2s;
+}
+@keyframes letterIn{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+.division-contact{ text-align:center; margin-top:10px; padding-top:44px; border-top:1px solid var(--hairline); }
+.division-contact .enquiry-heading{ margin:0 0 24px; }
+.division-btn{
+  display:inline-block; padding:13px 40px 12px; border:1px solid rgba(245,242,235,0.55);
+  font-family:var(--sans); font-size:10.5px; font-weight:500; letter-spacing:0.28em; color:var(--fg);
+  text-decoration:none; transition:background .35s ease, color .35s ease, border-color .35s ease;
+}
+.division-btn:hover, .division-btn:focus-visible{ background:var(--fg); color:#000; border-color:var(--fg); outline:none; }
+@media (prefers-reduced-motion: reduce){ .talent-letter img{ animation:none; } }
+/* talent illustration: spotlight walk, viewfinder, flash and polaroid */
+.page-ill .tspot{ opacity:0; transform:translateX(152px); }
+.page-ill.in .tspot{ animation:tSpot 6.2s cubic-bezier(.65,0,.35,1) 1.6s forwards; }
+@keyframes tSpot{
+  0%{ opacity:0; transform:translateX(152px); } 8%{ opacity:1; transform:translateX(152px); }
+  18%{ transform:translateX(152px); } 30%{ transform:translateX(236px); } 40%{ transform:translateX(236px); }
+  54%{ transform:translateX(404px); } 62%{ transform:translateX(404px); } 74%{ transform:translateX(488px); }
+  82%{ transform:translateX(488px); } 100%{ opacity:1; transform:translateX(320px); }
+}
+.page-ill .tvf{ opacity:0; transform-box:view-box; transform-origin:320px 176px; }
+.page-ill.in .tvf{ animation:tVf 1.3s cubic-bezier(.16,.8,.24,1) 8.1s forwards; }
+@keyframes tVf{ from{ opacity:0; transform:scale(2.6); } to{ opacity:.9; transform:scale(1); } }
+.page-ill .tflash{ opacity:0; pointer-events:none; }
+.page-ill.in .tflash{ animation:tFlash .9s ease-out 9.5s forwards; }
+@keyframes tFlash{ 0%{ opacity:0; } 12%{ opacity:.55; } 100%{ opacity:0; } }
+.page-ill .tpola{ opacity:0; transform-box:fill-box; transform-origin:50% 50%; }
+.page-ill.in .tpola{ animation:tPola 1.5s cubic-bezier(.16,.8,.24,1) 9.8s forwards; }
+@keyframes tPola{ from{ opacity:0; transform:translate(-60px,50px) rotate(-14deg) scale(.7); } to{ opacity:1; transform:translate(0,0) rotate(5deg) scale(1); } }
+.page-ill.in .tdev{ animation:tDev 3s ease 10.6s forwards; }
+@keyframes tDev{ to{ opacity:0; } }
+@media (prefers-reduced-motion: reduce){
+  .page-ill .tspot{ opacity:1; transform:translateX(320px); animation:none !important; }
+  .page-ill .tvf, .page-ill .tpola{ opacity:1 !important; transform:none !important; animation:none !important; }
+  .page-ill .tpola{ transform:rotate(5deg) !important; }
+  .page-ill .tdev{ opacity:0; animation:none !important; }
+}

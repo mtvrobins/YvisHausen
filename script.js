@@ -232,6 +232,7 @@ const I18N = {
 
     enquiry_heading:"Interested in working together?",
     enquiry_text:"For project enquiries, collaborations or further information, please get in touch with our team.",
+    division_more:"Want more information on this division?", contact_btn:"CONTACT",
     enquiry_link:"GET IN TOUCH"
   },
   fr: {
@@ -315,6 +316,7 @@ const I18N = {
 
     enquiry_heading:"Envie de collaborer ?",
     enquiry_text:"Pour toute demande de projet, collaboration ou information complémentaire, veuillez contacter notre équipe.",
+    division_more:"Vous souhaitez plus d'informations sur ce département ?", contact_btn:"CONTACT",
     enquiry_link:"NOUS CONTACTER"
   },
   it: {
@@ -398,6 +400,7 @@ const I18N = {
 
     enquiry_heading:"Interessati a collaborare?",
     enquiry_text:"Per richieste di progetto, collaborazioni o ulteriori informazioni, vi preghiamo di contattare il nostro team.",
+    division_more:"Desidera maggiori informazioni su questa divisione?", contact_btn:"CONTATTO",
     enquiry_link:"CONTATTACI"
   }
 };
