@@ -218,10 +218,12 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
    across the top; the three categories sit in a centred column on the left
    with room beneath each for its subtitle. Container units keep the
    composition identical at every width. */
-.tiles-row{ grid-template-columns:1fr 1.32fr 1.32fr; align-items:start; }
+.tiles-row{ grid-template-columns:0.8fr 1.22fr 0.7071fr; align-items:start; }
 /* side tiles match the Creative House panel's height exactly */
-.tiles-row .tile{ aspect-ratio:1.3/1.32; }
-.tiles-row .tile-creative, .tiles-row .tile-art{ aspect-ratio:1.3/1; }
+
+.tiles-row .tile{ aspect-ratio:0.8/1; }
+.tiles-row .tile-creative{ aspect-ratio:1.22/1; }
+.tiles-row .tile-art{ aspect-ratio:1/1.4142; }
 .tile-creative{
   container-type:inline-size; overflow:hidden; padding:0; border-color:rgba(245,242,235,0.18);
   background:
@@ -230,24 +232,31 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
     linear-gradient(140deg, #FDF8EE 0%, #FBF0E2 52%, #F9ECE4 100%);
   --cr-squish:scaleY(0.86);
 }
-.cr-statue{ position:absolute; right:4.6%; bottom:0; width:85%; height:auto; pointer-events:none; }
+.cr-statue, .cr-tint{ position:absolute; right:4.2%; bottom:-2.2cqw; width:85%; pointer-events:none; }
+.cr-statue{ height:auto; }
+/* a very faint blue veil, cut to the statue's own silhouette */
+.cr-tint{
+  aspect-ratio:1322/863; background:linear-gradient(160deg, #6F8DB8 0%, #4E6E9C 100%);
+  -webkit-mask:url("images/creative-statue.webp") center/100% 100% no-repeat; mask:url("images/creative-statue.webp") center/100% 100% no-repeat;
+  mix-blend-mode:color; opacity:0.13;
+}
 .cr-head{ position:absolute; left:3.3cqw; right:4cqw; top:3cqw; display:flex; align-items:baseline; justify-content:space-between; gap:3cqw; }
 /* Rosie Brown is a hairline display face: a fine stroke gives it the weight of the artwork */
 .cr-title, .cr-year{ font-family:"Rosie Brown", var(--serif); font-weight:400; -webkit-text-stroke:0.014em currentColor; paint-order:stroke fill; }
 .cr-title{ margin:0; white-space:nowrap; font-size:6.1cqw; line-height:1; letter-spacing:0.012em; color:#2A2420; transform:var(--cr-squish); transform-origin:left top; }
 .cr-year{ font-size:2.15cqw; letter-spacing:0.07em; color:#2A2420; white-space:nowrap; -webkit-text-stroke:0.02em currentColor; transform:var(--cr-squish); transform-origin:right top; }
-.cr-label, .cr-desc{ font-family:var(--serif); }
-.cr-links{ position:absolute; left:1cqw; top:12.6cqw; width:40.5cqw; display:flex; flex-direction:column; text-align:center; }
-.cr-link{ position:relative; display:block; min-height:12cqw; text-decoration:none; transition:opacity .5s ease; }
+.cr-label{ font-family:"Rosie Brown", var(--serif); }
+.cr-desc{ font-family:var(--serif); }
+.cr-links{ position:absolute; left:0; top:11.4cqw; width:43cqw; display:flex; flex-direction:column; text-align:center; }
+.cr-link{ position:relative; display:block; min-height:14.3cqw; text-decoration:none; transition:opacity .25s ease; }
 .cr-label{
-  display:block; white-space:nowrap; font-size:3.15cqw; font-weight:400; line-height:1.1; letter-spacing:0.045em; color:#7A1A1A; -webkit-text-stroke:0.016em currentColor;
-  transform:var(--cr-squish); transform-origin:center top; transition:color .45s ease;
+  display:block; white-space:nowrap; font-size:3.25cqw; font-weight:400; line-height:1.1; letter-spacing:0.04em; color:#7A1A1A; -webkit-text-stroke:0.012em currentColor;
+  transform:var(--cr-squish); transform-origin:center top; transition:color .2s ease;
 }
 .cr-desc{
-  display:block; margin:0.5cqw auto 0; max-width:37cqw;
-  font-size:1.95cqw; font-weight:400; line-height:1.4; letter-spacing:0.01em; color:#4F4540;
-  transform:var(--cr-squish); transform-origin:center top;
-  opacity:0; transition:opacity .5s ease;
+  display:block; margin:0.8cqw auto 0; max-width:41.5cqw;
+  font-size:2.12cqw; font-weight:400; line-height:1.48; letter-spacing:0.012em; color:#3B332E;
+  opacity:0; transition:opacity .18s ease;
 }
 /* hover: quiet and simple. The title deepens, its subtitle fades in,
    the other categories soften slightly. The statue stays as it is. */
@@ -263,13 +272,16 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 @media (max-width:900px){
   .tiles-row .tile{ aspect-ratio:1/1; }
   .tiles-row .tile-creative{ aspect-ratio:1/1.22; }
+  .tiles-row .tile-art{ aspect-ratio:1/1.4142; }
   .cr-title{ font-size:7.2cqw; }
   .cr-year{ font-size:2.5cqw; }
   .cr-links{ top:16cqw; width:52cqw; }
   .cr-link{ min-height:17cqw; }
   .cr-label{ font-size:3.9cqw; }
-  .cr-desc{ font-size:2.55cqw; max-width:48cqw; }
-  .cr-statue{ right:1.5%; width:92%; }
+  .cr-desc{ font-size:2.8cqw; max-width:50cqw; }
+  .cr-links{ top:14.5cqw; }
+  .cr-link{ min-height:20.5cqw; }
+  .cr-statue, .cr-tint{ right:1.5%; width:92%; }
 }
 @media (prefers-reduced-motion: reduce){
   .cr-statue, .cr-label, .cr-desc, .cr-link{ transition:none; }
@@ -288,34 +300,35 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   --ac-red:#931C1C;
 }
 .tile-art p, .tile-art ul{ margin:0; padding:0; }
-.ac-head{ position:absolute; left:3.4cqw; right:3.4cqw; top:3.6cqw; display:flex; justify-content:space-between; align-items:flex-start; }
-.ac-brand{ font-size:2.75cqw; font-weight:400; letter-spacing:0.2em; color:var(--ac-red); line-height:1; }
-.ac-division{ margin-top:0.9cqw !important; font-size:1.42cqw; font-weight:500; letter-spacing:0.12em; line-height:1; }
-.ac-division em{ font-style:italic; font-weight:400; letter-spacing:0.04em; margin-left:0.8cqw; font-size:1.18em; }
-.ac-services{ list-style:none; margin-top:0.8cqw !important; }
-.ac-services li{ font-size:1.42cqw; font-weight:500; letter-spacing:0.13em; line-height:1.36; }
-.ac-mast{ text-align:right; }
-.ac-curation{ font-size:7.6cqw; font-weight:400; letter-spacing:0.15em; margin-right:-0.15em !important; line-height:0.95; color:var(--ac-red); }
-.ac-sub{ margin-top:1.6cqw !important; font-size:2.4cqw; font-weight:400; letter-spacing:0.2em; margin-right:-0.2em !important; line-height:1; }
+.ac-mast{ position:absolute; right:4.5cqw; top:5cqw; text-align:right; }
+.ac-curation{ font-size:12.8cqw; font-weight:500; letter-spacing:0.1em; margin-right:-0.1em !important; line-height:0.9; color:var(--ac-red); }
+.ac-sub{ margin-top:3.4cqw !important; font-size:3.2cqw; font-weight:600; letter-spacing:0.2em; margin-right:-0.2em !important; line-height:1; }
+/* the house block starts level with ART & CULTURAL, clear of the title */
+.ac-house{ position:absolute; left:4.5cqw; top:19.2cqw; }
+.ac-brand{ font-size:4.1cqw; font-weight:500; letter-spacing:0.16em; color:var(--ac-red); line-height:1; }
+.ac-division{ margin-top:1.8cqw !important; font-size:2.85cqw; font-weight:600; letter-spacing:0.1em; line-height:1; }
+.ac-division em{ font-style:italic; font-weight:500; letter-spacing:0.03em; margin-left:1cqw; font-size:1.12em; }
+.ac-services{ list-style:none; margin-top:1.8cqw !important; }
+.ac-services li{ font-size:3.25cqw; font-weight:600; letter-spacing:0.07em; line-height:1.38; color:#24201C; }
 .ac-cities{
-  position:absolute; left:3.4cqw; right:3.4cqw; top:24.6cqw;
+  position:absolute; left:4.5cqw; right:4.5cqw; top:57cqw;
   display:flex; justify-content:space-between; align-items:center;
-  font-size:2.5cqw; font-weight:400; letter-spacing:0.14em; color:var(--ac-red); line-height:1;
+  font-size:3.3cqw; font-weight:600; letter-spacing:0.06em; color:var(--ac-red); line-height:1;
 }
-.ac-cities i{ font-style:normal; font-size:1.2em; }
-.ac-links{ position:absolute; left:0; right:0; top:34cqw; bottom:0; }
-.ac-link{ position:absolute; display:block; width:38cqw; text-decoration:none; transition:opacity .5s ease; }
-.ac-link:nth-child(1){ left:9cqw; top:0; }
-.ac-link:nth-child(2){ left:30cqw; top:13.5cqw; }
-.ac-link:nth-child(3){ left:51cqw; top:27cqw; }
+.ac-cities i{ font-style:normal; font-weight:700; }
+.ac-links{ position:absolute; left:0; right:0; top:68cqw; bottom:0; }
+.ac-link{ position:absolute; display:block; width:56cqw; text-decoration:none; transition:opacity .25s ease; }
+.ac-link:nth-child(1){ left:6cqw; top:0; }
+.ac-link:nth-child(2){ left:21cqw; top:22.5cqw; }
+.ac-link:nth-child(3){ left:36cqw; top:45cqw; }
 .ac-label{
-  display:block; white-space:nowrap; font-size:3.3cqw; font-weight:400; letter-spacing:0.22em; line-height:1;
-  color:#1D1A17; transition:color .45s ease;
+  display:block; white-space:nowrap; font-size:5cqw; font-weight:500; letter-spacing:0.15em; line-height:1;
+  color:#15120F; transition:color .2s ease;
 }
 .ac-desc{
-  display:block; margin-top:1.1cqw; max-width:36cqw;
-  font-size:1.95cqw; font-style:italic; font-weight:400; line-height:1.35; letter-spacing:0.01em; color:#4C433A;
-  opacity:0; transition:opacity .5s ease;
+  display:block; margin-top:1.6cqw; max-width:56cqw;
+  font-size:3.45cqw; font-style:italic; font-weight:500; line-height:1.38; letter-spacing:0.005em; color:#3A322B;
+  opacity:0; transition:opacity .18s ease;
 }
 .ac-links:hover .ac-link, .ac-links:focus-within .ac-link{ opacity:0.45; }
 .ac-links .ac-link:hover, .ac-links .ac-link:focus-visible{ opacity:1; outline:none; }
@@ -324,21 +337,6 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 @media (hover:none){
   .ac-desc{ opacity:0.95; }
   .ac-links:hover .ac-link{ opacity:1; }
-}
-@media (max-width:900px){
-  .tiles-row .tile-art{ aspect-ratio:1/1.22; }
-  .ac-brand{ font-size:3.6cqw; }
-  .ac-division, .ac-services li{ font-size:1.9cqw; }
-  .ac-curation{ font-size:8.6cqw; }
-  .ac-sub{ font-size:2.9cqw; }
-  .ac-cities{ top:33cqw; font-size:3cqw; }
-  .ac-links{ top:46cqw; }
-  .ac-link{ width:56cqw; }
-  .ac-link:nth-child(1){ left:7cqw; top:0; }
-  .ac-link:nth-child(2){ left:22cqw; top:24cqw; }
-  .ac-link:nth-child(3){ left:37cqw; top:48cqw; }
-  .ac-label{ font-size:4.3cqw; }
-  .ac-desc{ font-size:2.8cqw; max-width:54cqw; }
 }
 @media (prefers-reduced-motion: reduce){ .ac-link, .ac-label, .ac-desc{ transition:none; } }
 
