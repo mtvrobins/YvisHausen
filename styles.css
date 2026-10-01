@@ -203,40 +203,40 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   transition:opacity .3s ease, max-height .3s ease; margin-top:4px;
 }
 .tile-link:hover .tile-desc{ opacity:1; max-height:44px; }
-/* Creative House tile: laid out like the supplied artwork. The winged head
-   fills the lower right at full size; title and year run across the top;
-   the three categories sit centred in a column on the left, each with room
-   for its subtitle. Everything is Rosie Brown, squished a little vertically.
-   Sizes use container units so the composition scales with the tile. */
+/* Creative House tile: a landscape panel laid out like the supplied artwork.
+   The winged head fills the lower right at full size; title and year run
+   across the top; the three categories sit in a centred column on the left
+   with room beneath each for its subtitle. Container units keep the
+   composition identical at every width. */
+.tiles-row{ grid-template-columns:1fr 1.32fr 1fr; align-items:start; }
+/* side tiles match the Creative House panel's height exactly */
+.tiles-row .tile{ aspect-ratio:1.3/1.32; }
+.tiles-row .tile-creative{ aspect-ratio:1.3/1; }
 .tile-creative{
   container-type:inline-size; overflow:hidden; padding:0; border-color:rgba(245,242,235,0.18);
   background:
     radial-gradient(120% 90% at 12% 8%, #FFFBF1 0%, rgba(255,251,241,0) 62%),
     radial-gradient(95% 85% at 92% 96%, #FAEAE3 0%, rgba(250,234,227,0) 60%),
     linear-gradient(140deg, #FDF8EE 0%, #FBF0E2 52%, #F9ECE4 100%);
-  --cr-squish:scaleY(0.84);
+  --cr-squish:scaleY(0.86);
 }
-.cr-statue{
-  position:absolute; right:1.5%; bottom:-1.5%; width:86%; height:auto; pointer-events:none;
-}
-.cr-head{ position:absolute; left:3.6cqw; right:4cqw; top:4.2cqw; display:flex; align-items:baseline; justify-content:space-between; gap:3cqw; }
-.cr-title, .cr-year{ font-family:"Rosie Brown", var(--serif); font-weight:400; }
-.cr-label, .cr-desc{ font-family:var(--serif); font-weight:400; }
-.cr-title{ margin:0; white-space:nowrap; font-size:7cqw; line-height:1; letter-spacing:0.01em; color:#2A2420; transform:var(--cr-squish); transform-origin:left top; }
-.cr-year{ font-size:2.5cqw; letter-spacing:0.06em; color:#2A2420; white-space:nowrap; transform:var(--cr-squish); transform-origin:right top; }
-.cr-links{ position:absolute; left:4cqw; top:15cqw; width:52cqw; display:flex; flex-direction:column; text-align:left; }
-.cr-link:nth-child(2){ margin-left:5cqw; }
-.cr-link:nth-child(3){ margin-left:10cqw; }
-.cr-link{ position:relative; display:block; min-height:16cqw; text-decoration:none; transition:opacity .5s ease; }
+.cr-statue{ position:absolute; right:4.6%; bottom:0; width:85%; height:auto; pointer-events:none; }
+.cr-head{ position:absolute; left:3.3cqw; right:4cqw; top:3cqw; display:flex; align-items:baseline; justify-content:space-between; gap:3cqw; }
+/* Rosie Brown is a hairline display face: a fine stroke gives it the weight of the artwork */
+.cr-title, .cr-year{ font-family:"Rosie Brown", var(--serif); font-weight:400; -webkit-text-stroke:0.035em currentColor; paint-order:stroke fill; }
+.cr-title{ margin:0; white-space:nowrap; font-size:6.1cqw; line-height:1; letter-spacing:0.012em; color:#2A2420; transform:var(--cr-squish); transform-origin:left top; }
+.cr-year{ font-size:2.15cqw; letter-spacing:0.07em; color:#2A2420; white-space:nowrap; -webkit-text-stroke:0.045em currentColor; transform:var(--cr-squish); transform-origin:right top; }
+.cr-label, .cr-desc{ font-family:var(--serif); }
+.cr-links{ position:absolute; left:1cqw; top:12.6cqw; width:40.5cqw; display:flex; flex-direction:column; text-align:center; }
+.cr-link{ position:relative; display:block; min-height:12cqw; text-decoration:none; transition:opacity .5s ease; }
 .cr-label{
-  display:block; white-space:nowrap; font-size:3.5cqw; line-height:1.1; letter-spacing:0.06em; color:#7A1E1E;
-  transform:var(--cr-squish); transform-origin:left top;
-  transition:color .45s ease;
+  display:block; white-space:nowrap; font-size:3.15cqw; font-weight:700; line-height:1.1; letter-spacing:0.025em; color:#7A1A1A;
+  transform:var(--cr-squish); transform-origin:center top; transition:color .45s ease;
 }
 .cr-desc{
-  display:block; margin:0.6cqw 0 0; max-width:27cqw;
-  font-size:2.3cqw; line-height:1.4; letter-spacing:0.01em; color:#5E534C;
-  transform:var(--cr-squish); transform-origin:left top;
+  display:block; margin:0.5cqw auto 0; max-width:37cqw;
+  font-size:1.95cqw; font-weight:400; line-height:1.4; letter-spacing:0.01em; color:#4F4540;
+  transform:var(--cr-squish); transform-origin:center top;
   opacity:0; transition:opacity .5s ease;
 }
 /* hover: quiet and simple. The title deepens, its subtitle fades in,
@@ -247,10 +247,19 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .cr-link:hover .cr-desc, .cr-link:focus-visible .cr-desc{ opacity:1; }
 /* touch screens have no hover: keep the subtitles readable */
 @media (hover:none){
-  .tile-creative{ aspect-ratio:1/1.24; }
-  .cr-link{ min-height:19.5cqw; }
   .cr-desc{ opacity:0.95; }
   .cr-links:hover .cr-link{ opacity:1; }
+}
+@media (max-width:900px){
+  .tiles-row .tile{ aspect-ratio:1/1; }
+  .tiles-row .tile-creative{ aspect-ratio:1/1.22; }
+  .cr-title{ font-size:7.2cqw; }
+  .cr-year{ font-size:2.5cqw; }
+  .cr-links{ top:16cqw; width:52cqw; }
+  .cr-link{ min-height:17cqw; }
+  .cr-label{ font-size:3.9cqw; }
+  .cr-desc{ font-size:2.55cqw; max-width:48cqw; }
+  .cr-statue{ right:1.5%; width:92%; }
 }
 @media (prefers-reduced-motion: reduce){
   .cr-statue, .cr-label, .cr-desc, .cr-link{ transition:none; }
