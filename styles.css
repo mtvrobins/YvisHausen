@@ -358,23 +358,18 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   font-family:var(--serif); font-weight:700; color:#A9A5A0; opacity:0.6; filter:blur(0.55cqw); pointer-events:none;
 }
 .op-ghost-top{ top:15cqw; font-size:8.4cqw; letter-spacing:0.02em; }
-.op-ghost-bottom{ top:122cqw; font-size:7.2cqw; letter-spacing:0.01em; }
+.op-ghost-bottom{ top:117.5cqw; font-size:7.2cqw; letter-spacing:0.01em; }
 .op-script{ position:absolute; left:52cqw; top:16.5cqw; width:37cqw; height:auto; opacity:0.92; pointer-events:none; }
-.op-whisper{
-  position:absolute; left:0; right:0; top:43cqw; text-align:center; font-family:var(--serif); font-size:1.7cqw;
-  letter-spacing:0.18em; color:#B3AFA9; filter:blur(0.18cqw); pointer-events:none;
-}
-.op-globe{ position:absolute; left:50%; width:26cqw; margin-left:-13cqw; color:#B9B5AF; pointer-events:none; }
+/* one sphere with a band cut from its middle, where OPERATIONS sits */
+.op-globe{ position:absolute; left:50%; top:48.6cqw; width:25.4cqw; margin-left:-12.7cqw; color:#B7B3AD; pointer-events:none; }
 .op-globe svg{ display:block; width:100%; height:auto; overflow:visible; }
-.op-globe-top{ top:46.5cqw; }
-.op-globe-bottom{ top:66cqw; transform:scaleY(-1); }
 .op-title{
   position:absolute; left:0; right:0; top:57.6cqw; margin:0; text-align:center;
   font-family:var(--serif); font-weight:700; font-size:7.6cqw; letter-spacing:0.005em; line-height:1; color:#45413E;
 }
 .op-links{
   position:absolute; left:50%; top:95cqw; width:52cqw; transform:translate(-50%,-50%);
-  padding:4.5cqw 3cqw; text-align:center; background:rgba(255,255,255,0.16);
+  padding:4.5cqw 3cqw; text-align:center; background:rgba(255,255,255,0.09);
   display:flex; flex-direction:column; align-items:center;
 }
 .op-link{ display:block; text-decoration:none; padding:0.7cqw 0; transition:opacity .3s ease; }
@@ -386,7 +381,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .op-desc{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s cubic-bezier(.16,.8,.24,1); }
 .op-desc > span{
   overflow:hidden; min-height:0; display:block; max-width:44cqw; margin:0 auto;
-  font-family:var(--serif); font-style:italic; font-size:2.75cqw; line-height:1.4; color:#5A5551;
+  font-family:var(--sans); font-weight:400; font-size:2.45cqw; line-height:1.5; letter-spacing:0.02em; color:#5A5551;
   opacity:0; transition:opacity .3s ease;
 }
 .op-link:hover .op-desc, .op-link:focus-visible .op-desc{ grid-template-rows:1fr; }
