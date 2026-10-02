@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Yvis Hausen — Private</title>
+<!-- partial:head-icons -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192.png">
+<link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<!-- /partial:head-icons -->
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="private-gate">
+  <div class="code-modal open" id="gate" data-after="{{AFTER}}">
+    <form class="code-box" id="gateForm" autocomplete="off">
+      <p class="code-label">PRIVATE CODE</p>
+      <input type="password" class="code-input" id="gateInput" aria-label="Access code" autocomplete="off">
+      <p class="code-error" id="gateError">ACCESS DENIED</p>
+      {{NOTE}}
+      <a class="code-cancel" href="{{BACK}}">CANCEL</a>
+    </form>
+  </div>
+<script type="application/json" id="yh-payload">{{PAYLOAD}}</script>
+<script src="access.js"></script>
+<script>
+(function(){
+  var here = location.pathname.split('/').pop() || 'index.html';
+  var payload = JSON.parse(document.getElementById('yh-payload').textContent);
+  var form = document.getElementById('gateForm'), input = document.getElementById('gateInput');
+  var error = document.getElementById('gateError'), note = document.getElementById('gateNote');
+  var after = parseInt(document.getElementById('gate').getAttribute('data-after') || '2', 10);
+  var fails = 0, busy = false;
+  function open(html){ document.open(); document.write(html); document.close(); }
+  async function attempt(code, silent){
+    if(busy || !code) return;
+    busy = true;
+    try{
+      var html = await YHAccess.decrypt(payload, code);
+      YHAccess.remember(here, code);
+      open(html);
+    }catch(e){
+      if(!silent){
+        fails++; error.classList.add('show'); input.value = '';
+        if(note && fails >= after) note.classList.add('show');
+      }
+    }
+    busy = false;
+  }
+  var saved = YHAccess.recall(here);
+  if(saved) attempt(saved, true);
+  form.addEventListener('submit', function(e){ e.preventDefault(); attempt(input.value.trim()); });
+  input.addEventListener('input', function(){ if(input.value.length === 4) attempt(input.value.trim()); });
+  setTimeout(function(){ input.focus(); }, 60);
+})();
+</script>
+</body>
+</html>

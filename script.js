@@ -457,25 +457,12 @@ if(subtitleEl){
   }, 3400);
 }
 
-// ---------- Filing cabinet: private-code gate ----------
-// Each folder's access code lives here — currently all "0000", but every
-// folder already has its own entry, so assigning a folder a unique code
-// later is a one-line change, not a restructure.
-const FOLDER_CODES = {
-  'sound':'0000',
-  'visual-direction':'0000',
-  'scenography':'0000',
-  'talent-representation':'0000',
-  'event-curation':'0000',
-  'exhibitions':'0000',
-  'private-art':'0000'
-};
-
-// Other private areas outside the cabinet (e.g. the Engine on the Marketing
-// page) use the same modal: a link with data-gate="<key>" and its own code.
-const GATE_CODES = {
-  'engine':'0000'
-};
+// ---------- Private-code gate (filing cabinet and the Engine) ----------
+// No codes live in this file. Each private page is published encrypted
+// (see access.js and tools/build.py); a code is right only if it unlocks
+// the page. Codes of this length submit as soon as they are typed;
+// longer codes submit with Enter.
+const CODE_LENGTH = 4;
 
 let pendingFolder = null;   // folder key, or a gate { key, href }
 const codeModal = document.getElementById('codeModal');
@@ -513,25 +500,31 @@ function goToDatabase(folderKey){
   }
 }
 
-function expectedCode(){
-  if(!pendingFolder) return undefined;
-  return typeof pendingFolder === 'string' ? FOLDER_CODES[pendingFolder] : GATE_CODES[pendingFolder.key];
+function gateHref(target){
+  return typeof target === 'string' ? 'database-' + target + '.html' : target.href;
 }
 
-function submitCode(){
-  if(!pendingFolder) return;
-  const expected = expectedCode();
-  if(expected !== undefined && codeInput.value === expected){
-    const target = pendingFolder;
-    closeCodeModal();
-    if(typeof target === 'string') goToDatabase(target);
-    else window.location.href = target.href;
-  }else{
+let checking = false;
+async function submitCode(){
+  if(!pendingFolder || checking) return;
+  const code = codeInput.value.trim();
+  if(!code) return;
+  const target = pendingFolder, href = gateHref(target);
+  checking = true;
+  const ok = window.YHAccess ? await window.YHAccess.check(href, code) : null;
+  checking = false;
+  if(ok === false){
     failedAttempts++;
     codeError.classList.add('show');
     if(codeRestricted && failedAttempts >= restrictAfter) codeRestricted.classList.add('show');
     codeInput.value = '';
+    return;
   }
+  // unlocked (or could not be checked from here, in which case the page asks again)
+  if(window.YHAccess) window.YHAccess.remember(href, code);
+  closeCodeModal();
+  if(typeof target === 'string') goToDatabase(target);
+  else window.location.href = href;
 }
 
 document.querySelectorAll('.folder').forEach(f => {
@@ -548,8 +541,7 @@ if(codeCancel){ codeCancel.addEventListener('click', closeCodeModal); }
 if(codeInput){
   codeInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') submitCode(); });
   codeInput.addEventListener('input', () => {
-    const expected = expectedCode();
-    if(expected && codeInput.value.length === expected.length) submitCode();
+    if(codeInput.value.length === CODE_LENGTH) submitCode();
   });
 }
 if(codeModal){

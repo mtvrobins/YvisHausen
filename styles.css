@@ -953,3 +953,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .legal-facts div{ display:flex; gap:24px; padding:12px 0; border-bottom:1px solid var(--hairline); }
 .legal-facts dt{ flex:none; width:130px; font-family:var(--sans); font-size:9.5px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); padding-top:3px; }
 .legal-facts dd{ margin:0; font-family:var(--sans); font-size:14px; color:var(--fg); }
+
+/* locked private pages: the code box on a black page */
+body.private-gate{ background:#000; min-height:100vh; }
+.private-gate .code-box{ margin:0; }
