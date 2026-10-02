@@ -947,3 +947,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .page-ill .tpola{ transform:rotate(5deg) !important; }
   .page-ill .tdev{ opacity:0; animation:none !important; }
 }
+
+/* key facts at the top of a legal section */
+.legal-facts{ margin:0 0 26px; padding:0; border-top:1px solid var(--hairline); }
+.legal-facts div{ display:flex; gap:24px; padding:12px 0; border-bottom:1px solid var(--hairline); }
+.legal-facts dt{ flex:none; width:130px; font-family:var(--sans); font-size:9.5px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); padding-top:3px; }
+.legal-facts dd{ margin:0; font-family:var(--sans); font-size:14px; color:var(--fg); }

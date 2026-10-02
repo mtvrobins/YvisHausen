@@ -546,7 +546,7 @@
           <li><b>TEST</b><span>A controlled space for new ideas, with clear hypotheses and evaluation windows.</span></li>
           <li><b>SCALE</b><span>A separate space for what has proven itself.</span></li>
           <li><b>RETARGET</b><span>Warm audiences, reached with messages matched to where they left off.</span></li>
-          <li><b>TRAINING</b><span>Hands-on training so your nominated team member can operate the system.</span></li>
+          <li><b>TRAINING</b><span>Optional hands-on training and knowledge transfer for a nominated team member, so your business retains the capability to understand and operate the system independently if <span style="white-space:nowrap">required.<a class="fn" href="#note-1" aria-label="See note 1">*1</a></span></span></li>
         </ul>
       </div>
       <figure class="stage-ill rv" aria-hidden="true">
@@ -992,8 +992,8 @@
   <!-- NOTES -->
   <section class="notes" aria-label="Notes">
     <div class="sp-wrap">
-      <button class="notes-toggle" type="button" aria-expanded="false" aria-controls="notesBody"><span>TERMS AND CONDITIONS</span><i aria-hidden="true"></i></button>
-      <div class="notes-body" id="notesBody">
+      <button class="notes-toggle" type="button" aria-expanded="true" aria-controls="notesBody"><span>TERMS AND CONDITIONS</span><i aria-hidden="true"></i></button>
+      <div class="notes-body open" id="notesBody">
       <div class="notes-inner">
       <ol class="notes-list">
         <li id="note-1"><span class="note-mark">*1</span><div><b>TAILORED SCOPE</b><p>Every programme is tailored. Account and tracking set up, initial strategy and campaign architecture, training and a monthly strategy call are included as standard. Other elements described on this page are provided where they are relevant to your account, industry and objectives. The exact scope is confirmed in writing before we begin.</p></div></li>
@@ -1047,7 +1047,8 @@
         setTimeout(function(){ target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }, reduce ? 0 : 320);
       });
     });
-    if(/^#note-/.test(location.hash)) setNotes(true);
+    // the notes are open in the page itself (readable without scripts) and fold away here
+    setNotes(/^#note-/.test(location.hash));
 
     // reveal copy and start each illustration as it scrolls into view
     var io = new IntersectionObserver(function(entries){
