@@ -1,8 +1,9 @@
-/* Italiana (free, SIL Open Font License, fonts/Italiana-OFL.txt): the header
-   button. The YVIS HAUSEN wordmark itself is drawn artwork (tools/wordmark.py). */
+/* Playfair Display (free, SIL Open Font License, fonts/PlayfairDisplay-OFL.txt):
+   the header button. The YVIS HAUSEN wordmark is drawn artwork built on the
+   same letters (tools/wordmark.py). */
 @font-face{
-  font-family:"YH Italiana";
-  src:url("fonts/Italiana.woff2") format("woff2");
+  font-family:"YH Playfair";
+  src:url("fonts/PlayfairDisplay.woff2") format("woff2");
   font-weight:400; font-style:normal; font-display:swap;
 }
 
@@ -105,7 +106,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 .bar-center{ justify-self:center; }
 .enquire-btn{
-  font-family:"YH Italiana", var(--serif); font-size:11px; letter-spacing:0.16em;
+  font-family:"YH Playfair", var(--serif); font-size:10.5px; letter-spacing:0.16em;
   color:var(--fg); border:1px solid var(--fg); padding:6px 14px;
   white-space:nowrap; transition:background .3s ease, color .3s ease;
 }
