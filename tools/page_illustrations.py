@@ -87,42 +87,47 @@ def visual():
 # ------------------------------------------------------------------ SCENOGRAPHY
 def sceno():
     o = []
-    o.append('<defs><linearGradient id="scCone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".22"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></linearGradient>'
-             '<radialGradient id="scPool"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".18"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient></defs>')
-    # room in one-point perspective
-    o.append(f'<rect class="fi" x="230" y="70" width="180" height="110" fill="{BG}" stroke="{M2}"/>')
-    for k, d in enumerate(['M230,70 L40,8', 'M410,70 L600,8', 'M230,180 L60,292', 'M410,180 L580,292']):
-        o.append(dr(d, 0.1 + k * 0.1, 1.2, M2))
-    o.append(dr('M60,292 L580,292', 0.5, 1.2, M2))
-    for i in range(1, 8):
-        o.append(dr(f'M{230+i*22.5},180 L{60+i*65},292', 0.7 + i * 0.05, 1.0, '#1C1C1A', 0.8))
-    for k, t in enumerate([0.14, 0.34, 0.62]):
-        y = 180 + t * 112
-        xl, xr = 230 - t * 170, 410 + t * 170
-        o.append(dr(f'M{xl:.1f},{y:.1f} L{xr:.1f},{y:.1f}', 0.9 + k * 0.1, 1.0, '#1C1C1A', 0.8))
-    o.append(f'<polygon class="fi" style="--dl:1.2s" points="305,180 335,180 372,292 268,292" fill="#121211" stroke="{M2}" stroke-width="0.8"/>')
-    # back wall screen
-    o.append(f'<g class="fi" style="--dl:1.0s"><rect x="268" y="88" width="104" height="64" fill="#0E0E0D" stroke="{M1}"/>'
-             f'<path d="M276,140 L300,112 L318,128 L334,114 L364,140" fill="none" stroke="{M3}"/><circle cx="350" cy="102" r="5" fill="none" stroke="{M3}"/></g>')
-    # plinths with objects
-    o.append(f'<g class="fi" style="--dl:1.4s"><path d="M124,238 L162,238 L172,230 L134,230 Z" fill="#141413" stroke="{M2}" stroke-width="0.8"/><rect x="124" y="238" width="38" height="36" fill="#0E0E0D" stroke="{M2}" stroke-width="0.8"/><path d="M162,238 L172,230 L172,264 L162,274 Z" fill="#0A0A0A" stroke="{M2}" stroke-width="0.8"/><circle cx="148" cy="220" r="10" fill="none" stroke="{C2}"/></g>')
-    o.append(f'<g class="fi" style="--dl:1.5s"><path d="M478,238 L516,238 L506,230 L468,230 Z" fill="#141413" stroke="{M2}" stroke-width="0.8"/><rect x="478" y="238" width="38" height="36" fill="#0E0E0D" stroke="{M2}" stroke-width="0.8"/><path d="M478,238 L468,230 L468,264 L478,274 Z" fill="#0A0A0A" stroke="{M2}" stroke-width="0.8"/><path d="M490,230 C484,214 490,200 494,194 C498,200 504,214 498,230 Z" fill="none" stroke="{C2}"/></g>')
-    # truss and swaying lights
-    o.append(dr('M150,34 L490,34', 0.4, 1.2, M1, 1.2))
-    for k, (x, r0, r1, d) in enumerate([(200, -4, 14, 5.2), (320, -9, 9, 6.4), (440, -14, 4, 5.8)]):
-        o.append(f'<g class="sway" style="--ox:{x}px;--oy:38px;--r0:{r0}deg;--r1:{r1}deg;--d:{d}s;--dl:{-k*1.3}s">'
-                 f'<g class="fi" style="--dl:{1.8+k*0.2:.1f}s"><polygon points="{x-3},41 {x+3},41 {x+46},246 {x-46},246" fill="url(#scCone)"/>'
-                 f'<ellipse cx="{x}" cy="248" rx="54" ry="10" fill="url(#scPool)"/></g></g>')
-        o.append(f'<path class="pop" style="--dl:{1.6+k*0.15:.2f}s" d="M{x-6},34 L{x+6},34 L{x+4},42 L{x-4},42 Z" fill="{FG}"/>')
-    # figure walking the runway
-    o.append('<g class="flow" style="--dl:2.6s"><g>'
-             f'<circle cx="0" cy="-15" r="3" fill="{FG}"/><path d="M0,-12 L0,0 M0,-9 L-4,-3 M0,-9 L4,-3 M0,0 L-3,9 M0,0 L3,9" stroke="{FG}" stroke-width="1.3" stroke-linecap="round" fill="none"/>'
-             '<animateTransform attributeName="transform" type="scale" values="0.55;1.35" dur="7s" repeatCount="indefinite"/>'
-             '<animateMotion path="M320,176 L320,268" dur="7s" repeatCount="indefinite"/>'
-             '<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.85;1" dur="7s" repeatCount="indefinite"/></g></g>')
-    o.append(txt(496, 30, 'LIGHT', 't t-s', 'start', 1.6))
-    o.append(txt(320, 64, 'BACK WALL', 't t-s', 'middle', 1.1))
-    o.append(txt(380, 288, 'RUNWAY', 't t-s', 'start', 1.3))
+    o.append('<defs>'
+             '<radialGradient id="scDisc"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".30"/><stop offset=".55" stop-color="#F2F1EC" stop-opacity=".08"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient>'
+             '<linearGradient id="scBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".16"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></linearGradient>'
+             '<linearGradient id="scFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+             '<mask id="scRefl" maskUnits="userSpaceOnUse" x="0" y="232" width="640" height="70"><rect x="0" y="232" width="640" height="70" fill="url(#scFade)"/></mask>'
+             '</defs>')
+    VX, VY = 320, 150
+    # the horizon and a polished floor running to the vanishing point
+    o.append(dr('M40,232 L600,232', 0.1, 1.6, M3, 0.8))
+    for i in range(-6, 7):
+        x2 = VX + i * 48
+        o.append(dr(f'M{VX + i * 9},232 L{x2},300', 0.4 + abs(i) * 0.05, 1.0, '#1A1A18', 0.7))
+    # the back wall: a disc of light, breathing slowly
+    o.append(f'<circle class="fi breathe" style="--dl:0.6s;--d:7s;--a:.6" cx="{VX}" cy="118" r="96" fill="url(#scDisc)"/>')
+    o.append(dr(f'M{VX - 54},118 a54,54 0 1 0 108,0 a54,54 0 1 0 -108,0', 0.5, 2.2, M2, 0.8))
+    o.append(dr(f'M{VX - 38},118 a38,38 0 1 0 76,0 a38,38 0 1 0 -76,0', 0.8, 2.0, M3, 0.6))
+    # a corridor of arches, receding: you walk through the world
+    arches = [(232, 236, 172, 1.0), (214, 170, 128, 1.3), (204, 120, 96, 1.6), (198, 84, 70, 1.9)]
+    refl = []
+    for k, (base, w, h, dl) in enumerate(arches):
+        x0, x1 = VX - w / 2, VX + w / 2
+        r = w / 2
+        d = f'M{x0:.1f},{base} L{x0:.1f},{base - h + r:.1f} A{r:.1f},{r:.1f} 0 0 1 {x1:.1f},{base - h + r:.1f} L{x1:.1f},{base}'
+        col = [FG, C2, M1, M2][k]
+        o.append(dr(d, dl, 1.6, col, [1.3, 1.0, 0.8, 0.7][k]))
+        refl.append(f'<path d="{d}" fill="none" stroke="{M2}" stroke-width="0.8"/>')
+    o.append(f'<g class="fi" style="--dl:2.4s" mask="url(#scRefl)"><g transform="translate(0,464) scale(1,-1)" opacity=".45">{"".join(refl)}</g></g>')
+    # two slender lights sweeping softly across the space
+    for k, (x, r0, r1, d) in enumerate([(130, -10, 16, 7.5), (510, -16, 10, 8.5)]):
+        o.append(f'<g class="sway" style="--ox:{x}px;--oy:20px;--r0:{r0}deg;--r1:{r1}deg;--d:{d}s;--dl:{-k * 2}s">'
+                 f'<g class="fi" style="--dl:{2.2 + k * 0.2:.1f}s"><polygon points="{x - 2},22 {x + 2},22 {x + 60},232 {x - 60},232" fill="url(#scBeam)"/></g></g>')
+        o.append(f'<path class="pop" style="--dl:{2.0 + k * 0.15:.2f}s" d="M{x - 5},14 L{x + 5},14 L{x + 3},22 L{x - 3},22 Z" fill="{FG}"/>')
+    # a figure walks out through the arches towards you
+    o.append('<g class="flow" style="--dl:3s"><g>'
+             f'<circle cx="0" cy="-15" r="3" fill="{FG}"/><path d="M0,-12 L0,0 M0,-9 L-3.5,-3 M0,-9 L3.5,-3 M0,0 L-2.6,9 M0,0 L2.6,9" stroke="{FG}" stroke-width="1.2" stroke-linecap="round" fill="none"/>'
+             '<animateTransform attributeName="transform" type="scale" values="0.45;1.5" dur="9s" repeatCount="indefinite"/>'
+             '<animateMotion path="M320,190 L320,282" dur="9s" repeatCount="indefinite"/>'
+             '<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="9s" repeatCount="indefinite"/></g></g>')
+    o.append(txt(140, 10, 'LIGHT', 't t-s', 'middle', 2.2))
+    o.append(txt(VX, 50, 'BACK WALL', 't t-s', 'middle', 1.0))
+    o.append(txt(470, 266, 'RUNWAY', 't t-s', 'start', 2.6))
     return o, 'FIG. — A WORLD, BUILT TO BE WALKED THROUGH'
 
 # ------------------------------------------------------------------ TALENT
@@ -162,106 +167,75 @@ def figure(x, kind, hair, stroke=C2, cls_dr=True, dl=0.0, w=0.9):
     return o
 
 def talent():
+    """Three portrait frames; the casting settles on one. Fine lines, quiet motion."""
     o = []
-    CH = '#D9CCAE'   # champagne, used only for the chosen one
-    o.append('<defs>'
-             '<linearGradient id="tFig" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E1E1C"/><stop offset="1" stop-color="#0B0B0A"/></linearGradient>'
-             '<linearGradient id="tCone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".26"/><stop offset=".85" stop-color="#F2F1EC" stop-opacity=".05"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></linearGradient>'
-             '<radialGradient id="tPool"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".32"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient>'
-             f'<radialGradient id="tHalo"><stop offset="0" stop-color="{CH}" stop-opacity=".22"/><stop offset="1" stop-color="{CH}" stop-opacity="0"/></radialGradient>'
-             '<radialGradient id="tBack" cx=".5" cy=".75" r=".6"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".06"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient>'
-             '<linearGradient id="tFloor" x1="0" x2="1"><stop offset="0" stop-color="#F2F1EC" stop-opacity="0"/><stop offset=".5" stop-color="#F2F1EC" stop-opacity=".35"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></linearGradient>'
-             '<linearGradient id="tReflG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
-             '<mask id="tRefl" maskUnits="userSpaceOnUse" x="0" y="262" width="640" height="60"><rect x="0" y="262" width="640" height="60" fill="url(#tReflG)"/></mask>'
-             '</defs>')
-    # the studio: cyclorama glow, glossy floor, height rule
-    o.append('<rect class="fi" x="0" y="40" width="640" height="240" fill="url(#tBack)"/>')
-    o.append('<rect class="fi" style="--dl:.2s" x="40" y="261.5" width="560" height="1" fill="url(#tFloor)"/>')
-    o.append(dr('M58,90 L58,262', 0.3, 1.6, M3, 0.8))
-    for k in range(19):
-        y = 262 - k * 9.55
-        o.append(f'<line class="fi" style="--dl:{0.4+k*0.04:.2f}s" x1="58" y1="{y:.1f}" x2="{62 if k % 4 else 66}" y2="{y:.1f}" stroke="{M3}" stroke-width="0.8"/>')
-    for k, cm in enumerate([180, 140, 100, 60, 20]):
-        y = 262 - cm * 0.955
-        o.append(txt(70, y + 2.2, str(cm), 't t-s', 'start', 0.6 + k * 0.05))
-    o.append(txt(58, 80, 'CM', 't t-s', 'middle', 0.5))
-    # the lineup
-    line = [(152, 'coat', 'brim'), (236, 'slip', 'long'), (320, 'gown', 'bun'), (404, 'suit', 'none'), (488, 'slip', 'bun')]
-    chosen = 2
-    refl_parts = []
-    for k, (x, kind, hair) in enumerate(line):
-        dl = 0.6 + k * 0.18
-        parts = ''.join(figure(x, kind, hair, dl=dl))
-        num = txt(x, 74, f'{k+1:02d}', 't t-s', 'middle', dl + 0.6)
-        g = f'<g class="fi" style="--dl:{dl:.2f}s">{parts}</g>{num}'
-        o.append(g if k == chosen else f'<g class="dim" style="--dl:7.6s">{g}</g>')
-        refl_parts.append(''.join(figure(x, kind, hair, stroke=M2, cls_dr=False)))
-    # glossy floor reflection of the lineup
-    o.append(f'<g class="fi" style="--dl:1.4s" mask="url(#tRefl)"><g transform="translate(0,524) scale(1,-1)" opacity=".5">{"".join(refl_parts)}</g></g>')
-    # the spotlight that walks the line and settles on the chosen one
-    o.append('<g class="tspot">'
-             '<polygon points="-3,24 3,24 54,262 -54,262" fill="url(#tCone)"/><path d="M-6,16 L6,16 L4,24 L-4,24 Z" fill="#F2F1EC" opacity=".85"/>'
-             '<ellipse cx="0" cy="263" rx="64" ry="9" fill="url(#tPool)"/></g>')
-    # chosen: champagne halo and a lit outline drawn over her
-    o.append(f'<g class="fi" style="--dl:7.6s"><ellipse class="flicker" style="--d:3.4s;--a:.55" cx="320" cy="176" rx="46" ry="98" fill="url(#tHalo)"/></g>')
-    o.append(f'<g class="fi" style="--dl:7.7s">' + ''.join(figure(320, 'gown', 'bun', stroke=FG, cls_dr=False, w=1.1)) + '</g>')
-    o.append(txt(320, 74, '03', 't t-b t-s', 'middle', 7.7))
-    # dust drifting in the beam once it settles
-    motes = []
-    for k, (mx, my, dx, dy, d) in enumerate([(306, 120, 6, -30, 7), (330, 160, -8, -26, 9), (316, 210, 5, -34, 8), (338, 110, -4, -20, 6.5), (302, 180, 9, -28, 10), (324, 236, -6, -30, 7.5)]):
-        motes.append(f'<circle r="{0.7 + (k % 3) * 0.25:.2f}" fill="{FG}" opacity=".6"><animateMotion dur="{d}s" repeatCount="indefinite" path="M{mx},{my} q{dx},{dy/2} {dx/2},{dy}"/>'
-                     f'<animate attributeName="opacity" values="0;.7;0" dur="{d}s" repeatCount="indefinite"/></circle>')
-    o.append(f'<g class="flow" style="--dl:8s">{"".join(motes)}</g>')
-    # viewfinder closing in
-    bx0, by0, bx1, by1 = 288, 82, 352, 270
-    br = (f'M{bx0},{by0+12} L{bx0},{by0} L{bx0+12},{by0} M{bx1-12},{by0} L{bx1},{by0} L{bx1},{by0+12} '
-          f'M{bx0},{by1-12} L{bx0},{by1} L{bx0+12},{by1} M{bx1-12},{by1} L{bx1},{by1} L{bx1},{by1-12} '
-          f'M316,176 L324,176 M320,172 L320,180')
-    o.append(f'<path class="tvf" d="{br}" fill="none" stroke="{FG}" stroke-width="1"/>')
-    # the flash, then a polaroid slides out and develops
-    o.append(f'<rect class="tflash" x="0" y="20" width="640" height="290" fill="{FG}"/>')
-    px, py = 548, 132
-    mini = ''.join(figure(320, 'gown', 'bun', stroke=C2, cls_dr=False, w=2.4))
-    o.append(f'<g class="tpola">'
-             f'<rect x="{px}" y="{py}" width="68" height="92" fill="#ECE9E1"/>'
-             f'<rect x="{px+6}" y="{py+6}" width="56" height="58" fill="#0D0D0C"/>'
-             f'<g transform="translate({px+34},{py+36}) scale(.3) translate(-320,-176)">{mini}</g>'
-             f'<rect class="tdev" x="{px+6}" y="{py+6}" width="56" height="58" fill="#DCD8CE"/>'
-             f'<text x="{px+9}" y="{py+77}" style="font:italic 9px var(--serif);fill:#3A3A36">N&#186; 03</text>'
-             f'<text x="{px+9}" y="{py+86}" style="font:500 4.4px var(--sans);letter-spacing:.24em;fill:#5C5C56">SELECTED</text>'
-             f'</g>')
-    o.append(txt(320, 304, 'CASTING &#183; FASHION &#183; FILM', 't', 'middle', 1.0))
+    o.append('<defs><radialGradient id="tGlow"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".16"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient>'
+             '<linearGradient id="tFig" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151514"/><stop offset="1" stop-color="#0B0B0A"/></linearGradient></defs>')
+    frames = [(200, 'coat', 'brim'), (320, 'gown', 'bun'), (440, 'suit', 'none')]
+    for k, (x, kind, hair) in enumerate(frames):
+        dl = 0.2 + k * 0.25
+        frame = dr(f'M{x - 50},64 L{x + 50},64 L{x + 50},272 L{x - 50},272 Z', dl, 1.6, M3, 0.8)
+        fig = ''.join(figure(x, kind, hair, stroke=C2 if k == 1 else M1, dl=dl + 0.4, w=0.8))
+        num = txt(x, 54, f'{k + 2:02d}', 't t-s', 'middle', dl + 0.6)
+        g = f'{frame}{fig}{num}'
+        o.append(g if k == 1 else f'<g class="dim" style="--dl:3.6s">{g}</g>')
+    # the chosen frame: a soft light behind, the frame drawn in white
+    o.append(f'<g class="fi" style="--dl:3.6s"><ellipse class="breathe" style="--d:5s;--a:.5" cx="320" cy="170" rx="70" ry="110" fill="url(#tGlow)"/></g>')
+    o.append(dr('M270,64 L370,64 L370,272 L270,272 Z', 3.7, 1.4, FG, 1))
+    # the viewfinder closes in on her
+    bx0, by0, bx1, by1 = 262, 56, 378, 280
+    br = (f'M{bx0},{by0 + 14} L{bx0},{by0} L{bx0 + 14},{by0} M{bx1 - 14},{by0} L{bx1},{by0} L{bx1},{by0 + 14} '
+          f'M{bx0},{by1 - 14} L{bx0},{by1} L{bx0 + 14},{by1} M{bx1 - 14},{by1} L{bx1},{by1} L{bx1},{by1 - 14}')
+    o.append(f'<path class="vf" style="--dl:4.4s;--ox:320px;--oy:168px;--s0:1.7" d="{br}" fill="none" stroke="{FG}" stroke-width="1"/>')
+    # quiet annotation beneath the chosen frame
+    o.append(f'<text class="t-serif fi" style="--dl:5.6s;font-size:14px;font-style:italic" x="320" y="298" text-anchor="middle" fill="{FG}">N&#186; 03</text>')
+    o.append(txt(320, 311, 'SELECTED', 't t-s', 'middle', 5.8))
+    o.append(txt(320, 336, 'CASTING &#183; FASHION &#183; FILM', 't', 'middle', 1.0))
     return o, 'FIG. — CASTING, CONSIDERED'
 
 # ------------------------------------------------------------------ PRIVATE ART
 def private_art():
+    """A work on the wall: framed, lit, labelled, and placed between the four
+    parties an introduction brings together."""
     o = []
-    o.append('<defs><radialGradient id="paGlow"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".12"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient></defs>')
-    o.append('<ellipse class="fi" style="--dl:1.6s" cx="320" cy="140" rx="120" ry="100" fill="url(#paGlow)"/>')
-    links = [('M110,80 C200,80 220,114 266,124', 'M530,80 C440,80 420,114 374,124'),
-             ('M110,224 C200,224 220,190 266,176', 'M530,224 C440,224 420,190 374,176')]
-    paths = [p for pair in links for p in pair]
-    for k, p in enumerate(paths):
-        o.append(dr(p, 1.4 + k * 0.15, 1.2, M2, 1))
-    for k, p in enumerate(['M96,62 C200,6 440,6 544,62', 'M96,242 C200,298 440,298 544,242']):
-        o.append(f'<path class="fi" style="--dl:{2.2+k*0.2:.1f}s" d="{p}" fill="none" stroke="{M3}" stroke-dasharray="2 5"/>')
-    o.append(dr('M320,36 L286,70 M320,36 L354,70', 0.2, 0.9, M1, 0.8))
-    o.append(f'<circle class="pop" style="--dl:0.1s" cx="320" cy="36" r="2" fill="{FG}"/>')
-    o.append(f'<g class="fi" style="--dl:0.4s"><rect x="262" y="70" width="116" height="146" fill="#0E0E0D" stroke="{M1}" stroke-width="1.4"/><rect x="272" y="80" width="96" height="126" fill="#151513" stroke="{M3}"/></g>')
-    o.append(dr('M320,118 m-24,0 a24,24 0 1 0 48,0 a24,24 0 1 0 -48,0', 0.9, 1.6, FG, 1.2))
-    o.append(dr('M282,186 C300,160 326,196 358,168', 1.3, 1.3, C2, 1))
-    o.append(dr('M346,90 L346,196', 1.5, 1.0, M1, 2.6))
-    o.append(f'<circle class="pop" style="--dl:2s" cx="298" cy="100" r="3" fill="{FG}"/>')
-    for k, (x, y, lab, ly) in enumerate([(96, 80, 'ARTISTS', 58), (544, 80, 'COLLECTORS', 58), (96, 224, 'INSTITUTIONS', 256), (544, 224, 'SPACES', 256)]):
-        o.append(f'<g class="pop" style="--dl:{1.0+k*0.15:.2f}s"><circle cx="{x}" cy="{y}" r="14" fill="#000" stroke="{FG}"/><circle cx="{x}" cy="{y}" r="3" fill="{FG}"/></g>')
-        o.append(f'<circle class="ripple" style="--dl:{2.4+k*0.9:.1f}s;--k:2.6;--d:5s" cx="{x}" cy="{y}" r="14" fill="none" stroke="{M2}"/>')
-        o.append(txt(x, ly, lab, 't t-b', 'middle', 1.3 + k * 0.15))
-    o.append('<g class="flow" style="--dl:2.8s">')
-    for k, p in enumerate(paths):
-        for b in (0, 1.9):
-            o.append(f'<circle r="2" fill="{FG}"><animateMotion dur="3.8s" begin="{b + k*0.45:.2f}s" repeatCount="indefinite" path="{p}"/></circle>')
-    for k, p in enumerate(['M96,62 C200,6 440,6 544,62', 'M544,242 C440,298 200,298 96,242']):
-        o.append(f'<circle r="1.6" fill="{M1}"><animateMotion dur="6s" begin="{k*1.5}s" repeatCount="indefinite" path="{p}"/></circle>')
+    o.append('<defs>'
+             '<linearGradient id="paLamp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".20"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></linearGradient>'
+             '<radialGradient id="paWash" cx=".5" cy=".35"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".10"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient>'
+             '<linearGradient id="paGilt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#CBB68A"/><stop offset=".5" stop-color="#8E7A52"/><stop offset="1" stop-color="#CBB68A"/></linearGradient>'
+             '</defs>')
+    # rail, hook and wires
+    o.append(dr('M150,30 L490,30', 0.1, 1.2, M2, 0.8))
+    o.append(f'<circle class="pop" style="--dl:0.5s" cx="320" cy="30" r="2.4" fill="{FG}"/>')
+    o.append(dr('M320,30 L276,74 M320,30 L364,74', 0.6, 0.8, M1, 0.6))
+    # picture lamp washing the wall
+    o.append(f'<g class="fi" style="--dl:2.4s"><polygon points="306,58 334,58 400,236 240,236" fill="url(#paLamp)"/><ellipse class="breathe" style="--d:6s;--a:.6" cx="320" cy="150" rx="130" ry="105" fill="url(#paWash)"/></g>')
+    o.append(f'<g class="pop" style="--dl:2.2s"><rect x="302" y="52" width="36" height="5" rx="2.5" fill="{FG}"/><path d="M320,52 L320,44" stroke="{FG}"/></g>')
+    # the frame: a gilt moulding with an inner slip and mat
+    o.append(f'<g class="fi" style="--dl:0.8s"><rect x="250" y="70" width="140" height="166" fill="#0E0E0D" stroke="url(#paGilt)" stroke-width="5"/>'
+             f'<rect x="258" y="78" width="124" height="150" fill="none" stroke="#6E5F42" stroke-width="0.8"/>'
+             f'<rect x="266" y="86" width="108" height="134" fill="#141412" stroke="{M3}" stroke-width="0.6"/></g>')
+    for k, (cx, cy) in enumerate([(250, 70), (390, 70), (250, 236), (390, 236)]):
+        o.append(f'<path class="pop" style="--dl:{1.1 + k * 0.08:.2f}s" d="M{cx - 5},{cy} L{cx},{cy - 5} L{cx + 5},{cy} L{cx},{cy + 5} Z" fill="#CBB68A"/>')
+    # the work itself: a horizon, a sun, one gesture
+    o.append(dr('M276,176 C300,170 340,182 364,174', 1.4, 1.2, M1, 0.8))
+    o.append(dr('M320,128 m-20,0 a20,20 0 1 0 40,0 a20,20 0 1 0 -40,0', 1.5, 1.6, FG, 1.1))
+    o.append(dr('M282,204 C300,186 330,214 358,192', 1.8, 1.2, C2, 1.6))
+    o.append(dr('M352,96 L352,206', 2.0, 0.9, M1, 2.4))
+    # the museum label beside it
+    o.append(f'<g class="fi" style="--dl:2.6s"><rect x="404" y="196" width="38" height="24" fill="#E8E5DD"/>'
+             f'<rect x="408" y="201" width="22" height="1.8" fill="#3A3A36"/><rect x="408" y="206" width="16" height="1.4" fill="#8A8A82"/><rect x="408" y="211" width="26" height="1.4" fill="#8A8A82"/></g>')
+    # the four parties, brought together around the work
+    links = [('M110,80 C190,80 210,112 248,124', 'ARTISTS', 110, 80, 58),
+             ('M530,80 C450,80 430,112 392,124', 'COLLECTORS', 530, 80, 58),
+             ('M110,226 C190,226 210,196 248,184', 'INSTITUTIONS', 110, 226, 258),
+             ('M530,226 C450,226 430,196 392,184', 'SPACES', 530, 226, 258)]
+    for k, (d, lab, x, y, ly) in enumerate(links):
+        o.append(dr(d, 3.0 + k * 0.15, 1.2, M2, 0.8))
+        o.append(f'<g class="pop" style="--dl:{2.8 + k * 0.15:.2f}s"><circle cx="{x}" cy="{y}" r="13" fill="#000" stroke="{M1}"/><circle cx="{x}" cy="{y}" r="9" fill="none" stroke="{M3}"/><circle cx="{x}" cy="{y}" r="2.6" fill="{FG}"/></g>')
+        o.append(txt(x, ly, lab, 't t-b', 'middle', 3.0 + k * 0.15))
+    o.append('<g class="flow" style="--dl:4.2s">')
+    for k, (d, *_r) in enumerate(links):
+        o.append(f'<circle r="1.8" fill="{FG}"><animateMotion dur="4.2s" begin="{k * 0.9:.1f}s" repeatCount="indefinite" path="{d}"/></circle>')
     o.append('</g>')
     return o, 'FIG. — CONSIDERED INTRODUCTIONS'
 
@@ -300,32 +274,55 @@ def event():
 
 # ------------------------------------------------------------------ EXHIBITIONS
 def exhibitions():
+    """A measured floor plan: three rooms, works on the walls, plinths, doors,
+    and a visitor walking the route as each work comes into view."""
     o = []
-    o.append(dr('M70,128 L70,40 L570,40 L570,250 L70,250 L70,166', 0.1, 2.0, M1, 2))
-    for k, d in enumerate(['M236,40 L236,112', 'M236,176 L236,250', 'M404,40 L404,142', 'M404,204 L404,250']):
-        o.append(dr(d, 0.8 + k * 0.12, 0.8, M1, 2))
-    for k, (x1, y1, x2, y2) in enumerate([(100, 40, 140, 40), (170, 40, 210, 40), (98, 250, 150, 250), (260, 40, 300, 40), (330, 40, 380, 40),
-                                          (270, 250, 370, 250), (430, 40, 480, 40), (505, 40, 545, 40), (570, 90, 570, 140), (570, 170, 570, 220),
-                                          (440, 250, 540, 250), (236, 190, 236, 236), (404, 58, 404, 120)]):
-        o.append(f'<line class="pop" style="--dl:{1.4+k*0.09:.2f}s" x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{FG}" stroke-width="3.2"/>')
-    o.append(f'<g class="pop" style="--dl:1.9s"><rect x="308" y="132" width="24" height="24" fill="#141413" stroke="{M1}"/><circle cx="320" cy="144" r="5" fill="none" stroke="{C2}"/></g>')
-    o.append(f'<g class="pop" style="--dl:2.0s"><rect x="140" y="210" width="42" height="10" fill="none" stroke="{M2}"/></g>')
-    o.append(f'<g class="pop" style="--dl:2.1s"><rect x="466" y="136" width="44" height="12" fill="none" stroke="{M2}"/></g>')
-    for x, n, dl in [(153, 'I', 0.9), (320, 'II', 1.0), (487, 'III', 1.1)]:
-        o.append(f'<text class="t-serif fi" style="--dl:{dl}s;font-size:16px" x="{x}" y="74" text-anchor="middle" fill="{M1}">{n}</text>')
-    route = 'M30,147 C90,147 108,92 150,96 C200,100 206,178 160,190 C120,200 112,150 170,146 L236,144 C282,144 280,96 320,98 C366,100 366,196 324,196 C290,196 330,172 404,173 C452,174 446,88 496,94 C546,100 540,200 498,204 C470,206 466,186 470,176'
-    o.append(dr(route, 2.2, 3.6, M2, 1, ' stroke-dasharray="100"'))
-    o.append('<g class="flow" style="--dl:4.6s">')
-    for b in (0, 3.5):
-        o.append(f'<g><circle r="7" fill="{FG}" fill-opacity=".1"/><circle r="2.8" fill="{FG}"/><animateMotion dur="11s" begin="{b}s" repeatCount="indefinite" path="{route}"/></g>')
-    o.append('</g>')
-    o.append(f'<path class="pop" style="--dl:0.6s" d="M34,141 L44,147 L34,153" fill="none" stroke="{FG}" stroke-width="1.2"/>')
-    o.append(txt(30, 132, 'ENTRANCE', 't t-s', 'start', 0.7))
-    o.append(f'<g class="fi" style="--dl:2.6s"><line x1="470" y1="272" x2="570" y2="272" stroke="{M1}"/><line x1="470" y1="268" x2="470" y2="276" stroke="{M1}"/><line x1="520" y1="269" x2="520" y2="275" stroke="{M1}"/><line x1="570" y1="268" x2="570" y2="276" stroke="{M1}"/></g>')
-    for x, s in [(470, '0'), (520, '5'), (570, '10 M')]:
-        o.append(txt(x, 288, s, 't t-s', 'middle', 2.7))
-    o.append(f'<g class="fi" style="--dl:2.8s"><circle cx="604" cy="64" r="11" fill="none" stroke="{M2}"/><path d="M604,55 L608,68 L604,65 L600,68 Z" fill="{FG}"/></g>')
-    o.append(txt(604, 88, 'N', 't', 'middle', 2.9))
+    o.append('<defs><pattern id="exHatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="4" stroke="#3A3A36" stroke-width="1"/></pattern>'
+             '<linearGradient id="exCone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2F1EC" stop-opacity=".16"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></linearGradient></defs>')
+    # thick hatched walls (outer shell with the entrance gap on the left)
+    walls = [(70, 36, 500, 6), (70, 248, 500, 6), (564, 36, 6, 218), (70, 36, 6, 92), (70, 168, 6, 86),
+             (234, 42, 6, 66), (234, 178, 6, 70), (402, 42, 6, 96), (402, 202, 6, 46)]
+    for k, (x, y, w, h) in enumerate(walls):
+        o.append(f'<rect class="fi" style="--dl:{0.1 + k * 0.06:.2f}s" x="{x}" y="{y}" width="{w}" height="{h}" fill="url(#exHatch)" stroke="{M1}" stroke-width="0.8"/>')
+    # door swings
+    for k, (d, dl) in enumerate([('M240,108 A30,30 0 0 1 270,138', 0.9), ('M408,138 A28,28 0 0 1 436,166', 1.0), ('M76,128 A24,24 0 0 0 100,152', 0.8)]):
+        o.append(dr(d, dl, 0.6, M3, 0.7))
+    # works on the walls: lit as the visitor reaches them
+    works = [(110, 42, 40, 'h', 2.4), (176, 42, 40, 'h', 3.1), (150, 248, 46, 'h', 4.0), (268, 42, 52, 'h', 4.8), (344, 42, 40, 'h', 5.4),
+             (296, 248, 60, 'h', 6.3), (446, 42, 40, 'h', 7.1), (510, 42, 36, 'h', 7.6), (564, 92, 46, 'v', 8.4), (564, 176, 44, 'v', 9.0), (470, 248, 60, 'h', 9.8)]
+    for k, (x, y, L, ori, t) in enumerate(works):
+        if ori == 'h':
+            inner = y + 6 if y < 100 else y
+            o.append(f'<rect class="pop" style="--dl:{1.3 + k * 0.07:.2f}s" x="{x}" y="{inner - 1.6 if y < 100 else y - 1.6}" width="{L}" height="3.2" fill="{FG}"/>')
+            cone = (f'{x},{inner + 2} {x + L},{inner + 2} {x + L / 2 + 14},{inner + 46} {x + L / 2 - 14},{inner + 46}' if y < 100
+                    else f'{x},{y - 2} {x + L},{y - 2} {x + L / 2 + 14},{y - 46} {x + L / 2 - 14},{y - 46}')
+        else:
+            o.append(f'<rect class="pop" style="--dl:{1.3 + k * 0.07:.2f}s" x="{x - 1.6}" y="{y}" width="3.2" height="{L}" fill="{FG}"/>')
+            cone = f'{x - 2},{y} {x - 2},{y + L} {x - 46},{y + L / 2 + 14} {x - 46},{y + L / 2 - 14}'
+        o.append(f'<polygon points="{cone}" fill="url(#exCone)" opacity="0"><animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;{max(t - 0.6, 0) / 12:.3f};{t / 12:.3f};{min(t + 1.6, 12) / 12:.3f};1" dur="12s" begin="4.6s" repeatCount="indefinite"/></polygon>')
+        o.append(txt((x + L / 2) if ori == 'h' else x - 10, (y - 6 if y < 100 else y + 14) if ori == 'h' else y + L / 2, f'{k + 1:02d}', 't t-s', 'middle', 1.6 + k * 0.05))
+    # plinths with objects
+    for k, (x, y, w, h, obj) in enumerate([(304, 132, 30, 30, 'circle'), (140, 196, 40, 12, 'line'), (470, 126, 44, 14, 'line'), (150, 100, 18, 18, 'diamond')]):
+        g = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#121211" stroke="{M1}" stroke-width="0.8"/>'
+        if obj == 'circle':
+            g += f'<circle cx="{x + w / 2}" cy="{y + h / 2}" r="7" fill="none" stroke="{C2}"/><circle cx="{x + w / 2}" cy="{y + h / 2}" r="2" fill="{C2}"/>'
+        elif obj == 'diamond':
+            g += f'<path d="M{x + w / 2},{y + 3} L{x + w - 3},{y + h / 2} L{x + w / 2},{y + h - 3} L{x + 3},{y + h / 2} Z" fill="none" stroke="{C2}"/>'
+        else:
+            g += f'<path d="M{x + 4},{y + h / 2} L{x + w - 4},{y + h / 2}" stroke="{C2}"/>'
+        o.append(f'<g class="pop" style="--dl:{1.9 + k * 0.1:.2f}s">{g}</g>')
+    for x, n, dl in [(155, 'I', 0.9), (321, 'II', 1.0), (486, 'III', 1.1)]:
+        o.append(f'<text class="t-serif fi" style="--dl:{dl}s;font-size:18px" x="{x}" y="80" text-anchor="middle" fill="{M1}">{n}</text>')
+    route = 'M28,148 C80,148 104,140 130,134 C176,124 210,150 214,176 C218,206 176,214 160,200 C140,180 196,150 254,146 C290,144 290,104 322,108 C356,112 370,176 340,190 C320,200 312,214 330,222 C360,232 380,170 420,172 C450,174 452,98 490,100 C536,102 540,150 534,170 C528,198 500,214 480,206'
+    o.append(dr(route, 2.6, 3.8, M3, 0.9, ' stroke-dasharray="100"'))
+    o.append(f'<g class="flow" style="--dl:4.6s"><g><circle r="8" fill="{FG}" fill-opacity=".09"/><circle r="2.8" fill="{FG}"/><animateMotion dur="12s" repeatCount="indefinite" path="{route}"/></g></g>')
+    o.append(f'<path class="pop" style="--dl:0.6s" d="M30,142 L40,148 L30,154" fill="none" stroke="{FG}" stroke-width="1.2"/>')
+    o.append(txt(26, 132, 'ENTRANCE', 't t-s', 'start', 0.7))
+    o.append(f'<g class="fi" style="--dl:2.6s"><line x1="470" y1="276" x2="570" y2="276" stroke="{M1}"/><rect x="470" y="274" width="25" height="4" fill="{M1}"/><rect x="520" y="274" width="25" height="4" fill="{M1}"/><rect x="470" y="274" width="100" height="4" fill="none" stroke="{M1}" stroke-width="0.6"/></g>')
+    for x, s_ in [(470, '0'), (520, '5'), (570, '10 M')]:
+        o.append(txt(x, 292, s_, 't t-s', 'middle', 2.7))
+    o.append(f'<g class="fi" style="--dl:2.8s"><circle cx="606" cy="62" r="12" fill="none" stroke="{M2}"/><circle cx="606" cy="62" r="8" fill="none" stroke="{M3}" stroke-dasharray="1 2"/><path d="M606,52 L610,66 L606,63 L602,66 Z" fill="{FG}"/></g>')
+    o.append(txt(606, 88, 'N', 't', 'middle', 2.9))
     return o, 'FIG. — A PRESENTATION, PACED'
 
 # ------------------------------------------------------------------ COLLECTORS
@@ -398,7 +395,7 @@ PAGES = {
     'talent-representation.html': talent, 'private-art.html': private_art, 'event-curation.html': event,
     'exhibitions.html': exhibitions, 'collectors.html': collectors, 'artists.html': artists,
 }
-VH = {'collectors.html': 248, 'talent-representation.html': 318}
+VH = {'collectors.html': 248, 'talent-representation.html': 344}
 for page, fn in PAGES.items():
     parts, cap = fn()
     vh = VH.get(page, 300)

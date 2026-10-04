@@ -332,62 +332,85 @@ U.append(f'{I}</g>')
 audit = '\n'.join(U)
 
 # ---------- 07 FUNNEL ----------
-# a funnel of turning rings: traffic spirals down, thinning as it goes; what
-# reaches the bottom becomes customers, and the loop carries them back to the top
+# a wireframe funnel in perspective: rings and meridians draw in, traffic
+# spirals down with light trails and thins as it goes; what reaches the bottom
+# glows, drops into the lifetime-value ring and is carried back to the top
 F = []
-CX = 114
-rings = [(38, 82, 12), (70, 66, 10), (102, 50, 8), (134, 34, 6), (160, 20, 4)]
-for k, (y, rx, ry) in enumerate(rings):
-    dl = 0.2 + k * 0.18
-    col = [M2, M2, M1, '#cfcec8', FG][k]
-    F.append(f'{I}<ellipse class="dr" pathLength="100" style="--dl:{dl:.2f}s;--du:.9s" cx="{CX}" cy="{y}" rx="{rx}" ry="{ry}" fill="none" stroke="{col}" stroke-width="{0.8 + k * 0.15:.2f}"/>')
-    F.append(f'{I}<g class="fi" style="--dl:{dl + 0.8:.2f}s"><ellipse cx="{CX}" cy="{y}" rx="{rx}" ry="{ry}" fill="none" stroke="{col}" stroke-width="1.6" stroke-dasharray="1.5 7" opacity="0.8">'
-             f'<animate attributeName="stroke-dashoffset" from="0" to="{-34 if k % 2 == 0 else 34}" dur="{2.4 + k * 0.4:.1f}s" repeatCount="indefinite"/></ellipse></g>')
-# the funnel walls
-F.append(f'{I}<path class="dr" pathLength="100" style="--dl:0.9s;--du:1s" d="M{CX - 82},38 C{CX - 70},70 {CX - 40},120 {CX - 20},160" fill="none" stroke="{M3}" stroke-width="0.8"/>')
-F.append(f'{I}<path class="dr" pathLength="100" style="--dl:0.9s;--du:1s" d="M{CX + 82},38 C{CX + 70},70 {CX + 40},120 {CX + 20},160" fill="none" stroke="{M3}" stroke-width="0.8"/>')
-# traffic spiralling down: many start, fewer go deeper
-import math as _m
-def spiral(phase, depth):
+CX = 112
+F.append(f'{I}<defs><radialGradient id="fnGlow"><stop offset="0" stop-color="{FG}" stop-opacity=".55"/><stop offset="1" stop-color="{FG}" stop-opacity="0"/></radialGradient></defs>')
+N = 9
+def ring(t):
+    return 34 + t * 126, 16 + 68 * (1 - t) ** 1.35, 13 * (1 - t) + 3.2 * t
+for k in range(N):
+    t = k / (N - 1)
+    y, rx, ry = ring(t)
+    dl = 0.2 + k * 0.1
+    F.append(f'{I}<path class="dr" pathLength="100" style="--dl:{dl:.2f}s;--du:.7s" d="M{CX - rx:.1f},{y:.1f} A{rx:.1f},{ry:.1f} 0 0 1 {CX + rx:.1f},{y:.1f}" fill="none" stroke="#2A2A27" stroke-width="0.7"/>')
+    bright = k in (0, 4, 8)
+    F.append(f'{I}<path class="dr" pathLength="100" style="--dl:{dl + 0.15:.2f}s;--du:.7s" d="M{CX + rx:.1f},{y:.1f} A{rx:.1f},{ry:.1f} 0 0 1 {CX - rx:.1f},{y:.1f}" fill="none" stroke="{FG if bright else M2}" stroke-width="{1.2 if bright else 0.7}"/>')
+# meridians: front ones brighter
+for j in range(16):
+    a = j * math.pi / 8 + 0.2
     pts = []
-    for i in range(0, depth + 1):
-        t = i / 24
-        y = 38 + t * 122
-        rx = 82 - t * 62
-        a = phase + t * 5.2 * _m.pi
-        pts.append((CX + rx * 0.82 * _m.cos(a), y + (12 - t * 8) * 0.8 * _m.sin(a)))
-    return 'M' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in pts)
-F.append(f'{I}<g class="flow" style="--dl:2s">')
-parts = [(0.0, 24, '0s'), (1.3, 24, '1.4s'), (2.6, 9, '0.4s'), (3.9, 14, '0.9s'), (5.0, 7, '1.9s'),
-         (0.7, 18, '2.4s'), (2.0, 6, '2.9s'), (4.4, 11, '3.3s'), (5.7, 24, '2.7s'), (3.2, 5, '1.1s')]
+    for k in range(13):
+        t = k / 12
+        y, rx, ry = ring(t)
+        pts.append((CX + rx * math.cos(a), y + ry * math.sin(a)))
+    front = math.sin(a) > 0
+    d = 'M' + ' L'.join(f'{x:.1f},{yy:.1f}' for x, yy in pts)
+    F.append(f'{I}<path class="dr" pathLength="100" style="--dl:{1.0 + j * 0.03:.2f}s;--du:.9s" d="{d}" fill="none" stroke="{"#4A4A45" if front else "#222220"}" stroke-width="0.5"/>')
+# light running round the three stage rings
+for k, dur in ((0, 5), (4, 4), (8, 3)):
+    y, rx, ry = ring(k / (N - 1))
+    F.append(f'{I}<g class="fi" style="--dl:2.2s"><ellipse cx="{CX}" cy="{y:.1f}" rx="{rx:.1f}" ry="{ry:.1f}" fill="none" stroke="{FG}" stroke-width="1.4" stroke-dasharray="6 200" stroke-linecap="round">'
+             f'<animate attributeName="stroke-dashoffset" from="0" to="-206" dur="{dur}s" repeatCount="indefinite"/></ellipse></g>')
+# traffic spiralling down with trails; many enter, fewer go deeper
+def spiral(phase, depth):
+    out = []
+    for i in range(depth + 1):
+        t = i / 30
+        y, rx, ry = ring(t)
+        a = phase + t * 6 * math.pi
+        out.append((CX + rx * 0.9 * math.cos(a), y + ry * 0.9 * math.sin(a)))
+    return 'M' + ' L'.join(f'{x:.1f},{yy:.1f}' for x, yy in out)
+F.append(f'{I}<g class="flow" style="--dl:2.4s">')
+parts = [(0.0, 30, 0.0), (1.6, 30, 1.7), (3.1, 30, 3.3), (4.7, 30, 0.9),
+         (0.8, 12, 0.4), (2.3, 9, 1.2), (3.9, 16, 2.1), (5.4, 7, 2.8), (2.9, 20, 3.6), (5.9, 11, 4.2), (1.2, 6, 4.8)]
 for ph, depth, b in parts:
-    col = FG if depth == 24 else (M1 if depth > 10 else '#cfcec8')
-    dur = 1.0 + depth * 0.13
-    F.append(f'{I}  <circle r="{2 if depth == 24 else 1.6}" fill="{col}" opacity="0"><animateMotion dur="{dur:.1f}s" begin="{b}" repeatCount="indefinite" path="{spiral(ph, depth)}"/>'
-             f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="{dur:.1f}s" begin="{b}" repeatCount="indefinite"/></circle>')
+    full = depth == 30
+    dur = 1.2 + depth * 0.11
+    path = spiral(ph, depth)
+    for tr, (r, op) in enumerate([(2.1 if full else 1.6, 1), (1.6 if full else 1.2, .45), (1.2 if full else .9, .2)]):
+        col = FG if full else ('#cfcec8' if depth > 14 else M1)
+        F.append(f'{I}  <circle r="{r}" fill="{col}" opacity="0"><animateMotion dur="{dur:.1f}s" begin="{b + tr * 0.07:.2f}s" repeatCount="indefinite" path="{path}"/>'
+                 f'<animate attributeName="opacity" values="0;{op};{op};0" keyTimes="0;0.08;0.85;1" dur="{dur:.1f}s" begin="{b + tr * 0.07:.2f}s" repeatCount="indefinite"/></circle>')
 F.append(f'{I}</g>')
-# customers drop out of the bottom into the loop, which carries them back to the top
-F.append(f'{I}<path class="dr" pathLength="100" style="--dl:1.6s;--du:.4s" d="M{CX},164 V180" fill="none" stroke="{M2}" stroke-width="0.8"/>')
-F.append(f'{I}<g class="pop" style="--dl:1.9s"><circle cx="{CX}" cy="193" r="12" fill="{BG}" stroke="{FG}" stroke-width="1"/>'
-         f'<text class="t t-b" x="{CX}" y="195.3" text-anchor="middle" style="font-size:5.6px">LTV</text></g>')
-F.append(f'{I}<g class="fi" style="--dl:2.1s"><g class="spin" style="--ox:{CX}px;--oy:193px;animation-duration:6s"><circle cx="{CX}" cy="193" r="16" fill="none" stroke="{M1}" stroke-width="0.8" stroke-dasharray="3 4"/></g></g>')
-loop = f'M{CX - 12},197 C{CX - 56},212 {CX - 102},150 {CX - 96},64 C{CX - 93},40 {CX - 74},30 {CX - 54},31'
-F.append(f'{I}<path class="dr" pathLength="100" style="--dl:2.2s;--du:1.2s" d="{loop}" fill="none" stroke="{M1}" stroke-width="0.9" stroke-dasharray="2 3"/>')
-F.append(f'{I}<g class="flow" style="--dl:3.2s">')
-for b in ['0s', '1.6s']:
-    F.append(f'{I}  <circle r="2" fill="{FG}"><animateMotion dur="3.2s" begin="{b}" repeatCount="indefinite" path="{loop}"/></circle>')
+# the bottom glows; a converted customer drops into the LTV ring
+F.append(f'{I}<g class="fi" style="--dl:2.6s"><ellipse cx="{CX}" cy="161" rx="26" ry="9" fill="url(#fnGlow)"><animate attributeName="opacity" values=".5;1;.5" dur="2.6s" repeatCount="indefinite"/></ellipse></g>')
+F.append(f'{I}<path class="dr" pathLength="100" style="--dl:1.8s;--du:.4s" d="M{CX},164 V180" fill="none" stroke="{M2}" stroke-width="0.8"/>')
+F.append(f'{I}<g class="flow" style="--dl:3s"><circle r="2.2" fill="{FG}"><animateMotion dur="2.6s" repeatCount="indefinite" path="M{CX},162 V181" keyPoints="0;0;1;1" keyTimes="0;0.55;0.8;1" calcMode="linear"/>'
+         f'<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.56;0.8;0.85" dur="2.6s" repeatCount="indefinite"/></circle></g>')
+F.append(f'{I}<g class="pop" style="--dl:2s"><circle cx="{CX}" cy="194" r="12" fill="{BG}" stroke="{FG}" stroke-width="1"/>'
+         f'<text class="t t-b" x="{CX}" y="196.3" text-anchor="middle" style="font-size:5.6px">LTV</text></g>')
+F.append(f'{I}<g class="fi" style="--dl:2.2s"><g class="spin" style="--ox:{CX}px;--oy:194px;animation-duration:7s"><circle cx="{CX}" cy="194" r="16.5" fill="none" stroke="{M1}" stroke-width="0.8" stroke-dasharray="1 3.4"/></g></g>')
+loop = f'M{CX - 14},199 C{CX - 58},214 {CX - 104},150 {CX - 98},70 C{CX - 95},44 {CX - 80},30 {CX - 60},28'
+F.append(f'{I}<path class="dr" pathLength="100" style="--dl:2.3s;--du:1.2s" d="{loop}" fill="none" stroke="{M2}" stroke-width="0.8" stroke-dasharray="2 3"/>')
+F.append(f'{I}<g class="flow" style="--dl:3.4s">')
+for b in ['0s', '1.4s']:
+    F.append(f'{I}  <circle r="2" fill="{FG}"><animateMotion dur="2.8s" begin="{b}" repeatCount="indefinite" path="{loop}"/></circle>')
 F.append(f'{I}</g>')
-F.append(f'{I}<text class="t t-s fi" style="--dl:2.8s" x="{CX + 20}" y="200">Repeat, refer, return</text>')
-# stage labels
-for k, (pos, lab, sub, ly, ey, ex) in enumerate([
-        ('TOP', 'COLD TRAFFIC', 'New audiences, first impressions', 46, 38, CX + 82),
-        ('MIDDLE', 'RETARGETING', 'Engaged, visited, added to cart', 102, 102, CX + 50),
-        ('BOTTOM', 'CUSTOMERS', 'Retention and lifetime value', 158, 160, CX + 20)]):
-    dl = 1.2 + k * 0.35
-    F.append(f'{I}<path class="dr" pathLength="100" style="--dl:{dl:.2f}s;--du:.6s" d="M{ex + 2},{ey} L208,{ly}" fill="none" stroke="{M3}" stroke-width="0.8"/>')
-    F.append(f'{I}<circle class="pop" style="--dl:{dl:.2f}s" cx="{ex}" cy="{ey}" r="2" fill="{FG}"/>')
+F.append(f'{I}<text class="t t-s fi" style="--dl:2.8s" x="{CX + 22}" y="201">Repeat, refer, return</text>')
+for k, (pos, lab, sub, ly, rk) in enumerate([
+        ('TOP', 'COLD TRAFFIC', 'New audiences, first impressions', 40, 0),
+        ('MIDDLE', 'RETARGETING', 'Engaged, visited, added to cart', 98, 4),
+        ('BOTTOM', 'CUSTOMERS', 'Retention and lifetime value', 156, 8)]):
+    y, rx, ry = ring(rk / (N - 1))
+    ex = CX + rx
+    dl = 1.4 + k * 0.35
+    F.append(f'{I}<path class="dr" pathLength="100" style="--dl:{dl:.2f}s;--du:.6s" d="M{ex + 3:.1f},{y:.1f} L208,{ly}" fill="none" stroke="{M3}" stroke-width="0.8"/>')
+    F.append(f'{I}<circle class="pop" style="--dl:{dl:.2f}s" cx="{ex:.1f}" cy="{y:.1f}" r="2" fill="{FG}"/>')
     F.append(f'{I}<g class="fi" style="--dl:{dl + 0.3:.2f}s"><text class="t t-s" x="214" y="{ly - 8}">{pos}</text><text class="t t-b" x="214" y="{ly + 2}">{lab}</text><text class="t t-s" x="214" y="{ly + 11}">{sub}</text></g>')
-F.append(f'{I}<text class="t fi" style="--dl:0.1s" x="20" y="16">ONE FUNNEL, EVERY STAGE</text>')
+F.append(f'{I}<text class="t fi" style="--dl:0.1s" x="20" y="14">ONE FUNNEL, EVERY STAGE</text>')
 funnel = '\n'.join(F)
 
 # ---------- BEYOND THE STANDARD: icon cards ----------
