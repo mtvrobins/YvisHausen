@@ -10,8 +10,13 @@
 2. Private pages: the readable pages in src/protected/ are encrypted with their
    access code (tools/access-codes.json) and published at the site root as small
    locked pages. Only the right code can open them; no code ships to the browser.
+3. Translations: every page is tagged and given its French and Italian text from
+   tools/i18n/fr.json and it.json (see tools/i18n.py). Text still waiting for a
+   translation is listed in tools/i18n/missing.json.
 """
 import glob, hashlib, json, os, re, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import i18n
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
@@ -25,8 +30,7 @@ BLOCKS = {  # name: (opening of the block, its closing tag)
 def partial(name):
     return open(f'partials/{name}.html').read().rstrip('\n')
 
-def apply_partials(path):
-    s = original = open(path).read()
+def apply_partials(s):
     for name, (start, end) in BLOCKS.items():
         body = partial(name)
         marked = re.compile(rf'<!-- partial:{name} -->.*?<!-- /partial:{name} -->', re.S)
@@ -43,10 +47,7 @@ def apply_partials(path):
     else:
         m = re.search(r'<meta name="viewport"[^>]*>\n', s)
         s = s[:m.end()] + block + '\n' + s[m.end():]
-    if s != original:
-        open(path, 'w').write(s)
-        return True
-    return False
+    return s
 
 def encrypt(text, code):
     # done in Node (tools/encrypt.mjs) with the same Web Crypto the browser uses
@@ -59,13 +60,27 @@ ENGINE_NOTE = '''<div class="code-restricted code-note" id="gateNote">
       </div>'''
 FOLDER_NOTE = '<p class="code-restricted" id="gateNote">ACCESS RESTRICTED. ACCESS CODES ARE PROVIDED BY AUTHORISED AGENTS ONLY</p>'
 
-def protect():
+def update(path, tm, missing):
+    """Shared pieces, then translations; the file is written only if it changed."""
+    src = open(path).read()
+    out = apply_partials(src)
+    if path != 'tools/protected_stub.html':
+        out = i18n.localise(out, tm, missing)
+    if out != src:
+        open(path, 'w').write(out)
+        return True
+    return False
+
+def protect(tm, missing):
     codes = {k: v for k, v in json.load(open('tools/access-codes.json')).items() if not k.startswith('_')}
     stub = open('tools/protected_stub.html').read()
+    tm_stamp = json.dumps(tm, sort_keys=True)  # gate text translations
+    for note in (ENGINE_NOTE, FOLDER_NOTE):  # list gate text still to translate
+        i18n.localise(stub.replace('{{NOTE}}', note).replace('{{PAYLOAD}}', '{}'), tm, missing)
     for name, code in codes.items():
         src = f'src/protected/{name}'
         text = open(src).read()
-        stamp = hashlib.sha256((str(code) + '\0' + text + stub).encode()).hexdigest()[:16]
+        stamp = hashlib.sha256((str(code) + '\0' + text + stub + tm_stamp).encode()).hexdigest()[:16]
         if os.path.exists(name) and f'<!-- build:{stamp} -->' in open(name).read():
             continue  # unchanged since the last build
         payload = encrypt(text, str(code))
@@ -74,6 +89,7 @@ def protect():
                     .replace('{{NOTE}}', ENGINE_NOTE if engine else FOLDER_NOTE)
                     .replace('{{AFTER}}', '1' if engine else '2')
                     .replace('{{BACK}}', 'marketing.html' if engine else 'index.html'))
+        page = i18n.localise(page, tm, missing)
         open(name, 'w').write(page.replace('<head>', f'<head>\n<!-- build:{stamp} -->', 1))
         print(f'  locked  {name}')
 
@@ -84,6 +100,11 @@ if __name__ == '__main__':
         subprocess.run([sys.executable, 'tools/page_illustrations.py'], check=True)
     pages = sorted(glob.glob('*.html')) + sorted(glob.glob('src/protected/*.html')) + ['tools/protected_stub.html']
     locked = set(k for k in json.load(open('tools/access-codes.json')) if not k.startswith('_'))
-    changed = [p for p in pages if p not in locked and apply_partials(p)]
-    print(f'shared pieces: {len(changed)} page(s) updated')
-    protect()
+    tm, missing = i18n.load_tm(), {}
+    changed = [p for p in pages if p not in locked and update(p, tm, missing)]
+    print(f'pages updated: {len(changed)}')
+    i18n.write_common(tm, missing)
+    protect(tm, missing)
+    i18n.write_missing(missing)
+    if missing:
+        print(f'  {len(missing)} piece(s) of text still need translating: tools/i18n/missing.json')

@@ -5,7 +5,6 @@
   font-weight:400; font-style:normal; font-display:swap;
 }
 
-/* Vilaka (Modern Serif) — installed, ready to be applied */
 @font-face{
   font-family:"Cormorant Garamond";
   src:url("fonts/CormorantGaramond.woff2") format("woff2");
@@ -16,14 +15,12 @@
   src:url("fonts/CormorantGaramond-Italic.woff2") format("woff2");
   font-weight:300 700; font-style:italic; font-display:swap;
 }
+/* Display serif for the Creative House box: Bodoni Moda (free, SIL Open Font
+   License, fonts/BodoniModa-OFL.txt), fixed at a mid optical size so its
+   hairlines keep the weight of the artwork. Covers French and Italian accents. */
 @font-face{
-  font-family:"Rosie Brown";
-  src:url("fonts/RosieBrown.woff2") format("woff2"), url("fonts/RosieBrown.otf") format("opentype");
-  font-weight:400; font-style:normal; font-display:swap;
-}
-@font-face{
-  font-family:"Vilaka";
-  src:url("fonts/Vilaka.woff2") format("woff2"), url("fonts/Vilaka.ttf") format("truetype");
+  font-family:"YH Display";
+  src:url("fonts/BodoniModa-Display.woff2") format("woff2");
   font-weight:400; font-style:normal; font-display:swap;
 }
 
@@ -181,6 +178,12 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .site-index{ gap:18px; padding:11px 12px 10px; }
   .idx-head{ font-size:9px; letter-spacing:0.14em; }
   .idx-menu{ min-width:150px; }
+  .idx-menu a{ letter-spacing:0.14em; padding:0 14px 8px; }
+  /* keep the outer menus on screen (longer French and Italian labels) */
+  .idx-group:first-child .idx-menu{ left:0; transform:translate(0,-6px); }
+  .idx-group:last-child .idx-menu{ left:auto; right:0; transform:translate(0,-6px); }
+  .idx-group:first-child:hover .idx-menu, .idx-group:first-child:focus-within .idx-menu, .idx-group.open:first-child .idx-menu,
+  .idx-group:last-child:hover .idx-menu, .idx-group:last-child:focus-within .idx-menu, .idx-group.open:last-child .idx-menu{ transform:translate(0,0); }
 }
 
 /* ============ HOMEPAGE — FRONT PAGE (first screen: 3 tiles) ============ */
@@ -241,11 +244,10 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   mix-blend-mode:color; opacity:0.36;
 }
 .cr-head{ position:absolute; left:3.3cqw; right:4cqw; top:3cqw; display:flex; align-items:baseline; justify-content:space-between; gap:3cqw; }
-/* Rosie Brown is a hairline display face: a fine stroke gives it the weight of the artwork */
-.cr-title, .cr-year{ font-family:"Rosie Brown", var(--serif); font-weight:400; -webkit-text-stroke:0.014em currentColor; paint-order:stroke fill; }
+.cr-title, .cr-year{ font-family:"YH Display", var(--serif); font-weight:400; }
 .cr-title{ margin:0; white-space:nowrap; font-size:6.1cqw; line-height:1; letter-spacing:0.012em; color:#2A2420; transform:var(--cr-squish); transform-origin:left top; }
 .cr-year{ font-size:2.15cqw; letter-spacing:0.07em; color:#2A2420; white-space:nowrap; -webkit-text-stroke:0.02em currentColor; transform:var(--cr-squish); transform-origin:right top; }
-.cr-label{ font-family:"Rosie Brown", var(--serif); }
+.cr-label{ font-family:"YH Display", var(--serif); }
 .cr-desc{ font-family:var(--serif); }
 .cr-links{ position:absolute; left:0; top:11.4cqw; width:43cqw; display:flex; flex-direction:column; text-align:center; }
 .cr-link{ position:relative; display:block; min-height:14.3cqw; text-decoration:none; transition:opacity .25s ease; }

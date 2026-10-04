@@ -409,7 +409,7 @@ for page, fn in PAGES.items():
     if '<!-- PAGE-ILL -->' in s:
         s = re.sub(r'<!-- PAGE-ILL -->.*?<!-- /PAGE-ILL -->', lambda m: fig, s, flags=re.S)
     else:
-        m = re.search(r'\n(\s*)<p data-i18n="[a-z_]*p1">.*?</p>\n', s, re.S)
+        m = re.search(r'\n(\s*)<p[^>]*>.*?</p>\n', s, re.S)
         assert m, page
         s = s[:m.end()] + m.group(1) + fig + '\n' + s[m.end():]
     open(page, 'w').write(s)
