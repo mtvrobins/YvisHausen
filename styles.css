@@ -1,7 +1,8 @@
-/* Brand (Sensatype Studio) — used only for the YVIS HAUSEN title and ENQUIRE */
+/* Italiana (free, SIL Open Font License, fonts/Italiana-OFL.txt): the header
+   button. The YVIS HAUSEN wordmark itself is drawn artwork (tools/wordmark.py). */
 @font-face{
-  font-family:"Brand";
-  src:url("fonts/Brand.woff") format("woff"), url("fonts/Brand.ttf") format("truetype");
+  font-family:"YH Italiana";
+  src:url("fonts/Italiana.woff2") format("woff2");
   font-weight:400; font-style:normal; font-display:swap;
 }
 
@@ -88,10 +89,11 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .emblem:hover{ opacity:0.85; transform:scale(1.04); }
 .wordmark{
   display:inline-block; transform:scaleY(0.9); transform-origin:center;
-  font-family:"Brand", var(--serif); color:var(--fg);
-  font-size:clamp(15px,1.8vw,19px); letter-spacing:0.12em; font-weight:400;
+  color:var(--fg); font-size:clamp(15px,1.8vw,19px); line-height:1;
   cursor:pointer; white-space:nowrap;
 }
+/* the sweep hangs below the letters: nudge down so the capitals sit centred */
+.wordmark-svg{ display:block; height:0.92em; width:auto; transform:translateY(8.7%); overflow:visible; }
 .subtitle-wrap{ height:20px; overflow:hidden; position:relative; }
 .subtitle-cycle{
   font-family:var(--serif); font-style:normal; font-weight:400;
@@ -103,7 +105,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 .bar-center{ justify-self:center; }
 .enquire-btn{
-  font-family:"Brand", var(--serif); font-size:10.5px; letter-spacing:0.16em;
+  font-family:"YH Italiana", var(--serif); font-size:11px; letter-spacing:0.16em;
   color:var(--fg); border:1px solid var(--fg); padding:6px 14px;
   white-space:nowrap; transition:background .3s ease, color .3s ease;
 }
@@ -829,7 +831,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .bar-inner{ grid-template-columns:auto 1fr auto; gap:10px; padding:12px 16px; }
   .emblem{ width:40px; height:40px; }
   .subtitle-wrap{ display:none; }
-  .wordmark{ font-size:14.5px; letter-spacing:0.1em; }
+  .wordmark{ font-size:14.5px; }
   .bar-right{ gap:14px; }
   .enquire-btn{ padding:5px 9px; font-size:9.5px; letter-spacing:0.12em; }
   .lang-toggle > span{ display:none; }
