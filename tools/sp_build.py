@@ -101,47 +101,57 @@ cards.append(
     f'{I}<text class="t t-b fi" style="--dl:3.2s" x="198" y="184" text-anchor="middle">WINNER · READY TO SCALE</text>')
 creative = '\n'.join(cards)
 
-# ---------- 04 STRUCTURE ----------
+# ---------- 05 STRUCTURE ----------
+# a blueprint: your goals branch into three separate lanes; the ad that proves
+# itself in testing graduates to scale, and the budget divides across them
 S = []
-boxes = [(12, 'TEST', 0.0), (116, 'SCALE', 0.25), (220, 'RETARGET', 0.5)]
-for x, lab, dl in boxes:
-    S.append(f'{I}<g class="fi" style="--dl:{dl}s"><rect x="{x}" y="40" width="88" height="110" rx="4" fill="{BG}" stroke="{M3}"/>'
-             f'<line x1="{x}" y1="58" x2="{x+88}" y2="58" stroke="#262624"/>'
-             f'<text class="t t-b" x="{x+8}" y="52">{lab}</text><circle cx="{x+80}" cy="49.5" r="2" fill="{FG if lab != "TEST" else M2}"/></g>')
-# test rows: four small ad sets, one proves itself
+for gx in range(20, 320, 20):
+    S.append(f'{I}<path class="dr" pathLength="100" style="--dl:{0.02 * gx / 20:.2f}s;--du:.8s" d="M{gx},34 V150" fill="none" stroke="#151514" stroke-width="0.5"/>')
+S.append(f'{I}<g class="pop" style="--dl:0.3s"><rect x="122" y="8" width="76" height="18" rx="9" fill="{BG}" stroke="{FG}"/>'
+         f'<text class="t t-b" x="160" y="19.6" text-anchor="middle">YOUR GOALS</text></g>')
+lanes = [(56, 'TEST', 0.8), (160, 'SCALE', 1.0), (264, 'RETARGET', 1.2)]
+for cx, lab, dl in lanes:
+    S.append(f'{I}<path class="dr" pathLength="100" style="--dl:{dl - 0.3:.2f}s;--du:.6s" d="M160,26 C160,36 {cx},32 {cx},44" fill="none" stroke="{M2}" stroke-width="0.8"/>')
+    S.append(f'{I}<g class="fi" style="--dl:{dl:.2f}s"><rect x="{cx - 48}" y="44" width="96" height="104" rx="3" fill="{BG}" stroke="{M3}" stroke-dasharray="3 2"/>'
+             f'<text class="t t-b" x="{cx - 40}" y="56">{lab}</text><path d="M{cx - 40},61 H{cx + 40}" stroke="#262624" stroke-width="0.6"/></g>')
+# test lane: four ad sets race, one proves itself, the rest dim
+bars = [0.35, 0.92, 0.28, 0.45]
 for k in range(4):
-    y = 66 + k * 20
+    y = 67 + k * 19
     win = k == 1
-    S.append(f'{I}<g class="fi" style="--dl:{0.5 + k*0.12:.2f}s"><rect x="20" y="{y}" width="72" height="14" rx="2" fill="none" stroke="{"#2E2E2B"}"' + (' class="lit" style="--dl:1.9s"' if win else '') + '/>'
-             f'<rect x="25" y="{y+4}" width="6" height="6" fill="{M2}"/><rect x="36" y="{y+4}" width="26" height="2" rx="1" fill="{M3}"/><rect x="36" y="{y+8}" width="18" height="2" rx="1" fill="#262624"/></g>')
-    S.append(f'{I}<rect class="gx" style="--dl:{1.0 + k*0.1:.2f}s" x="68" y="{y+6}" width="{[10,19,8,12][k]}" height="2" rx="1" fill="{FG if win else M2}"/>')
-# scale rows: two larger ad sets
+    if not win: S.append(f'{I}<g class="dim" style="--dl:2.9s">')
+    S.append(f'{I}<g class="fi" style="--dl:{1.3 + k * 0.1:.2f}s"><rect x="14" y="{y}" width="84" height="14" rx="2" fill="#121211" stroke="#2E2E2B"/>'
+             f'<rect x="18" y="{y + 3.5}" width="7" height="7" fill="{M2}"/><rect x="29" y="{y + 4}" width="22" height="2" rx="1" fill="{M3}"/><rect x="29" y="{y + 8}" width="14" height="2" rx="1" fill="#262624"/>'
+             f'<rect x="56" y="{y + 6}" width="36" height="2" rx="1" fill="#1C1C1A"/></g>')
+    S.append(f'{I}<rect class="gx" style="--dl:{1.7 + k * 0.08:.2f}s;--du:1.3s" x="56" y="{y + 6}" width="{36 * bars[k]:.1f}" height="2" rx="1" fill="{FG if win else M2}"/>')
+    if not win: S.append(f'{I}</g>')
+S.append(f'{I}<rect class="pop" style="--dl:3.0s" x="13" y="85" width="86" height="16" rx="2.5" fill="none" stroke="{FG}"/>')
+S.append(f'{I}<text class="t t-s fi" style="--dl:3.1s" x="56" y="160" text-anchor="middle">Proven: moves to scale</text>')
+# the winner graduates into the scale lane
+S.append(f'{I}<g class="grad" style="--dl:3.4s;--tx:104px;--ty:-18px"><rect x="14" y="86" width="84" height="14" rx="2" fill="#1A1A18" stroke="{FG}"/>'
+         f'<rect x="18" y="89.5" width="7" height="7" fill="{FG}"/><rect x="29" y="90" width="22" height="2" rx="1" fill="#cfcec8"/><rect x="56" y="92" width="33" height="2" rx="1" fill="{FG}"/></g>')
 for k in range(2):
-    y = 66 + k * 38
-    S.append(f'{I}<g class="fi" style="--dl:{0.8 + k*0.15:.2f}s"><rect x="124" y="{y}" width="72" height="30" rx="2" fill="none" stroke="#2E2E2B"/>'
-             f'<rect x="129" y="{y+5}" width="14" height="20" fill="{M2}" fill-opacity=".6"/><rect x="148" y="{y+7}" width="36" height="2.5" rx="1.2" fill="#4A4A45"/>'
-             f'<rect x="148" y="{y+13}" width="26" height="2.5" rx="1.2" fill="{M3}"/><rect x="148" y="{y+19}" width="30" height="2.5" rx="1.2" fill="{M3}"/></g>')
-# retarget rows: three warm segments
+    y = 90 + k * 26
+    S.append(f'{I}<g class="fi" style="--dl:{1.5 + k * 0.15:.2f}s"><rect x="118" y="{y}" width="84" height="20" rx="2" fill="#121211" stroke="#2E2E2B"/>'
+             f'<rect x="122" y="{y + 4}" width="12" height="12" fill="{M2}" fill-opacity=".7"/><rect x="138" y="{y + 5}" width="40" height="2.5" rx="1.2" fill="#4A4A45"/><rect x="138" y="{y + 11}" width="28" height="2.5" rx="1.2" fill="{M3}"/></g>')
+# retarget lane: warm segments light up as people arrive
 for k, lab in enumerate(['VIEWED', 'ADDED TO CART', 'PURCHASED']):
-    y = 66 + k * 26
-    S.append(f'{I}<g class="fi" style="--dl:{1.0 + k*0.12:.2f}s"><rect x="228" y="{y}" width="72" height="20" rx="2" fill="none" stroke="#2E2E2B"/>'
-             f'<circle cx="236" cy="{y+10}" r="2.4" fill="none" stroke="{M1}"/><text class="t t-s" x="243" y="{y+12}">{lab}</text></g>')
-# connectors
-for d, dl in [('M100,95 L116,95', 1.4), ('M204,95 L220,95', 1.6)]:
-    S.append(f'{I}<path class="dr" pathLength="100" style="--dl:{dl}s;--du:.5s" d="{d}" fill="none" stroke="{M1}"/>')
-S.append(f'{I}<g class="fi" style="--dl:1.8s"><path d="M112,92 L116,95 L112,98" fill="none" stroke="{M1}"/><path d="M216,92 L220,95 L216,98" fill="none" stroke="{M1}"/></g>')
-# motion: proven ad graduates to scale, warm traffic passes to retargeting
-S.append(f'{I}<g class="flow" style="--dl:2.2s">')
-for b in ['0s', '1.6s']:
-    S.append(f'{I}  <rect x="-3" y="-3" width="6" height="6" fill="{FG}"><animateMotion dur="3.2s" begin="{b}" repeatCount="indefinite" path="M92,93 C104,93 104,95 116,95 C130,95 140,81 160,81"/></rect>')
-for b in ['0.6s', '1.7s', '2.6s']:
-    S.append(f'{I}  <circle r="2.2" fill="{FG}"><animateMotion dur="3.3s" begin="{b}" repeatCount="indefinite" path="M196,120 C206,120 210,95 220,95 C232,95 234,76 236,76"/></circle>')
+    y = 68 + k * 24
+    S.append(f'{I}<g class="fi" style="--dl:{1.7 + k * 0.12:.2f}s"><rect x="222" y="{y}" width="84" height="18" rx="2" fill="#121211" stroke="#2E2E2B"/>'
+             f'<circle cx="231" cy="{y + 9}" r="2.6" fill="none" stroke="{M1}"/><text class="t t-s" x="238" y="{y + 11}">{lab}</text></g>')
+    S.append(f'{I}<circle cx="231" cy="{y + 9}" r="1.4" fill="{FG}" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="{4.2 + k * 0.8:.1f}s" repeatCount="indefinite"/></circle>')
+S.append(f'{I}<g class="flow" style="--dl:4s">')
+for b in ['0s', '1.2s']:
+    S.append(f'{I}  <circle r="1.8" fill="{FG}"><animateMotion dur="2.4s" begin="{b}" repeatCount="indefinite" path="M202,100 C212,100 214,77 222,77"/></circle>')
 S.append(f'{I}</g>')
-# budget split
-for (x, pct, sub, dl) in [(12, 0.2, 'Prove the idea', 2.0), (116, 0.6, 'Grow what works', 2.2), (220, 0.2, 'Reconnect', 2.4)]:
-    S.append(f'{I}<g class="fi" style="--dl:{dl - 0.3:.1f}s"><text class="t t-s" x="{x}" y="164">SUGGESTED SHARE</text><text class="t t-s t-b" x="{x+88}" y="164" text-anchor="end">{int(pct*100)}%</text>'
-             f'<rect x="{x}" y="169" width="88" height="4" rx="2" fill="#1C1C1A"/><text class="t t-s" x="{x}" y="188">{sub}</text></g>')
-    S.append(f'{I}<rect class="gx" style="--dl:{dl}s;--du:1.4s" x="{x}" y="169" width="{88*pct:.1f}" height="4" rx="2" fill="{FG if pct > .5 else M1}"/>')
+# one budget, divided
+S.append(f'{I}<g class="fi" style="--dl:3.6s"><text class="t t-s" x="14" y="176">SUGGESTED SHARE</text><rect x="14" y="181" width="292" height="6" rx="3" fill="#1C1C1A"/></g>')
+x = 14
+for (pct, sub, col, dl) in [(0.2, 'Prove the idea', M1, 3.9), (0.6, 'Grow what works', FG, 4.2), (0.2, 'Reconnect', M2, 4.5)]:
+    wdt = 292 * pct
+    S.append(f'{I}<rect class="gx" style="--dl:{dl:.1f}s;--du:.8s" x="{x + 1:.1f}" y="181" width="{wdt - 2:.1f}" height="6" rx="3" fill="{col}"/>')
+    S.append(f'{I}<g class="fi" style="--dl:{dl + 0.3:.1f}s"><text class="t t-b" x="{x + wdt / 2:.1f}" y="200" text-anchor="middle">{int(pct * 100)}%</text><text class="t t-s" x="{x + wdt / 2:.1f}" y="209" text-anchor="middle">{sub}</text></g>')
+    x += wdt
 structure = '\n'.join(S)
 
 # ---------- 06 SCALE ----------
@@ -179,45 +189,48 @@ C.append(f'{I}</g>')
 C.append(f'{I}<g class="fi" style="--dl:0.2s"><text class="t t-b" x="180" y="190">HORIZONTAL</text><text class="t t-s" x="180" y="200">Proven ads carried further</text></g>')
 scale = '\n'.join(C)
 
-# ---------- 07 RECONNECT ----------
+# ---------- 10 RECONNECT ----------
+# one visitor's journey: they browse, leave at the basket, a reminder brings
+# them back, and they buy. It plays as a loop once the scene is drawn.
 R = []
-nodes = [(30, 'VISIT'), (110, 'VIEW'), (190, 'CART'), (286, 'PURCHASE')]
-R.append(f'{I}<path class="dr" pathLength="100" style="--dl:0.3s;--du:1.6s" d="M30,90 L286,90" fill="none" stroke="{M3}" stroke-width="1.2"/>')
-R.append(f'{I}<path class="dr" pathLength="100" style="--dl:0.3s;--du:1.2s" d="M30,90 L190,90" fill="none" stroke="{M1}" stroke-width="1.2"/>')
+nodes = [(34, 'VISIT'), (106, 'VIEW'), (178, 'CART'), (286, 'PURCHASE')]
+R.append(f'{I}<path class="dr" pathLength="100" style="--dl:0.3s;--du:1.4s" d="M34,70 L286,70" fill="none" stroke="{M3}" stroke-width="1" stroke-dasharray="2 3"/>')
+R.append(f'{I}<path class="dr" pathLength="100" style="--dl:0.3s;--du:1.1s" d="M34,70 L178,70" fill="none" stroke="{M1}" stroke-width="1.1"/>')
 for k, (x, lab) in enumerate(nodes):
-    dl = 0.3 + k * 0.35
+    dl = 0.3 + k * 0.3
     last = lab == 'PURCHASE'
-    R.append(f'{I}<g class="pop" style="--dl:{dl:.2f}s"><circle cx="{x}" cy="90" r="{10 if last else 8}" fill="#000" stroke="{FG if last else M1}" stroke-width="1.1"/>'
-             + (f'<path d="M{x-4},90 L{x-1},93 L{x+4.5},87" fill="none" stroke="{FG}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>' if last else f'<circle cx="{x}" cy="90" r="2.4" fill="{M1}"/>')
+    R.append(f'{I}<g class="pop" style="--dl:{dl:.2f}s"><circle cx="{x}" cy="70" r="{11 if last else 8}" fill="#000" stroke="{FG if last else M1}" stroke-width="1.1"/>'
+             + (f'<path d="M{x - 4.5},70 L{x - 1},73.5 L{x + 5},66.5" fill="none" stroke="{FG}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>' if last else f'<circle cx="{x}" cy="70" r="2.2" fill="{M1}"/>')
              + '</g>')
-    R.append(f'{I}<text class="t{" t-b" if last else ""} fi" style="--dl:{dl + 0.3:.2f}s" x="{x}" y="{72}" text-anchor="middle">{lab}</text>')
-R.append(f'{I}<circle class="ping" style="--dl:3.4s" cx="286" cy="90" r="10" fill="none" stroke="{FG}"/>')
-# drop off and return
-drop = 'M190,98 C190,124 180,140 166,150'
-back = 'M178,167 C230,167 274,140 286,100'
-R.append(f'{I}<path class="dr" pathLength="100" style="--dl:1.6s;--du:.8s" d="{drop}" fill="none" stroke="{M2}" stroke-dasharray="100" stroke-width="1"/>')
-R.append(f'{I}<text class="t t-s fi" style="--dl:1.9s" x="196" y="128">Left the basket</text>')
-R.append(f'{I}<g class="pop" style="--dl:2.1s"><rect x="126" y="150" width="52" height="34" rx="4" fill="{BG}" stroke="{FG}"/>'
-         f'<rect x="131" y="155" width="14" height="14" fill="{M2}"/><rect x="149" y="156" width="24" height="2.4" rx="1.2" fill="#cfcec8"/>'
-         f'<rect x="149" y="161" width="18" height="2.4" rx="1.2" fill="{M3}"/><rect x="149" y="166" width="20" height="2.4" rx="1.2" fill="{M3}"/>'
-         f'<rect x="131" y="173" width="42" height="7" rx="3.5" fill="none" stroke="{M1}" stroke-width="0.8"/></g>')
-R.append(f'{I}<text class="t fi" style="--dl:2.3s" x="152" y="198" text-anchor="middle">REMINDER</text>')
-R.append(f'{I}<path class="dr" pathLength="100" style="--dl:2.5s;--du:1s" d="{back}" fill="none" stroke="{FG}" stroke-width="1.1"/>')
-R.append(f'{I}<text class="t t-s fi" style="--dl:2.9s" x="246" y="172">Returns to buy</text>')
-R.append(f'{I}<g class="flow" style="--dl:3s">')
-for b in ['0s', '1.1s', '2.2s']:
-    R.append(f'{I}  <circle r="2.2" fill="{M1}"><animateMotion dur="3.3s" begin="{b}" repeatCount="indefinite" path="M30,90 L190,90 C190,124 180,140 166,150"/></circle>')
-for b in ['0.5s', '1.8s']:
-    R.append(f'{I}  <circle r="2.4" fill="{FG}"><animateMotion dur="2.4s" begin="{b}" repeatCount="indefinite" path="{back}"/></circle>')
-R.append(f'{I}  <circle r="2.2" fill="{FG}"><animateMotion dur="4.4s" begin="0.2s" repeatCount="indefinite" path="M30,90 L286,90"/></circle>')
-R.append(f'{I}</g>')
-# frequency cap meter
-R.append(f'{I}<g class="fi" style="--dl:1s"><text class="t" x="18" y="140">FREQUENCY CAP</text>')
+    R.append(f'{I}<text class="t{" t-b" if last else ""} fi" style="--dl:{dl + 0.25:.2f}s" x="{x}" y="50" text-anchor="middle">{lab}</text>')
+leave = 'M178,78 C178,104 168,120 150,128'
+back = 'M196,140 C244,140 282,118 286,82'
+R.append(f'{I}<path class="dr" pathLength="100" style="--dl:1.5s;--du:.7s" d="{leave}" fill="none" stroke="{M2}" stroke-width="0.9" stroke-dasharray="2 2.5"/>')
+R.append(f'{I}<text class="t t-s fi" style="--dl:1.8s" x="186" y="104">Left the basket</text>')
+R.append(f'{I}<g class="pop" style="--dl:2.1s"><rect x="104" y="124" width="92" height="40" rx="4" fill="{BG}" stroke="{FG}"/>'
+         f'<rect x="110" y="130" width="22" height="22" fill="{M2}"/><rect x="137" y="132" width="50" height="2.6" rx="1.3" fill="#cfcec8"/>'
+         f'<rect x="137" y="138" width="38" height="2.6" rx="1.3" fill="{M3}"/><rect x="137" y="144" width="42" height="2.6" rx="1.3" fill="{M3}"/>'
+         f'<rect x="110" y="155" width="76" height="5" rx="2.5" fill="none" stroke="{M1}" stroke-width="0.7"/></g>')
+R.append(f'{I}<text class="t fi" style="--dl:2.3s" x="150" y="178" text-anchor="middle">REMINDER</text>')
+R.append(f'{I}<path class="dr" pathLength="100" style="--dl:2.6s;--du:.9s" d="{back}" fill="none" stroke="{FG}" stroke-width="1.1"/>')
+R.append(f'{I}<text class="t t-s fi" style="--dl:3s" x="244" y="150">Returns to buy</text>')
+# the visitor, looping every 7s: browse, leave, reminded, return, buy
+D, B = 7, 3.6
+R.append(f'{I}<circle r="3.2" fill="{FG}" opacity="0"><animateMotion dur="{D}s" begin="{B}s" repeatCount="indefinite" path="M34,70 L178,70 C178,104 168,120 150,128" keyPoints="0;0.62;0.62;1;1" keyTimes="0;0.34;0.4;0.52;1" calcMode="linear"/>'
+         f'<animate attributeName="opacity" values="0;1;1;1;0;0" keyTimes="0;0.03;0.4;0.5;0.53;1" dur="{D}s" begin="{B}s" repeatCount="indefinite"/></circle>')
+R.append(f'{I}<rect x="102" y="122" width="96" height="44" rx="5" fill="none" stroke="{FG}" opacity="0"><animate attributeName="opacity" values="0;0;0.8;0;0" keyTimes="0;0.52;0.58;0.66;1" dur="{D}s" begin="{B}s" repeatCount="indefinite"/></rect>')
+R.append(f'{I}<circle r="3.2" fill="{FG}" opacity="0"><animateMotion dur="{D}s" begin="{B}s" repeatCount="indefinite" path="{back}" keyPoints="0;0;1;1" keyTimes="0;0.62;0.84;1" calcMode="linear"/>'
+         f'<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.61;0.63;0.83;0.85;1" dur="{D}s" begin="{B}s" repeatCount="indefinite"/></circle>')
+R.append(f'{I}<circle cx="286" cy="70" r="11" fill="none" stroke="{FG}" opacity="0"><animate attributeName="r" values="11;11;22;22" keyTimes="0;0.84;0.96;1" dur="{D}s" begin="{B}s" repeatCount="indefinite"/>'
+         f'<animate attributeName="opacity" values="0;0;0.9;0;0" keyTimes="0;0.84;0.86;0.96;1" dur="{D}s" begin="{B}s" repeatCount="indefinite"/></circle>')
+# frequency cap: three reminders at most, then it rests
+R.append(f'{I}<g class="fi" style="--dl:1s"><text class="t" x="18" y="150">FREQUENCY CAP</text>')
 for k in range(5):
-    R.append(f'{I}  <rect x="{18 + k*14}" y="147" width="10" height="10" rx="2" fill="none" stroke="{M3}"/>')
-R.append(f'{I}  <text class="t t-s" x="18" y="172">Welcome, never intrusive</text></g>')
+    R.append(f'{I}  <rect x="{18 + k * 13}" y="157" width="9" height="9" rx="2" fill="none" stroke="{M3}"/>')
+R.append(f'{I}  <path d="M83,154 V169" stroke="{M1}" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>')
+R.append(f'{I}  <text class="t t-s" x="18" y="182">Welcome, never intrusive</text></g>')
 for k in range(3):
-    R.append(f'{I}<rect class="pop" style="--dl:{1.4 + k*0.25:.2f}s" x="{20 + k*14}" y="149" width="6" height="6" rx="1" fill="{FG}"/>')
+    R.append(f'{I}<rect class="pop" style="--dl:{1.4 + k * 0.25:.2f}s" x="{20 + k * 13}" y="159" width="5" height="5" rx="1" fill="{FG}"/>')
 reconnect = '\n'.join(R)
 
 # ---------- 08 REPORT & ARCHIVE ----------
@@ -318,38 +331,63 @@ for bb in ['0s', '1.4s']:
 U.append(f'{I}</g>')
 audit = '\n'.join(U)
 
-# ---------- 06 FUNNEL ----------
+# ---------- 07 FUNNEL ----------
+# a funnel of turning rings: traffic spirals down, thinning as it goes; what
+# reaches the bottom becomes customers, and the loop carries them back to the top
 F = []
-tiers = [
-    ('20,30 196,30 174,78 42,78', M2, 'TOP', 'COLD TRAFFIC', 'New audiences, first impressions', 54),
-    ('46,84 170,84 152,128 64,128', M1, 'MIDDLE', 'RETARGETING', 'Engaged, visited, added to cart', 106),
-    ('68,134 148,134 134,176 82,176', FG, 'BOTTOM', 'CUSTOMERS', 'Retention and lifetime value', 155),
-]
-for k, (pts, col, pos, lab, sub, ly) in enumerate(tiers):
-    dl = 0.2 + k * 0.35
-    F.append(f'{I}<polygon class="fi" style="--dl:{dl:.2f}s" points="{pts}" fill="#111110" stroke="{col}" stroke-width="1.1" stroke-linejoin="round"/>')
-    ex = [185, 161, 141][k]
-    F.append(f'{I}<path class="dr" pathLength="100" style="--dl:{dl + 0.5:.2f}s;--du:.6s" d="M{ex},{ly} L212,{ly}" fill="none" stroke="{M3}" stroke-width="0.8"/>')
-    F.append(f'{I}<g class="fi" style="--dl:{dl + 0.8:.2f}s"><text class="t t-s" x="218" y="{ly - 8}">{pos}</text><text class="t t-b" x="218" y="{ly + 2}">{lab}</text><text class="t t-s" x="218" y="{ly + 11}">{sub}</text></g>')
-    F.append(f'{I}<circle class="pop" style="--dl:{dl + 0.5:.2f}s" cx="{ex}" cy="{ly}" r="2" fill="{col}"/>')
-# traffic falls through: many enter, fewer go deeper
-F.append(f'{I}<g class="flow" style="--dl:1.6s">')
-drops = [(40, 60, 76, '0s'), (70, 80, 76, '0.5s'), (150, 136, 76, '1.1s'), (180, 150, 76, '1.7s'),
-         (96, 90, 126, '0.3s'), (124, 118, 126, '1.4s'), (60, 100, 126, '2.1s'),
-         (108, 108, 174, '0.8s'), (86, 110, 174, '2.4s')]
-for x0, x1, y1, bb in drops:
-    col = FG if y1 > 150 else (M1 if y1 > 100 else '#cfcec8')
-    F.append(f'{I}  <circle r="1.8" fill="{col}" opacity="0"><animateMotion dur="3s" begin="{bb}" repeatCount="indefinite" path="M{x0},24 L{x1},{y1}"/>'
-             f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="3s" begin="{bb}" repeatCount="indefinite"/></circle>')
+CX = 114
+rings = [(38, 82, 12), (70, 66, 10), (102, 50, 8), (134, 34, 6), (160, 20, 4)]
+for k, (y, rx, ry) in enumerate(rings):
+    dl = 0.2 + k * 0.18
+    col = [M2, M2, M1, '#cfcec8', FG][k]
+    F.append(f'{I}<ellipse class="dr" pathLength="100" style="--dl:{dl:.2f}s;--du:.9s" cx="{CX}" cy="{y}" rx="{rx}" ry="{ry}" fill="none" stroke="{col}" stroke-width="{0.8 + k * 0.15:.2f}"/>')
+    F.append(f'{I}<g class="fi" style="--dl:{dl + 0.8:.2f}s"><ellipse cx="{CX}" cy="{y}" rx="{rx}" ry="{ry}" fill="none" stroke="{col}" stroke-width="1.6" stroke-dasharray="1.5 7" opacity="0.8">'
+             f'<animate attributeName="stroke-dashoffset" from="0" to="{-34 if k % 2 == 0 else 34}" dur="{2.4 + k * 0.4:.1f}s" repeatCount="indefinite"/></ellipse></g>')
+# the funnel walls
+F.append(f'{I}<path class="dr" pathLength="100" style="--dl:0.9s;--du:1s" d="M{CX - 82},38 C{CX - 70},70 {CX - 40},120 {CX - 20},160" fill="none" stroke="{M3}" stroke-width="0.8"/>')
+F.append(f'{I}<path class="dr" pathLength="100" style="--dl:0.9s;--du:1s" d="M{CX + 82},38 C{CX + 70},70 {CX + 40},120 {CX + 20},160" fill="none" stroke="{M3}" stroke-width="0.8"/>')
+# traffic spiralling down: many start, fewer go deeper
+import math as _m
+def spiral(phase, depth):
+    pts = []
+    for i in range(0, depth + 1):
+        t = i / 24
+        y = 38 + t * 122
+        rx = 82 - t * 62
+        a = phase + t * 5.2 * _m.pi
+        pts.append((CX + rx * 0.82 * _m.cos(a), y + (12 - t * 8) * 0.8 * _m.sin(a)))
+    return 'M' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in pts)
+F.append(f'{I}<g class="flow" style="--dl:2s">')
+parts = [(0.0, 24, '0s'), (1.3, 24, '1.4s'), (2.6, 9, '0.4s'), (3.9, 14, '0.9s'), (5.0, 7, '1.9s'),
+         (0.7, 18, '2.4s'), (2.0, 6, '2.9s'), (4.4, 11, '3.3s'), (5.7, 24, '2.7s'), (3.2, 5, '1.1s')]
+for ph, depth, b in parts:
+    col = FG if depth == 24 else (M1 if depth > 10 else '#cfcec8')
+    dur = 1.0 + depth * 0.13
+    F.append(f'{I}  <circle r="{2 if depth == 24 else 1.6}" fill="{col}" opacity="0"><animateMotion dur="{dur:.1f}s" begin="{b}" repeatCount="indefinite" path="{spiral(ph, depth)}"/>'
+             f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="{dur:.1f}s" begin="{b}" repeatCount="indefinite"/></circle>')
 F.append(f'{I}</g>')
-# retention loop turning at the bottom
-F.append(f'{I}<g class="fi" style="--dl:1.5s"><g class="spin" style="--ox:108px;--oy:196px;animation-duration:8s">'
-         f'<path d="M96,196 A12,12 0 1 1 108,208" fill="none" stroke="{FG}" stroke-width="1" stroke-linecap="round"/>'
-         f'<path d="M104,205 L108,208 L104,211" fill="none" stroke="{FG}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></g>'
-         f'<text class="t t-b" x="108" y="198.3" text-anchor="middle" style="font-size:5.6px">LTV</text></g>')
-F.append(f'{I}<path class="dr" pathLength="100" style="--dl:1.4s;--du:.5s" d="M108,176 L108,184" fill="none" stroke="{M2}" stroke-width="0.8"/>')
-F.append(f'{I}<text class="t t-s fi" style="--dl:1.8s" x="128" y="200">Repeat, refer, return</text>')
-F.append(f'{I}<text class="t fi" style="--dl:0.1s" x="20" y="20">ONE FUNNEL, EVERY STAGE</text>')
+# customers drop out of the bottom into the loop, which carries them back to the top
+F.append(f'{I}<path class="dr" pathLength="100" style="--dl:1.6s;--du:.4s" d="M{CX},164 V180" fill="none" stroke="{M2}" stroke-width="0.8"/>')
+F.append(f'{I}<g class="pop" style="--dl:1.9s"><circle cx="{CX}" cy="193" r="12" fill="{BG}" stroke="{FG}" stroke-width="1"/>'
+         f'<text class="t t-b" x="{CX}" y="195.3" text-anchor="middle" style="font-size:5.6px">LTV</text></g>')
+F.append(f'{I}<g class="fi" style="--dl:2.1s"><g class="spin" style="--ox:{CX}px;--oy:193px;animation-duration:6s"><circle cx="{CX}" cy="193" r="16" fill="none" stroke="{M1}" stroke-width="0.8" stroke-dasharray="3 4"/></g></g>')
+loop = f'M{CX - 12},197 C{CX - 56},212 {CX - 102},150 {CX - 96},64 C{CX - 93},40 {CX - 74},30 {CX - 54},31'
+F.append(f'{I}<path class="dr" pathLength="100" style="--dl:2.2s;--du:1.2s" d="{loop}" fill="none" stroke="{M1}" stroke-width="0.9" stroke-dasharray="2 3"/>')
+F.append(f'{I}<g class="flow" style="--dl:3.2s">')
+for b in ['0s', '1.6s']:
+    F.append(f'{I}  <circle r="2" fill="{FG}"><animateMotion dur="3.2s" begin="{b}" repeatCount="indefinite" path="{loop}"/></circle>')
+F.append(f'{I}</g>')
+F.append(f'{I}<text class="t t-s fi" style="--dl:2.8s" x="{CX + 20}" y="200">Repeat, refer, return</text>')
+# stage labels
+for k, (pos, lab, sub, ly, ey, ex) in enumerate([
+        ('TOP', 'COLD TRAFFIC', 'New audiences, first impressions', 46, 38, CX + 82),
+        ('MIDDLE', 'RETARGETING', 'Engaged, visited, added to cart', 102, 102, CX + 50),
+        ('BOTTOM', 'CUSTOMERS', 'Retention and lifetime value', 158, 160, CX + 20)]):
+    dl = 1.2 + k * 0.35
+    F.append(f'{I}<path class="dr" pathLength="100" style="--dl:{dl:.2f}s;--du:.6s" d="M{ex + 2},{ey} L208,{ly}" fill="none" stroke="{M3}" stroke-width="0.8"/>')
+    F.append(f'{I}<circle class="pop" style="--dl:{dl:.2f}s" cx="{ex}" cy="{ey}" r="2" fill="{FG}"/>')
+    F.append(f'{I}<g class="fi" style="--dl:{dl + 0.3:.2f}s"><text class="t t-s" x="214" y="{ly - 8}">{pos}</text><text class="t t-b" x="214" y="{ly + 2}">{lab}</text><text class="t t-s" x="214" y="{ly + 11}">{sub}</text></g>')
+F.append(f'{I}<text class="t fi" style="--dl:0.1s" x="20" y="16">ONE FUNNEL, EVERY STAGE</text>')
 funnel = '\n'.join(F)
 
 # ---------- BEYOND THE STANDARD: icon cards ----------

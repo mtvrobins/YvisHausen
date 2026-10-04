@@ -95,9 +95,12 @@
   .shut{ transform:translateY(-11px); }
   .in .shut{ animation:spShut .5s cubic-bezier(.7,0,.3,1.6) var(--dl,2s) forwards; }
   @keyframes spShut{ 0%{ transform:translateY(-11px); } 70%{ transform:translateY(1.2px); } 100%{ transform:translateY(0); } }
-  .turn{ transform-box:view-box; transform-origin:var(--ox) var(--oy); }
+  .turn{ transform-box:view-box; transform-origin:var(--ox) var(--oy); transform:rotate(-90deg); }
   .in .turn{ animation:spTurn .45s ease-in-out var(--dl,3s) forwards; }
-  @keyframes spTurn{ to{ transform:rotate(90deg); } }
+  @keyframes spTurn{ to{ transform:rotate(0deg); } }
+  .grad{ opacity:0; }
+  .in .grad{ animation:spGrad 1.1s cubic-bezier(.5,0,.2,1) var(--dl,3s) forwards; }
+  @keyframes spGrad{ 0%{ opacity:1; transform:translate(0,0); } 100%{ opacity:1; transform:translate(var(--tx),var(--ty)); } }
   @keyframes spSpin{ to{ transform:rotate(360deg); } }
   @keyframes spFile{ 0%{ opacity:0; transform:translate(0,0) scale(1); } 12%{ opacity:1; } 100%{ opacity:1; transform:translate(172px,19px) scale(0.42); } }
 
@@ -214,6 +217,7 @@
     .sp .dr{ stroke-dashoffset:0 !important; animation:none !important; }
     .sp .gx, .sp .gy, .sp .pop{ transform:none !important; opacity:1 !important; animation:none !important; }
     .sp .ping, .sp .spin{ animation:none !important; }
+    .sp .grad{ opacity:0 !important; animation:none !important; }
     .sp .shut, .sp .turn{ transform:none !important; animation:none !important; }
     .tl-bar{ transition:none; }
   }
@@ -287,10 +291,13 @@
       <figure class="stage-ill rv" aria-hidden="true">
         <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
           <text class="t t-b fi" style="--dl:0.1s" x="20" y="22">WE WILL NEVER ASK FOR</text>
-          <g class="fi" style="--dl:0.35s"><rect x="20" y="40" width="150" height="18" rx="2" fill="#0E0E0D" stroke="#3A3A36" stroke-width="0.7"/><circle cx="31" cy="49" r="1.5" fill="#8A8A82"/><circle cx="37" cy="49" r="1.5" fill="#8A8A82"/><circle cx="43" cy="49" r="1.5" fill="#8A8A82"/><circle cx="49" cy="49" r="1.5" fill="#8A8A82"/><circle cx="55" cy="49" r="1.5" fill="#8A8A82"/><text class="t" x="66" y="51.4" style="letter-spacing:0.06em;fill:#d6d5cf">Password</text></g>
+          <g class="fi" style="--dl:0.35s"><rect x="20" y="40" width="150" height="18" rx="2" fill="#0E0E0D" stroke="#3A3A36" stroke-width="0.7"/><text class="t" x="66" y="51.4" style="letter-spacing:0.06em;fill:#d6d5cf">Password</text></g>
+          <circle class="pop" style="--dl:0.50s" cx="29.0" cy="49" r="1.5" fill="#F2F1EC"/><circle class="pop" style="--dl:0.61s" cx="34.5" cy="49" r="1.5" fill="#F2F1EC"/><circle class="pop" style="--dl:0.72s" cx="40.0" cy="49" r="1.5" fill="#F2F1EC"/><circle class="pop" style="--dl:0.83s" cx="45.5" cy="49" r="1.5" fill="#F2F1EC"/><circle class="pop" style="--dl:0.94s" cx="51.0" cy="49" r="1.5" fill="#F2F1EC"/><circle class="pop" style="--dl:1.05s" cx="56.5" cy="49" r="1.5" fill="#F2F1EC"/>
+          <rect class="fi" style="--dl:0.5s" x="62" y="44" width="0.8" height="10" fill="#F2F1EC"><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1s" repeatCount="indefinite"/></rect>
           <path class="dr" pathLength="100" style="--dl:1.40s;--du:.45s" d="M24,49 H146" fill="none" stroke="#F2F1EC" stroke-width="0.9"/>
           <path class="dr" pathLength="100" style="--dl:1.75s;--du:.25s" d="M152,44.5 L161,53.5 M161,44.5 L152,53.5" fill="none" stroke="#F2F1EC" stroke-width="1.3" stroke-linecap="round"/>
-          <g class="fi" style="--dl:0.65s"><rect x="20" y="64" width="150" height="18" rx="2" fill="#0E0E0D" stroke="#3A3A36" stroke-width="0.7"/><text class="t t-s" x="27" y="75.2" style="letter-spacing:0.12em">123 456</text><text class="t" x="66" y="75.4" style="letter-spacing:0.06em;fill:#d6d5cf">Login Codes</text></g>
+          <g class="fi" style="--dl:0.65s"><rect x="20" y="64" width="150" height="18" rx="2" fill="#0E0E0D" stroke="#3A3A36" stroke-width="0.7"/><text class="t" x="66" y="75.4" style="letter-spacing:0.06em;fill:#d6d5cf">Login Codes</text></g>
+          <text class="t t-s fi" style="--dl:0.85s" x="27.0" y="75.2" translate="no">1</text><text class="t t-s fi" style="--dl:0.93s" x="31.6" y="75.2" translate="no">2</text><text class="t t-s fi" style="--dl:1.01s" x="36.2" y="75.2" translate="no">3</text><text class="t t-s fi" style="--dl:1.09s" x="43.8" y="75.2" translate="no">4</text><text class="t t-s fi" style="--dl:1.17s" x="48.4" y="75.2" translate="no">5</text><text class="t t-s fi" style="--dl:1.25s" x="53.0" y="75.2" translate="no">6</text>
           <path class="dr" pathLength="100" style="--dl:1.75s;--du:.45s" d="M24,73 H146" fill="none" stroke="#F2F1EC" stroke-width="0.9"/>
           <path class="dr" pathLength="100" style="--dl:2.10s;--du:.25s" d="M152,68.5 L161,77.5 M161,68.5 L152,77.5" fill="none" stroke="#F2F1EC" stroke-width="1.3" stroke-linecap="round"/>
           <g class="fi" style="--dl:0.95s"><rect x="20" y="88" width="150" height="18" rx="2" fill="#0E0E0D" stroke="#3A3A36" stroke-width="0.7"/><rect x="27" y="92" width="16" height="10.5" rx="1.5" fill="none" stroke="#8A8A82" stroke-width="0.8"/><path d="M27,95.5 H43" stroke="#8A8A82" stroke-width="1.6"/><text class="t" x="66" y="99.4" style="letter-spacing:0.06em;fill:#d6d5cf">Card Details</text></g>
@@ -674,7 +681,7 @@
   <section class="split">
     <div class="sp-wrap">
       <p class="sec-kicker rv">RESPONSIBILITIES</p>
-      <h2 class="sec-title rv rv-1">You own it and run it. We build it and guide it.</h2>
+      <h2 class="sec-title rv rv-1">You own it and run the vision.<br>We build it and guide it.</h2>
       <div class="split-grid rv rv-2">
         <div class="split-col">
           <h3>YOU</h3>
