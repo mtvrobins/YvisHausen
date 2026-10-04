@@ -64,7 +64,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 #loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
 .loader-coin{
-  position:relative; width:min(42vw,38vh,250px); aspect-ratio:1/1;
+  position:relative; width:min(30vw,26vh,170px); aspect-ratio:1/1;
   opacity:0; transform:scale(0.985);
   animation:coinIn 1.4s cubic-bezier(.2,.7,.2,1) .15s forwards;
 }
