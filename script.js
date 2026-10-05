@@ -9,6 +9,7 @@ let stopCoinFire = null;
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
   if(!loader) return;
+  try { sessionStorage.setItem('yh_intro', '1'); } catch(e){}
   stopCoinFire = startCoinFire(loader.querySelector('.loader-coin-fire'));
   setTimeout(() => {
     loader.classList.add('hide');
@@ -40,9 +41,9 @@ function startCoinFire(canvas){
     float fbm(vec2 p){ return 0.65 * noise(p) + 0.35 * noise(p * 2.07 + 5.3); }
     // liquid-metal flame: a slowly warping field whose ridges are drawn upward
     float flame(vec2 p){
-      vec2 w = vec2(fbm(p * vec2(3.0, 2.0) + vec2(0.0, t * 0.5)),
-                    fbm(p * vec2(3.0, 2.0) + vec2(4.7, t * 0.5 + 2.3)));
-      vec2 q = vec2(p.x * 12.0 + (w.x - 0.5) * 3.2, p.y * 3.6 + t * 0.95 + (w.y - 0.5) * 1.4);
+      vec2 w = vec2(fbm(p * vec2(3.0, 2.0) + vec2(0.0, t * 0.36)),
+                    fbm(p * vec2(3.0, 2.0) + vec2(4.7, t * 0.36 + 2.3)));
+      vec2 q = vec2(p.x * 12.0 + (w.x - 0.5) * 3.2, p.y * 3.6 + t * 0.7 + (w.y - 0.5) * 1.4);
       float r = 1.0 - abs(fbm(q) * 2.0 - 1.0);
       return smoothstep(0.35, 1.0, r);
     }
@@ -74,7 +75,7 @@ function startCoinFire(canvas){
           float e = 0.003;
           float h = flame(uv);
           float hx = flame(uv + vec2(e, 0.0)), hy = flame(uv + vec2(0.0, e));
-          float s = 0.011 * k;
+          float s = 0.008 * k;
           vec3 n = normalize(vec3(-(hx - h) / e * s, -(hy - h) / e * s, 1.0));
           vec3 L = normalize(vec3(-0.5, -0.62, 0.6));
           vec3 H = normalize(L + vec3(0.0, 0.0, 1.0));
@@ -82,8 +83,8 @@ function startCoinFire(canvas){
           float spec = max(pow(max(dot(n, H), 0.0), 32.0) - pow(H.z, 32.0), 0.0);
           // a soft bright seam where the fire is catching
           float seam = exp(-pow((yb + rag - front) / 0.035, 2.0)) * m.r * (1.0 - m.g) * low * step(front, 1.15);
-          c.rgb *= 1.0 + diff * 1.0 + h * k * 0.12 + seam * 0.25;
-          c.rgb += (c.rgb * 0.6 + 0.2) * spec * 1.4;
+          c.rgb *= 1.0 + diff * 0.7 + h * k * 0.08 + seam * 0.16;
+          c.rgb += (c.rgb * 0.6 + 0.2) * spec * 0.9;
         }
       }
       gl_FragColor = vec4(c.rgb * c.a, c.a);

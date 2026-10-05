@@ -215,7 +215,7 @@ def inject(src, d):
     block = (f'<!-- i18n -->\n<script type="application/json" id="yh-i18n">{data}</script>\n'
              f'<script src="i18n.js"></script>\n<!-- /i18n -->\n')
     body = src.index('<body')
-    m = re.compile(r'^[ \t]*<script', re.M).search(src, body)
+    m = re.compile(r'^[ \t]*<script src=', re.M).search(src, body)  # before the page scripts, after the content
     at = m.start() if m else src.rindex('</body>')
     return src[:at] + block + src[at:]
 

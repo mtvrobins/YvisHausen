@@ -392,6 +392,7 @@ F.append(f'{I}<g class="flow" style="--dl:3s"><circle r="2.2" fill="{FG}"><anima
          f'<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.56;0.8;0.85" dur="2.6s" repeatCount="indefinite"/></circle></g>')
 F.append(f'{I}<g class="pop" style="--dl:2s"><circle cx="{CX}" cy="194" r="12" fill="{BG}" stroke="{FG}" stroke-width="1"/>'
          f'<text class="t t-b" x="{CX}" y="196.3" text-anchor="middle" style="font-size:5.6px">LTV</text></g>')
+F.append(f'{I}<text class="t t-s fi" style="--dl:2.3s" x="{CX}" y="219" text-anchor="middle">LIFETIME VALUE</text>')
 F.append(f'{I}<g class="fi" style="--dl:2.2s"><g class="spin" style="--ox:{CX}px;--oy:194px;animation-duration:7s"><circle cx="{CX}" cy="194" r="16.5" fill="none" stroke="{M1}" stroke-width="0.8" stroke-dasharray="1 3.4"/></g></g>')
 loop = f'M{CX - 14},199 C{CX - 58},214 {CX - 104},150 {CX - 98},70 C{CX - 95},44 {CX - 80},30 {CX - 60},28'
 F.append(f'{I}<path class="dr" pathLength="100" style="--dl:2.3s;--du:1.2s" d="{loop}" fill="none" stroke="{M2}" stroke-width="0.8" stroke-dasharray="2 3"/>')
