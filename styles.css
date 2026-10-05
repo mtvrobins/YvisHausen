@@ -224,12 +224,13 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
    across the top; the three categories sit in a centred column on the left
    with room beneath each for its subtitle. Container units keep the
    composition identical at every width. */
-.tiles-row{ grid-template-columns:0.7071fr 1.22fr 0.7071fr; align-items:start; }
-/* side tiles match the Creative House panel's height exactly */
+/* three shapes: Operations a slightly shorter portrait, Creative House a smaller
+   landscape centred between them, Curation the tallest portrait */
+.tiles-row{ grid-template-columns:277fr 340fr 296fr; align-items:center; column-gap:clamp(26px,4.6vw,58px); }
 
-.tiles-row .tile{ aspect-ratio:1/1.4142; }
-.tiles-row .tile-creative{ aspect-ratio:1.22/1; }
-.tiles-row .tile-art{ aspect-ratio:1/1.4142; }
+.tiles-row .tile{ aspect-ratio:277/345; }
+.tiles-row .tile-creative{ aspect-ratio:340/230; }
+.tiles-row .tile-art{ aspect-ratio:296/361; }
 .tile-creative{
   container-type:inline-size; overflow:hidden; padding:0; border-color:rgba(245,242,235,0.18);
   background:
@@ -275,9 +276,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .cr-links:hover .cr-link{ opacity:1; }
 }
 @media (max-width:900px){
-  .tiles-row .tile{ aspect-ratio:1/1; }
+  .tiles-row .tile{ aspect-ratio:277/345; }
   .tiles-row .tile-creative{ aspect-ratio:1/1.22; }
-  .tiles-row .tile-art{ aspect-ratio:1/1.4142; }
+  .tiles-row .tile-art{ aspect-ratio:296/361; }
   .cr-title{ font-size:7.2cqw; }
   .cr-year{ font-size:2.5cqw; }
   .cr-links{ top:16cqw; width:52cqw; }
@@ -321,11 +322,11 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   font-size:3.3cqw; font-weight:600; letter-spacing:0.06em; color:var(--ac-red); line-height:1;
 }
 .ac-cities i{ font-style:normal; font-weight:700; }
-.ac-links{ position:absolute; left:0; right:0; top:66cqw; bottom:0; }
+.ac-links{ position:absolute; left:0; right:0; top:62cqw; bottom:0; }
 .ac-link{ position:absolute; display:block; width:56cqw; text-decoration:none; transition:opacity .25s ease; }
 .ac-link:nth-child(1){ left:6cqw; top:0; }
-.ac-link:nth-child(2){ left:21cqw; top:22.5cqw; }
-.ac-link:nth-child(3){ left:36cqw; top:45cqw; }
+.ac-link:nth-child(2){ left:21cqw; top:18cqw; }
+.ac-link:nth-child(3){ left:36cqw; top:36cqw; }
 .ac-label{
   display:block; white-space:nowrap; font-size:5cqw; font-weight:500; letter-spacing:0.15em; line-height:1;
   color:#15120F; transition:color .2s ease;
@@ -371,34 +372,35 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 /* four plain index tabs on a sheet lying under the box, showing at its right edge */
 .tiles-row .tile-ops{ overflow:visible; }
-.op-tabs{ position:absolute; left:100%; top:0; width:6cqw; height:141.42cqw; pointer-events:none; overflow:visible;
+.op-tabs{ position:absolute; left:100%; top:0; width:6cqw; height:124.5cqw; pointer-events:none; overflow:visible;
   filter:drop-shadow(0.1cqw 0.12cqw 0.25cqw rgba(0,0,0,0.28)); }
 .op-ghost{
   position:absolute; left:0; right:0; text-align:center; white-space:nowrap;
   font-family:var(--serif); font-weight:700; color:#A9A5A0; opacity:0.6; filter:blur(0.55cqw); pointer-events:none;
 }
-.op-ghost-top{ top:15cqw; font-size:8.4cqw; letter-spacing:0.02em; }
-.op-ghost-bottom{ top:117.5cqw; font-size:7.2cqw; letter-spacing:0.01em; }
-.op-script{ position:absolute; left:56cqw; top:19cqw; width:33cqw; height:auto; opacity:0.9; transform:rotate(-7deg); transform-origin:center; pointer-events:none; }
+.op-ghost-top{ top:13cqw; font-size:8.4cqw; letter-spacing:0.02em; }
+.op-ghost-bottom{ top:104cqw; font-size:7.2cqw; letter-spacing:0.01em; }
+.op-script{ position:absolute; left:56cqw; top:16.5cqw; width:33cqw; height:auto; opacity:0.9; transform:rotate(-7deg); transform-origin:center; pointer-events:none; }
 /* one sphere with a band cut from its middle, where OPERATIONS sits */
 /* a globe with its middle band cut away for the title: ten evenly spaced lines in each half */
-.op-globe{ position:absolute; left:50%; top:48.6cqw; width:25cqw; margin-left:-12.5cqw; color:#ADA8A1; opacity:0.72; pointer-events:none; }
+.op-globe{ position:absolute; left:50%; top:42.6cqw; width:25cqw; margin-left:-12.5cqw; color:#ADA8A1; opacity:0.72; pointer-events:none; }
 .op-globe svg{ display:block; width:100%; height:auto; overflow:visible; }
 .op-title{
-  position:absolute; left:0; right:0; top:57.6cqw; margin:0; text-align:center;
+  position:absolute; left:0; right:0; top:51.6cqw; margin:0; text-align:center;
   font-family:var(--serif); font-weight:700; font-size:7.6cqw; letter-spacing:0.005em; line-height:1; color:#45413E;
   -webkit-text-stroke:0.016em #E4E1DC;  /* eases the bold very slightly */
 }
 .op-links{
-  position:absolute; left:50%; top:97cqw; width:76cqw; transform:translate(-50%,-50%);
+  position:absolute; left:50%; top:85.5cqw; width:76cqw; transform:translate(-50%,-50%);
   padding:4cqw 3cqw; text-align:center; background:rgba(255,255,255,0.09);
   display:flex; flex-direction:column; align-items:center; gap:7.4cqw;
 }
 /* the two top links sit in equal halves, so the pair is centred under the title */
 .op-row{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:3cqw; width:100%; }
 .op-row:last-child{ display:flex; justify-content:center; }
-.op-row:first-child .op-link:first-child{ transform:translateX(-3cqw); }
-.op-row:last-child .op-link{ transform:translateX(3cqw); }
+/* the nudges go on the labels, so every subtitle keeps the same centred line */
+.op-row:first-child .op-link:first-child .op-label{ transform:translateX(-3cqw) scaleY(0.93); }
+.op-row:last-child .op-link .op-label{ transform:translateX(3cqw) scaleY(0.93); }
 .op-link{ display:block; text-decoration:none; transition:opacity .3s ease; }
 .op-label{
   display:block; font-family:var(--sans); font-weight:500; font-size:3cqw; letter-spacing:0.1em; line-height:1.1;
@@ -415,7 +417,6 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .op-links:has(.op-link:hover) .op-link:not(:hover), .op-links:has(.op-link:focus-visible) .op-link:not(:focus-visible){ opacity:0.55; }
 .op-link:focus-visible{ outline:none; }
 .op-link:hover .op-label, .op-link:focus-visible .op-label{ color:#1F1D1B; }
-@media (max-width:900px){ .tiles-row .tile-ops{ aspect-ratio:1/1.4142; } }
 @media (prefers-reduced-motion: reduce){ .op-desc, .op-link, .op-label{ transition:none; } }
 
 /* ============ HOMEPAGE — DATABASE SECTION (reached on scroll) ============ */
