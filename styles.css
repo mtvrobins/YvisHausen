@@ -369,15 +369,17 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
     linear-gradient(180deg, #E8E5E0 0%, #E2DFDA 100%);
   color:#45413E;
 }
-/* three plain index tabs along the sheet's right edge */
-.op-tabs{ position:absolute; right:0; top:27cqw; display:flex; flex-direction:column; gap:2.2cqw; pointer-events:none; }
+/* three plain index tabs standing out from the sheet's right edge */
+.tiles-row .tile-ops{ overflow:visible; }
+.op-tabs{ position:absolute; left:100%; top:24cqw; display:flex; flex-direction:column; gap:2.6cqw; pointer-events:none; }
 .op-tabs i{
-  display:block; width:2.6cqw; height:12cqw; border-radius:0.9cqw 0 0 0.9cqw;
-  background:linear-gradient(90deg, #D6D2CC 0%, #DEDAD4 100%);
-  box-shadow:-0.12cqw 0 0.35cqw rgba(60,55,50,0.10), inset 0.12cqw 0 0 rgba(255,255,255,0.45);
+  display:block; width:4.4cqw; height:14cqw; margin-left:-1px; border-radius:0 1.4cqw 1.4cqw 0;
+  background:linear-gradient(90deg, #CFCBC5 0%, #E4E1DC 55%, #DAD6D0 100%);
+  box-shadow:0.2cqw 0.25cqw 0.6cqw rgba(0,0,0,0.35), inset 0.25cqw 0 0.4cqw rgba(60,55,50,0.18);
 }
-.op-tabs i:nth-child(2){ background:linear-gradient(90deg, #CFCBC4 0%, #D8D4CD 100%); }
-.op-tabs i:nth-child(3){ background:linear-gradient(90deg, #C8C3BB 0%, #D1CCC5 100%); }
+.op-tabs i:nth-child(2){ background:linear-gradient(90deg, #C6C1BA 0%, #DAD6D0 55%, #D0CBC4 100%); }
+.op-tabs i:nth-child(3){ background:linear-gradient(90deg, #BDB8B0 0%, #D1CCC5 55%, #C7C2BA 100%); }
+@media (max-width:900px){ .op-tabs i{ width:2.6cqw; } }
 .op-ghost{
   position:absolute; left:0; right:0; text-align:center; white-space:nowrap;
   font-family:var(--serif); font-weight:700; color:#A9A5A0; opacity:0.6; filter:blur(0.55cqw); pointer-events:none;
