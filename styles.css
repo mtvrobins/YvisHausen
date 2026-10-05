@@ -369,6 +369,15 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
     linear-gradient(180deg, #E8E5E0 0%, #E2DFDA 100%);
   color:#45413E;
 }
+/* three plain index tabs along the sheet's right edge */
+.op-tabs{ position:absolute; right:0; top:27cqw; display:flex; flex-direction:column; gap:2.2cqw; pointer-events:none; }
+.op-tabs i{
+  display:block; width:2.6cqw; height:12cqw; border-radius:0.9cqw 0 0 0.9cqw;
+  background:linear-gradient(90deg, #D6D2CC 0%, #DEDAD4 100%);
+  box-shadow:-0.12cqw 0 0.35cqw rgba(60,55,50,0.10), inset 0.12cqw 0 0 rgba(255,255,255,0.45);
+}
+.op-tabs i:nth-child(2){ background:linear-gradient(90deg, #CFCBC4 0%, #D8D4CD 100%); }
+.op-tabs i:nth-child(3){ background:linear-gradient(90deg, #C8C3BB 0%, #D1CCC5 100%); }
 .op-ghost{
   position:absolute; left:0; right:0; text-align:center; white-space:nowrap;
   font-family:var(--serif); font-weight:700; color:#A9A5A0; opacity:0.6; filter:blur(0.55cqw); pointer-events:none;
