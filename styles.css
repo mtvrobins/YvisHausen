@@ -369,28 +369,21 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
     linear-gradient(180deg, #E8E5E0 0%, #E2DFDA 100%);
   color:#45413E;
 }
-/* three plain index tabs, tucked under the sheet near its top right */
+/* four plain index tabs on a sheet lying under the box, showing at its right edge */
 .tiles-row .tile-ops{ overflow:visible; }
-.op-tabs{ position:absolute; left:100%; top:5cqw; display:flex; flex-direction:column; gap:1.4cqw; pointer-events:none; }
-.op-tabs i{
-  display:block; width:3.6cqw; height:10.5cqw; border-radius:0 1cqw 1cqw 0;
-  background:linear-gradient(90deg, #A9A49D 0%, #CFCAC3 22%, #D9D5CF 100%);
-  border:1px solid rgba(255,255,255,0.18); border-left:0;
-  box-shadow:0.15cqw 0.2cqw 0.5cqw rgba(0,0,0,0.4), inset 0.5cqw 0 0.5cqw -0.2cqw rgba(0,0,0,0.28);
-}
-.op-tabs i:nth-child(2){ width:3.2cqw; background:linear-gradient(90deg, #A19C95 0%, #C7C2BB 22%, #D1CCC6 100%); }
-.op-tabs i:nth-child(3){ width:2.8cqw; background:linear-gradient(90deg, #99948C 0%, #BEB9B1 22%, #C8C3BC 100%); }
-@media (max-width:900px){ .op-tabs i{ width:2.4cqw !important; } }
+.op-tabs{ position:absolute; left:100%; top:0; width:6cqw; height:141.42cqw; pointer-events:none; overflow:visible;
+  filter:drop-shadow(0.15cqw 0.2cqw 0.35cqw rgba(0,0,0,0.35)); }
 .op-ghost{
   position:absolute; left:0; right:0; text-align:center; white-space:nowrap;
   font-family:var(--serif); font-weight:700; color:#A9A5A0; opacity:0.6; filter:blur(0.55cqw); pointer-events:none;
 }
 .op-ghost-top{ top:15cqw; font-size:8.4cqw; letter-spacing:0.02em; }
 .op-ghost-bottom{ top:117.5cqw; font-size:7.2cqw; letter-spacing:0.01em; }
-.op-script{ position:absolute; left:52cqw; top:16.5cqw; width:37cqw; height:auto; opacity:0.92; pointer-events:none; }
+.op-script{ position:absolute; left:47cqw; top:12.5cqw; width:46cqw; height:auto; opacity:0.9; transform:rotate(-7deg); transform-origin:center; pointer-events:none; }
 /* one sphere with a band cut from its middle, where OPERATIONS sits */
-.op-globe{ position:absolute; left:50%; top:48.6cqw; width:25.4cqw; margin-left:-12.7cqw; color:#B7B3AD; pointer-events:none; }
-.op-globe svg{ display:block; width:100%; height:auto; overflow:visible; }
+/* the globe is flattened a little top to bottom, after the reference */
+.op-globe{ position:absolute; left:50%; top:49.4cqw; width:30cqw; margin-left:-15cqw; color:#ADA8A1; pointer-events:none; }
+.op-globe svg{ display:block; width:100%; height:24cqw; overflow:visible; }
 .op-title{
   position:absolute; left:0; right:0; top:57.6cqw; margin:0; text-align:center;
   font-family:var(--serif); font-weight:700; font-size:7.6cqw; letter-spacing:0.005em; line-height:1; color:#45413E;
@@ -404,7 +397,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .op-link{ display:block; text-decoration:none; transition:opacity .3s ease; }
 .op-label{
   display:block; font-family:var(--sans); font-weight:500; font-size:3cqw; letter-spacing:0.1em; line-height:1.1;
-  color:#3E3B38; white-space:nowrap; transform:scaleY(0.86); transition:color .25s ease;
+  color:#3E3B38; white-space:nowrap; transform:scaleY(0.93); transition:color .25s ease;
 }
 /* one quiet line beneath the links carries the subtitle of whichever is hovered; nothing moves */
 .op-desc{
