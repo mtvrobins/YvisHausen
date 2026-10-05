@@ -379,22 +379,21 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 .op-ghost-top{ top:15cqw; font-size:8.4cqw; letter-spacing:0.02em; }
 .op-ghost-bottom{ top:117.5cqw; font-size:7.2cqw; letter-spacing:0.01em; }
-.op-script{ position:absolute; left:60cqw; top:11cqw; width:27cqw; height:auto; opacity:0.9; transform:rotate(-7deg); transform-origin:center; pointer-events:none; }
+.op-script{ position:absolute; left:56cqw; top:15cqw; width:33cqw; height:auto; opacity:0.9; transform:rotate(-7deg); transform-origin:center; pointer-events:none; }
 /* one sphere with a band cut from its middle, where OPERATIONS sits */
-/* two flattened halves of a globe, pulled apart around the title */
-.op-globe{ position:absolute; left:50%; top:47.3cqw; width:28cqw; margin-left:-14cqw; color:#ADA8A1; pointer-events:none; }
+/* a globe with its middle band cut away for the title: ten evenly spaced lines in each half */
+.op-globe{ position:absolute; left:50%; top:47cqw; width:28cqw; margin-left:-14cqw; color:#ADA8A1; pointer-events:none; }
 .op-globe svg{ display:block; width:100%; height:auto; overflow:visible; }
 .op-title{
   position:absolute; left:0; right:0; top:57.6cqw; margin:0; text-align:center;
   font-family:var(--serif); font-weight:700; font-size:7.6cqw; letter-spacing:0.005em; line-height:1; color:#45413E;
 }
 .op-links{
-  position:absolute; left:54%; top:94cqw; width:64cqw; transform:translate(-50%,-50%);
+  position:absolute; left:50.5%; top:93cqw; width:64cqw; transform:translate(-50%,-50%);
   padding:4cqw 3cqw; text-align:center; background:rgba(255,255,255,0.09);
-  display:flex; flex-direction:column; align-items:center; gap:14cqw;
+  display:flex; flex-direction:column; align-items:center; gap:10.5cqw;
 }
 .op-row{ display:flex; justify-content:center; gap:8cqw; }
-.op-row .op-link{ position:relative; }
 .op-link{ display:block; text-decoration:none; transition:opacity .3s ease; }
 .op-label{
   display:block; font-family:var(--sans); font-weight:500; font-size:3cqw; letter-spacing:0.1em; line-height:1.1;
@@ -402,13 +401,14 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 /* one quiet line beneath the links carries the subtitle of whichever is hovered; nothing moves */
 .op-desc{
-  position:absolute; left:50%; top:100%; width:26cqw; margin-left:-13cqw; padding-top:1.4cqw; pointer-events:none;
+  position:absolute; left:6cqw; right:6cqw; top:8.6cqw; pointer-events:none; text-align:center;
   font-family:var(--sans); font-weight:400; font-size:2.25cqw; line-height:1.45; letter-spacing:0.02em; color:#5A5551;
   opacity:0; transition:opacity .35s ease;
 }
 .op-link:hover .op-desc, .op-link:focus-visible .op-desc{ opacity:1; }
-.op-links:hover .op-link, .op-links:focus-within .op-link{ opacity:0.55; }
-.op-links .op-link:hover, .op-links .op-link:focus-visible{ opacity:1; outline:none; }
+/* the others fade only while a link itself is hovered */
+.op-links:has(.op-link:hover) .op-link:not(:hover), .op-links:has(.op-link:focus-visible) .op-link:not(:focus-visible){ opacity:0.55; }
+.op-link:focus-visible{ outline:none; }
 .op-link:hover .op-label, .op-link:focus-visible .op-label{ color:#1F1D1B; }
 @media (max-width:900px){ .tiles-row .tile-ops{ aspect-ratio:1/1.4142; } }
 @media (prefers-reduced-motion: reduce){ .op-desc, .op-link, .op-label{ transition:none; } }
