@@ -60,10 +60,14 @@ ENGINE_NOTE = '''<div class="code-restricted code-note" id="gateNote">
       </div>'''
 FOLDER_NOTE = '<p class="code-restricted" id="gateNote">ACCESS RESTRICTED. ACCESS CODES ARE PROVIDED BY AUTHORISED AGENTS ONLY</p>'
 
+BOOK_A_CALL = {'marketing.html', 'engine.html', 'book.html'}  # their ENQUIRE opens the call booking
+
 def update(path, tm, missing):
     """Shared pieces, then translations; the file is written only if it changed."""
     src = open(path).read()
     out = apply_partials(src)
+    if os.path.basename(path) in BOOK_A_CALL:  # Marketing keeps its call booking
+        out = out.replace('class="enquire-btn" href="enquire.html"', 'class="enquire-btn" href="book.html"')
     if path != 'tools/protected_stub.html':
         out = i18n.localise(out, tm, missing)
     if out != src:

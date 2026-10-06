@@ -253,7 +253,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .cr-title{ margin:0; white-space:nowrap; font-size:6.1cqw; line-height:1; letter-spacing:0.012em; color:#2A2420; transform:var(--cr-squish); transform-origin:left top; }
 .cr-year{ font-size:2.15cqw; letter-spacing:0.07em; color:#2A2420; white-space:nowrap; -webkit-text-stroke:0.02em currentColor; transform:var(--cr-squish); transform-origin:right top; }
 .cr-label{ font-family:"Cormorant Garamond", var(--serif); }
-.cr-desc{ font-family:var(--serif); }
+.cr-desc{ font-family:"Cormorant Garamond", var(--serif); }
 .cr-links{ position:absolute; left:0; top:11.4cqw; width:43cqw; display:flex; flex-direction:column; text-align:left; }
 /* each link is as wide as its heading (or a short paragraph); the subtitle starts at the heading's left edge */
 .cr-link{ width:fit-content; margin-inline:auto; }
@@ -261,11 +261,11 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .cr-link{ position:relative; display:block; min-height:14.3cqw; text-decoration:none; transition:opacity .25s ease; }
 .cr-label{
   display:block; white-space:nowrap; font-size:3.4cqw; font-weight:600; line-height:1.1; letter-spacing:0.11em; color:#7A1A1A;
-  transform:var(--cr-squish); transform-origin:center top; transition:color .2s ease;
+  transform:scaleY(0.96); transform-origin:center top; transition:color .2s ease;
 }
 .cr-desc{
   display:block; margin:0.8cqw 0 0; width:0; min-width:max(100%, 27cqw); text-align:left;
-  font-size:2cqw; font-weight:400; line-height:1.48; letter-spacing:0.012em; color:#3B332E;
+  font-size:2.4cqw; font-weight:500; line-height:1.4; letter-spacing:0.012em; color:#3B332E;
   opacity:0; transition:opacity .18s ease;
 }
 /* hover: quiet and simple. The title deepens, its subtitle fades in,
@@ -326,11 +326,12 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   font-size:3.3cqw; font-weight:600; letter-spacing:0.06em; color:var(--ac-red); line-height:1;
 }
 .ac-cities i{ font-style:normal; font-weight:700; }
-.ac-links{ position:absolute; left:0; right:0; top:64.5cqw; bottom:0; }
+.ac-links{ position:absolute; left:0; right:0; top:67cqw; bottom:0; }
 .ac-link{ position:absolute; display:block; width:56cqw; text-decoration:none; transition:opacity .25s ease; }
-.ac-link:nth-child(1){ left:9cqw; top:0; }
-.ac-link:nth-child(2){ left:24cqw; top:17cqw; }
-.ac-link:nth-child(3){ left:39cqw; top:34cqw; }
+.ac-link:nth-child(1){ left:12cqw; top:0; }
+.ac-link:nth-child(2){ left:27cqw; top:16.5cqw; }
+.ac-link:nth-child(3){ left:41cqw; top:33cqw; }
+.ac-link:nth-child(3) .ac-desc{ max-width:53cqw; }
 .ac-label{
   display:block; white-space:nowrap; font-size:5cqw; font-weight:500; letter-spacing:0.15em; line-height:1;
   color:#15120F; transition:color .2s ease;
@@ -391,8 +392,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .op-globe{ position:absolute; left:50%; top:44.3cqw; width:22cqw; margin-left:-11cqw; color:#ADA8A1; opacity:0.5; pointer-events:none; }
 .op-globe svg{ display:block; width:100%; height:auto; overflow:visible; }
 .op-title{
-  position:absolute; left:0; right:0; top:50.8cqw; margin:0; text-align:center;
-  font-family:"Times New Roman", Times, "Liberation Serif", serif; font-weight:400; font-size:7.6cqw; letter-spacing:0.01em; line-height:1; color:#3F3B38;
+  position:absolute; left:0; right:0; top:52.95cqw; margin:0; text-align:center;
+  font-family:"Times New Roman", Times, "Liberation Serif", serif; font-weight:400; font-size:7cqw; letter-spacing:0.01em; line-height:1; color:#3F3B38;
   -webkit-text-stroke:0.012em currentColor;  /* a touch firmer than regular, well short of bold */
 }
 .op-links{
@@ -405,7 +406,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .op-row:last-child{ display:flex; justify-content:center; }
 /* the nudges go on the labels, so every subtitle keeps the same centred line */
 .op-row:first-child .op-link:first-child .op-label{ transform:translateX(-3cqw) scaleY(0.93); }
-.op-row:last-child .op-link .op-label{ transform:translateX(1cqw) scaleY(0.93); }
+.op-row:last-child .op-link .op-label{ transform:translateX(-1.2cqw) scaleY(0.93); }
 /* the one-line Marketing subtitle sits midway between the two rows */
 .op-row:first-child .op-link:first-child .op-desc{ top:9.3cqw; }
 .op-link{ display:block; text-decoration:none; transition:opacity .3s ease; }
