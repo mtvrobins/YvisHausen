@@ -239,7 +239,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
     linear-gradient(140deg, #FDF8EE 0%, #FBF0E2 52%, #F9ECE4 100%);
   --cr-squish:scaleY(0.86);
 }
-.cr-statue, .cr-tint{ position:absolute; right:4.2%; bottom:-2.2cqw; width:85%; pointer-events:none; }
+.cr-statue, .cr-tint{ position:absolute; right:0.6%; bottom:-2.2cqw; width:85%; pointer-events:none; }
 .cr-statue{ height:auto; }
 /* a very faint blue veil, cut to the statue's own silhouette */
 .cr-tint{
@@ -249,19 +249,23 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 .cr-head{ position:absolute; left:3.3cqw; right:4cqw; top:3cqw; display:flex; align-items:baseline; justify-content:space-between; gap:3cqw; }
 .cr-title, .cr-year{ font-family:"YH Display", var(--serif); font-weight:400; }
+.cr-title{ -webkit-text-stroke:0.022em currentColor; }  /* a firmer title */
 .cr-title{ margin:0; white-space:nowrap; font-size:6.1cqw; line-height:1; letter-spacing:0.012em; color:#2A2420; transform:var(--cr-squish); transform-origin:left top; }
 .cr-year{ font-size:2.15cqw; letter-spacing:0.07em; color:#2A2420; white-space:nowrap; -webkit-text-stroke:0.02em currentColor; transform:var(--cr-squish); transform-origin:right top; }
 .cr-label{ font-family:"Cormorant Garamond", var(--serif); }
 .cr-desc{ font-family:var(--serif); }
-.cr-links{ position:absolute; left:0; top:11.4cqw; width:43cqw; display:flex; flex-direction:column; text-align:center; }
+.cr-links{ position:absolute; left:0; top:11.4cqw; width:43cqw; display:flex; flex-direction:column; text-align:left; }
+/* each link is as wide as its heading (or a short paragraph); the subtitle starts at the heading's left edge */
+.cr-link{ width:fit-content; margin-inline:auto; }
+.cr-link:nth-child(2){ translate:2.6cqw 0; }
 .cr-link{ position:relative; display:block; min-height:14.3cqw; text-decoration:none; transition:opacity .25s ease; }
 .cr-label{
-  display:block; white-space:nowrap; font-size:3.3cqw; font-weight:500; line-height:1.1; letter-spacing:0.1em; color:#7A1A1A;
+  display:block; white-space:nowrap; font-size:3.4cqw; font-weight:600; line-height:1.1; letter-spacing:0.11em; color:#7A1A1A;
   transform:var(--cr-squish); transform-origin:center top; transition:color .2s ease;
 }
 .cr-desc{
-  display:block; margin:0.8cqw auto 0; max-width:41.5cqw;
-  font-size:2.12cqw; font-weight:400; line-height:1.48; letter-spacing:0.012em; color:#3B332E;
+  display:block; margin:0.8cqw 0 0; width:0; min-width:max(100%, 27cqw); text-align:left;
+  font-size:2cqw; font-weight:400; line-height:1.48; letter-spacing:0.012em; color:#3B332E;
   opacity:0; transition:opacity .18s ease;
 }
 /* hover: quiet and simple. The title deepens, its subtitle fades in,
@@ -284,7 +288,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   .cr-links{ top:16cqw; width:52cqw; }
   .cr-link{ min-height:17cqw; }
   .cr-label{ font-size:3.9cqw; }
-  .cr-desc{ font-size:2.8cqw; max-width:50cqw; }
+  .cr-desc{ font-size:2.8cqw; min-width:max(100%, 36cqw); }
   .cr-links{ top:14.5cqw; }
   .cr-link{ min-height:20.5cqw; }
   .cr-statue, .cr-tint{ right:1.5%; width:92%; }
@@ -308,7 +312,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .tile-art p, .tile-art ul{ margin:0; padding:0; }
 .ac-mast{ position:absolute; right:4.5cqw; top:5cqw; text-align:right; }
 .ac-curation{ font-size:12.8cqw; font-weight:500; letter-spacing:0.1em; margin-right:-0.1em !important; line-height:0.9; color:var(--ac-red); }
-.ac-sub{ margin-top:3.4cqw !important; font-size:3.2cqw; font-weight:600; letter-spacing:0.2em; margin-right:-0.2em !important; line-height:1; }
+.ac-sub{ margin-top:1.6cqw !important; font-size:3.2cqw; font-weight:600; letter-spacing:0.2em; margin-right:-0.2em !important; line-height:1; }
 /* the house block starts level with ART & CULTURAL, clear of the title */
 .ac-house{ position:absolute; left:4.5cqw; top:19.2cqw; }
 .ac-brand{ font-size:3.6cqw; font-weight:500; letter-spacing:0.16em; color:var(--ac-red); line-height:1; }
@@ -322,11 +326,11 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   font-size:3.3cqw; font-weight:600; letter-spacing:0.06em; color:var(--ac-red); line-height:1;
 }
 .ac-cities i{ font-style:normal; font-weight:700; }
-.ac-links{ position:absolute; left:0; right:0; top:62cqw; bottom:0; }
+.ac-links{ position:absolute; left:0; right:0; top:64.5cqw; bottom:0; }
 .ac-link{ position:absolute; display:block; width:56cqw; text-decoration:none; transition:opacity .25s ease; }
-.ac-link:nth-child(1){ left:6cqw; top:0; }
-.ac-link:nth-child(2){ left:21cqw; top:18cqw; }
-.ac-link:nth-child(3){ left:36cqw; top:36cqw; }
+.ac-link:nth-child(1){ left:9cqw; top:0; }
+.ac-link:nth-child(2){ left:24cqw; top:17cqw; }
+.ac-link:nth-child(3){ left:39cqw; top:34cqw; }
 .ac-label{
   display:block; white-space:nowrap; font-size:5cqw; font-weight:500; letter-spacing:0.15em; line-height:1;
   color:#15120F; transition:color .2s ease;
@@ -338,13 +342,13 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 /* a slow glint passes across each link now and then, so it reads as clickable */
 .ac-label{
-  background-image:linear-gradient(105deg, currentColor 42%, #C9A46A 49%, #F3E3C3 50%, #C9A46A 51%, currentColor 58%);
+  background-image:linear-gradient(105deg, currentColor 45%, #5E4C38 49.2%, #8C7457 50%, #5E4C38 50.8%, currentColor 55%);
   background-size:300% 100%; background-position:100% 0;
   -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-  animation:acGlint 6s ease-in-out infinite;
+  animation:acGlint 9s ease-in-out infinite;
 }
-.ac-link:nth-child(2) .ac-label{ animation-delay:2s; }
-.ac-link:nth-child(3) .ac-label{ animation-delay:4s; }
+.ac-link:nth-child(2) .ac-label{ animation-delay:3s; }
+.ac-link:nth-child(3) .ac-label{ animation-delay:6s; }
 @keyframes acGlint{ 0%{ background-position:100% 0; } 22%,100%{ background-position:0% 0; } }
 @media (prefers-reduced-motion: reduce){ .ac-label{ animation:none; } }
 .ac-links:hover .ac-link, .ac-links:focus-within .ac-link{ opacity:0.45; }
@@ -372,8 +376,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 /* four plain index tabs on a sheet lying under the box, showing at its right edge */
 .tiles-row .tile-ops{ overflow:visible; }
-.op-tabs{ position:absolute; left:100%; top:0; width:6cqw; height:124.5cqw; pointer-events:none; overflow:visible;
-  filter:drop-shadow(0.1cqw 0.12cqw 0.25cqw rgba(0,0,0,0.28)); }
+.op-tabs{ position:absolute; left:100%; top:0; width:6cqw; height:124.5cqw; pointer-events:none; overflow:visible; }
+/* four separate tabs; each lower one lies over the one above, stepping out a little */
+.op-tabs path{ vector-effect:non-scaling-stroke; filter:drop-shadow(0 -0.5px 0.6px rgba(0,0,0,0.22)) drop-shadow(0.6px 0.8px 1px rgba(0,0,0,0.25)); }
 .op-ghost{
   position:absolute; left:0; right:0; text-align:center; white-space:nowrap;
   font-family:var(--serif); font-weight:700; color:#A9A5A0; opacity:0.6; filter:blur(0.55cqw); pointer-events:none;
@@ -383,12 +388,12 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .op-script{ position:absolute; left:56cqw; top:16.5cqw; width:33cqw; height:auto; opacity:0.9; transform:rotate(-7deg); transform-origin:center; pointer-events:none; }
 /* one sphere with a band cut from its middle, where OPERATIONS sits */
 /* a globe with its middle band cut away for the title: ten evenly spaced lines in each half */
-.op-globe{ position:absolute; left:50%; top:42.6cqw; width:25cqw; margin-left:-12.5cqw; color:#ADA8A1; opacity:0.72; pointer-events:none; }
+.op-globe{ position:absolute; left:50%; top:44.3cqw; width:22cqw; margin-left:-11cqw; color:#ADA8A1; opacity:0.5; pointer-events:none; }
 .op-globe svg{ display:block; width:100%; height:auto; overflow:visible; }
 .op-title{
-  position:absolute; left:0; right:0; top:51.6cqw; margin:0; text-align:center;
-  font-family:var(--serif); font-weight:700; font-size:7.6cqw; letter-spacing:0.005em; line-height:1; color:#45413E;
-  -webkit-text-stroke:0.016em #E4E1DC;  /* eases the bold very slightly */
+  position:absolute; left:0; right:0; top:50.8cqw; margin:0; text-align:center;
+  font-family:"Times New Roman", Times, "Liberation Serif", serif; font-weight:400; font-size:7.6cqw; letter-spacing:0.01em; line-height:1; color:#3F3B38;
+  -webkit-text-stroke:0.012em currentColor;  /* a touch firmer than regular, well short of bold */
 }
 .op-links{
   position:absolute; left:50%; top:85.5cqw; width:76cqw; transform:translate(-50%,-50%);
@@ -400,7 +405,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .op-row:last-child{ display:flex; justify-content:center; }
 /* the nudges go on the labels, so every subtitle keeps the same centred line */
 .op-row:first-child .op-link:first-child .op-label{ transform:translateX(-3cqw) scaleY(0.93); }
-.op-row:last-child .op-link .op-label{ transform:translateX(3cqw) scaleY(0.93); }
+.op-row:last-child .op-link .op-label{ transform:translateX(1cqw) scaleY(0.93); }
+/* the one-line Marketing subtitle sits midway between the two rows */
+.op-row:first-child .op-link:first-child .op-desc{ top:9.3cqw; }
 .op-link{ display:block; text-decoration:none; transition:opacity .3s ease; }
 .op-label{
   display:block; font-family:var(--sans); font-weight:500; font-size:3cqw; letter-spacing:0.1em; line-height:1.1;
