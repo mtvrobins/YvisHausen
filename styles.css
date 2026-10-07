@@ -231,6 +231,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .tiles-row .tile{ aspect-ratio:277/345; }
 .tiles-row .tile-creative{ aspect-ratio:340/230; }
 .tiles-row .tile-art{ aspect-ratio:296/361; }
+/* Creative House sits a little right of centre between the other two */
+@media (min-width:901px){ .tiles-row .tile-creative{ translate:clamp(10px,1.7vw,24px) 0; } }
 .tile-creative{
   container-type:inline-size; overflow:hidden; padding:0; border-color:rgba(245,242,235,0.18);
   background:
@@ -991,13 +993,21 @@ body.private-gate{ background:#000; min-height:100vh; }
 .about-tilde{ display:inline-block; color:#C9A46A; font-weight:400; opacity:0; transform:scaleX(0.2);
   animation:aboutTilde 1s cubic-bezier(.2,.7,.2,1) 1.25s forwards; }
 .about-text{
-  max-width:430px; margin:46px auto 0; font-family:var(--serif); font-size:14.5px; line-height:1.9;
-  letter-spacing:0.02em; color:var(--muted); opacity:0; filter:blur(4px);
-  animation:aboutText 1.6s ease 2.7s forwards;
+  max-width:440px; margin:22px auto 0; font-family:"Cormorant Garamond", var(--serif); font-size:18px; font-weight:500; line-height:1.75;
+  letter-spacing:0.02em; color:#BDB6A8; opacity:0; animation:aboutText 1.2s ease 2.9s forwards;
 }
+/* a fine gold line draws out from the centre, then the words rise in one by one */
+.about-rule{ display:block; width:64px; height:1px; margin:44px auto 0; background:linear-gradient(90deg, transparent, #C9A46A, transparent);
+  transform:scaleX(0); opacity:0; animation:aboutRule 1.1s cubic-bezier(.2,.7,.2,1) 2.45s forwards; }
+.about-text.split{ opacity:1; animation:none; }
+.about-text .aw{ display:inline-block; overflow:hidden; vertical-align:top; padding:0 0.02em 0.12em; margin-bottom:-0.12em; }
+.about-text .aw > span{ display:inline-block; opacity:0; transform:translateY(105%); filter:blur(5px);
+  animation:aboutWord 0.95s cubic-bezier(.2,.75,.2,1) var(--d,0s) forwards; }
+@keyframes aboutWord{ 60%{ filter:blur(0.5px); } to{ opacity:1; transform:none; filter:none; } }
+@keyframes aboutRule{ to{ transform:none; opacity:1; } }
 @keyframes aboutIn{ to{ opacity:1; transform:none; filter:none; } }
 @keyframes aboutTilde{ to{ opacity:1; transform:none; } }
 @keyframes aboutText{ to{ opacity:1; filter:none; } }
 @media (prefers-reduced-motion: reduce){
-  .about-line span span, .about-tilde, .about-text{ opacity:1; transform:none; filter:none; animation:none; }
+  .about-line span span, .about-tilde, .about-text, .about-rule, .about-text .aw > span{ opacity:1; transform:none; filter:none; animation:none; }
 }
