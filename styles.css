@@ -476,9 +476,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   position:relative; z-index:2; display:block;
   margin:0 0 -1px 0; padding:11px 54px 10px;
   max-width:calc(100% - 32px);
-  background:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, rgba(0,0,0,0.03) 1px 2px),
-    linear-gradient(180deg, rgba(214,209,200,0.36) 0%, rgba(186,180,171,0.28) 50%, rgba(160,154,146,0.23) 100%);
+  /* clean matte card: soft cream, see-through, no grain */
+  background:linear-gradient(180deg, rgba(250,246,238,0.26) 0%, rgba(240,234,222,0.19) 100%);
   -webkit-backdrop-filter:blur(8px) saturate(115%); backdrop-filter:blur(8px) saturate(115%);
   clip-path:polygon(0 100%, 9px 95%, 15px 84%, 20px 58%, 25px 24%, 30px 7%, 38px 0,
     calc(100% - 38px) 0, calc(100% - 30px) 7%, calc(100% - 25px) 24%, calc(100% - 20px) 58%, calc(100% - 15px) 84%, calc(100% - 9px) 95%, 100% 100%);
@@ -507,8 +506,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   /* darker, with a faint satin gloss along the top edge: smooth, slightly glossy, still matte */
   background:
     linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 22%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.35) 100%),
-    #0d0d0c var(--metal) center / 100% 100% no-repeat;
-  filter:brightness(0.78) contrast(1.12) saturate(0.9);
+    #0c0c0f var(--metal) center / 100% 100% no-repeat;
+  filter:brightness(0.8) contrast(1.12);
   /* a folded steel front: rounded top corners and a fine bright rim along the top and both sides */
   border:1px solid rgba(230,227,220,0.38); border-bottom:none;
   border-radius:7px 7px 0 0;
@@ -544,15 +543,15 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .paper--bw{
   background:linear-gradient(90deg, #050505 0%, #2a2a2a 14%, #efefef 26%, #111 41%, #dcdcdc 58%, #080808 72%, #bdbdbd 86%, #0d0d0d 100%);
 }
-.folder:hover .folder-body{ filter:brightness(0.95) contrast(1.12) saturate(0.9); }
+.folder:hover .folder-body{ filter:brightness(0.96) contrast(1.12); }
 .folder:hover .folder-tab{ filter:drop-shadow(0 -1px 0 rgba(255,255,255,0.35)) brightness(1.08); }
-.folder:nth-child(1) .folder-body{ --metal:url("images/folder-metal-1.jpg"); --ix:6px; --iy:2px; }
-.folder:nth-child(2) .folder-body{ --metal:url("images/folder-metal-2.jpg"); --ix:0px; --iy:4px; }
-.folder:nth-child(3) .folder-body{ --metal:url("images/folder-metal-3.jpg"); --ix:3px; --iy:0px; }
-.folder:nth-child(4) .folder-body{ --metal:url("images/folder-metal-4.jpg"); --ix:1px; --iy:3px; }
-.folder:nth-child(5) .folder-body{ --metal:url("images/folder-metal-5.jpg"); --ix:4px; --iy:1px; }
-.folder:nth-child(6) .folder-body{ --metal:url("images/folder-metal-6.jpg"); --ix:0px; --iy:5px; }
-.folder:nth-child(7) .folder-body{ --metal:url("images/folder-metal-7.jpg"); --ix:5px; --iy:0px; }
+.folder:nth-child(1) .folder-body{ --metal:url("images/folder-metal-1.jpg"); }
+.folder:nth-child(2) .folder-body{ --metal:url("images/folder-metal-2.jpg"); }
+.folder:nth-child(3) .folder-body{ --metal:url("images/folder-metal-3.jpg"); }
+.folder:nth-child(4) .folder-body{ --metal:url("images/folder-metal-4.jpg"); }
+.folder:nth-child(5) .folder-body{ --metal:url("images/folder-metal-5.jpg"); }
+.folder:nth-child(6) .folder-body{ --metal:url("images/folder-metal-6.jpg"); }
+.folder:nth-child(7) .folder-body{ --metal:url("images/folder-metal-7.jpg"); }
 .folder:focus-visible .folder-tab{ outline:1px solid var(--fg); outline-offset:2px; }
 
 .site-footer{ padding:30px 20px 44px; border-top:1px solid var(--hairline); }
