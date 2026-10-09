@@ -460,7 +460,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 /* Folders are filed one in front of the next, like dividers in a drawer:
    SOUND sits at the back, each following folder overlaps the one behind it. */
 .folder{
-  --body-h:128px;   /* each front runs on down behind the next file's papers */
+  --body-h:112px;   /* each front runs on down behind the next file's papers */
   position:relative; z-index:var(--i);
   display:flex; flex-direction:column; align-items:flex-start;
   width:100%; border:none; background:none; padding:30px 0 0; margin:0;
@@ -468,7 +468,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   transition:transform .45s cubic-bezier(.2,.7,.2,1);
 }
 .folder + .folder{ margin-top:-112px; }
-.folder:last-child{ --body-h:68px; }
+.folder:last-child{ --body-h:56px; }
 .folder:hover{ transform:translateY(-7px); }
 
 /* the title tab: a brushed-silver divider tab, its shoulders flaring down into the papers */
@@ -481,13 +481,12 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   -webkit-backdrop-filter:blur(8px) saturate(115%); backdrop-filter:blur(8px) saturate(115%);
   clip-path:polygon(0 100%, 9px 95%, 15px 84%, 20px 58%, 25px 24%, 30px 7%, 38px 0,
     calc(100% - 38px) 0, calc(100% - 30px) 7%, calc(100% - 25px) 24%, calc(100% - 20px) 58%, calc(100% - 15px) 84%, calc(100% - 9px) 95%, 100% 100%);
-  filter:drop-shadow(0 -1px 0 rgba(255,255,255,0.25));
   transition:filter .3s ease;
 }
 .folder-label{
   font-weight:500; font-size:11.5px; letter-spacing:0.26em; color:#F6F4EF;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block;
-  text-shadow:0 1px 2px rgba(0,0,0,0.55);
+  text-shadow:none;
 }
 /* hand-placed so the tabs never line up in a column */
 .folder:nth-child(1) .folder-tab{ margin-left:68%; }
@@ -544,7 +543,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   background:linear-gradient(90deg, #050505 0%, #2a2a2a 14%, #efefef 26%, #111 41%, #dcdcdc 58%, #080808 72%, #bdbdbd 86%, #0d0d0d 100%);
 }
 .folder:hover .folder-body{ filter:brightness(0.96) contrast(1.12); }
-.folder:hover .folder-tab{ filter:drop-shadow(0 -1px 0 rgba(255,255,255,0.35)) brightness(1.08); }
+.folder:hover .folder-tab{ filter:brightness(1.12); }
 .folder:nth-child(1) .folder-body{ --metal:url("images/folder-steel-1.jpg"); }
 .folder:nth-child(2) .folder-body{ --metal:url("images/folder-steel-2.jpg"); }
 .folder:nth-child(3) .folder-body{ --metal:url("images/folder-steel-3.jpg"); }
@@ -872,9 +871,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 @media (max-width:900px){
   .tiles-row{ grid-template-columns:1fr; max-width:420px; margin:0 auto; }
-  .folder{ --body-h:116px; }
+  .folder{ --body-h:104px; }
   .folder + .folder{ margin-top:-102px; }
-  .folder:last-child{ --body-h:62px; }
+  .folder:last-child{ --body-h:52px; }
   .folder-tab{ padding:10px 40px 9px; }
   .folder-label{ letter-spacing:0.2em; font-size:11px; }
   .folder:nth-child(1) .folder-tab{ margin-left:22%; }
