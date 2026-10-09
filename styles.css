@@ -191,6 +191,10 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 /* ============ HOMEPAGE — FRONT PAGE (first screen: 3 tiles) ============ */
 .front-page{ max-width:1240px; margin:0 auto; padding:70px 32px 90px; }
+/* the three tiles always fit the first screen: their width follows the window height */
+@media (min-width:901px){
+  .front-page{ max-width:min(1140px, calc((100vh - 130px) * 2.4 + 180px)); padding-top:clamp(18px, 3vh, 40px); }
+}
 .tiles-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
 .tile{
   position:relative; aspect-ratio:1/1;

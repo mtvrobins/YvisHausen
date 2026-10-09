@@ -64,6 +64,12 @@
   .stage-list li{ display:flex; gap:20px; padding:11px 0; border-bottom:1px solid var(--line); font-size:12.5px; line-height:1.5; color:#d6d5cf; }
   .stage-list li b{ flex:none; width:142px; font-weight:600; font-size:9.5px; letter-spacing:0.18em; color:var(--fg); padding-top:2px; }
   .stage-ill{ position:relative; }
+  /* on wider screens each illustration travels with its section: it stays
+     centred in the window while the reader works down the text beside it */
+  @media (min-width:901px){
+    .stage-grid{ align-items:start; }
+    .stage-ill{ position:sticky; top:var(--stick, 120px); }
+  }
   .stage-ill svg{ display:block; width:100%; height:auto; overflow:visible; }
 
   /* ---------- illustration toolkit (plays when the figure scrolls in) ---------- */
@@ -1197,6 +1203,20 @@
 <!-- /i18n -->
 <script src="script.js"></script>
 <script>
+// keep each section's illustration centred in the window (below the header) while it is held
+(function(){
+  var figs = Array.prototype.slice.call(document.querySelectorAll('.stage-ill'));
+  function place(){
+    var bar = document.getElementById('topbar'), hdr = bar ? bar.offsetHeight : 0;
+    figs.forEach(function(f){
+      var h = f.offsetHeight;
+      f.style.setProperty('--stick', Math.max(hdr + 16, Math.round(hdr + (innerHeight - hdr - h) / 2)) + 'px');
+    });
+  }
+  place();
+  addEventListener('resize', place);
+  addEventListener('load', place);
+})();
   (function(){
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // terms and conditions (notes) fold open from the toggle or any asterisk
