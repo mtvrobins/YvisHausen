@@ -477,7 +477,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   margin:0 0 -1px 0; padding:11px 54px 10px;
   max-width:calc(100% - 32px);
   /* clean matte card: soft cream, see-through, no grain */
-  background:linear-gradient(180deg, rgba(248,247,244,0.26) 0%, rgba(236,234,229,0.19) 100%);
+  background:linear-gradient(180deg, rgba(204,196,182,0.58) 0%, rgba(222,214,199,0.66) 100%);   /* soft warm beige, still see-through */
   -webkit-backdrop-filter:blur(8px) saturate(115%); backdrop-filter:blur(8px) saturate(115%);
   clip-path:polygon(0 100%, 9px 95%, 15px 84%, 20px 58%, 25px 24%, 30px 7%, 38px 0,
     calc(100% - 38px) 0, calc(100% - 30px) 7%, calc(100% - 25px) 24%, calc(100% - 20px) 58%, calc(100% - 15px) 84%, calc(100% - 9px) 95%, 100% 100%);
