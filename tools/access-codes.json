@@ -1,5 +1,5 @@
 {
-  "_note": "Access code for each private page. Keep this file out of the public site. Codes of 4 characters auto-submit; longer codes submit with Enter. Change a code here, then run: python3 tools/build.py",
+  "_note": "Access code for each private page. Keep this file out of the public site. Every code is exactly four digits; the code boxes accept nothing longer. Change a code here, then run: python3 tools/build.py",
   "engine.html": "0000",
   "database-sound.html": "0000",
   "database-visual-direction.html": "0000",

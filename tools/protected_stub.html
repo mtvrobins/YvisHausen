@@ -18,7 +18,7 @@
   <div class="code-modal open" id="gate" data-after="{{AFTER}}">
     <form class="code-box" id="gateForm" autocomplete="off">
       <p class="code-label">PRIVATE CODE</p>
-      <input type="password" class="code-input" id="gateInput" aria-label="Access code" autocomplete="off">
+      <input type="password" inputmode="numeric" pattern="[0-9]*" class="code-input" id="gateInput" aria-label="Access code" autocomplete="off">
       <p class="code-error" id="gateError">ACCESS DENIED</p>
       {{NOTE}}
       <a class="code-cancel" href="{{BACK}}">CANCEL</a>
@@ -34,26 +34,35 @@
   var error = document.getElementById('gateError'), note = document.getElementById('gateNote');
   var after = parseInt(document.getElementById('gate').getAttribute('data-after') || '2', 10);
   var fails = 0, busy = false;
+  function deny(){
+    fails++; error.classList.add('show'); input.value = '';
+    if(note && fails >= after) note.classList.add('show');
+  }
   function open(html){ document.open(); document.write(html); document.close(); }
   async function attempt(code, silent){
-    if(busy || !code) return;
-    busy = true;
+    if(busy || !/^\d{4}$/.test(code || '')) return;
+    busy = true; input.readOnly = true;
     try{
       var html = await YHAccess.decrypt(payload, code);
       YHAccess.remember(here, code);
       open(html);
     }catch(e){
-      if(!silent){
-        fails++; error.classList.add('show'); input.value = '';
-        if(note && fails >= after) note.classList.add('show');
-      }
+      if(!silent) deny();
     }
-    busy = false;
+    busy = false; input.readOnly = false;
   }
   var saved = YHAccess.recall(here);
   if(saved) attempt(saved, true);
-  form.addEventListener('submit', function(e){ e.preventDefault(); attempt(input.value.trim()); });
-  input.addEventListener('input', function(){ if(input.value.length === 4) attempt(input.value.trim()); });
+  var timer = 0;
+  form.addEventListener('submit', function(e){ e.preventDefault(); clearTimeout(timer); attempt(input.value.trim()); });
+  input.addEventListener('input', function(){
+    // digits only; exactly four, tried a moment after the fourth. A fifth digit makes it wrong.
+    clearTimeout(timer);
+    var digits = input.value.replace(/\D/g, '');
+    if(digits !== input.value) input.value = digits;
+    if(digits.length > 4){ deny(); return; }
+    if(digits.length === 4) timer = setTimeout(function(){ attempt(digits); }, 450);
+  });
   setTimeout(function(){ input.focus(); }, 60);
 })();
 </script>

@@ -177,8 +177,8 @@ if(subtitleEl){
 // ---------- Private-code gate (filing cabinet and the Engine) ----------
 // No codes live in this file. Each private page is published encrypted
 // (see access.js and tools/build.py); a code is right only if it unlocks
-// the page. Codes of this length submit as soon as they are typed;
-// longer codes submit with Enter.
+// the page. Every code is exactly four digits. A code is tried a moment
+// after the fourth digit; typing a fifth counts as a wrong code.
 const CODE_LENGTH = 4;
 
 let pendingFolder = null;   // folder key, or a gate { key, href }
@@ -221,22 +221,23 @@ function gateHref(target){
   return typeof target === 'string' ? 'database-' + target + '.html' : target.href;
 }
 
+function rejectCode(){
+  failedAttempts++;
+  codeError.classList.add('show');
+  if(codeRestricted && failedAttempts >= restrictAfter) codeRestricted.classList.add('show');
+  codeInput.value = '';
+}
+
 let checking = false;
 async function submitCode(){
   if(!pendingFolder || checking) return;
   const code = codeInput.value.trim();
-  if(!code) return;
+  if(!/^\d{4}$/.test(code)) return;
   const target = pendingFolder, href = gateHref(target);
-  checking = true;
+  checking = true; codeInput.readOnly = true;
   const ok = window.YHAccess ? await window.YHAccess.check(href, code) : null;
-  checking = false;
-  if(ok === false){
-    failedAttempts++;
-    codeError.classList.add('show');
-    if(codeRestricted && failedAttempts >= restrictAfter) codeRestricted.classList.add('show');
-    codeInput.value = '';
-    return;
-  }
+  checking = false; codeInput.readOnly = false;
+  if(ok === false){ rejectCode(); return; }
   // unlocked (or could not be checked from here, in which case the page asks again)
   if(window.YHAccess) window.YHAccess.remember(href, code);
   closeCodeModal();
@@ -256,9 +257,15 @@ document.querySelectorAll('[data-gate]').forEach(a => {
 
 if(codeCancel){ codeCancel.addEventListener('click', closeCodeModal); }
 if(codeInput){
-  codeInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') submitCode(); });
+  let codeTimer = 0;
+  codeInput.addEventListener('keydown', (e) => { if(e.key === 'Enter'){ clearTimeout(codeTimer); submitCode(); } });
   codeInput.addEventListener('input', () => {
-    if(codeInput.value.length === CODE_LENGTH) submitCode();
+    // digits only; exactly four. A fifth digit makes the code wrong.
+    clearTimeout(codeTimer);
+    const digits = codeInput.value.replace(/\D/g, '');
+    if(digits !== codeInput.value) codeInput.value = digits;
+    if(digits.length > CODE_LENGTH){ rejectCode(); return; }
+    if(digits.length === CODE_LENGTH) codeTimer = setTimeout(submitCode, 450);
   });
 }
 if(codeModal){
