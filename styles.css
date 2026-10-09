@@ -544,13 +544,13 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 .folder:hover .folder-body{ filter:brightness(0.96) contrast(1.12); }
 .folder:hover .folder-tab{ filter:brightness(1.12); }
-.folder:nth-child(1) .folder-body{ --metal:url("images/folder-steel-1.jpg"); }
-.folder:nth-child(2) .folder-body{ --metal:url("images/folder-steel-2.jpg"); }
-.folder:nth-child(3) .folder-body{ --metal:url("images/folder-steel-3.jpg"); }
-.folder:nth-child(4) .folder-body{ --metal:url("images/folder-steel-4.jpg"); }
-.folder:nth-child(5) .folder-body{ --metal:url("images/folder-steel-5.jpg"); }
-.folder:nth-child(6) .folder-body{ --metal:url("images/folder-steel-6.jpg"); }
-.folder:nth-child(7) .folder-body{ --metal:url("images/folder-steel-7.jpg"); }
+.folder:nth-child(1) .folder-body{ --metal:url("images/folder-steel2-1.jpg"); }
+.folder:nth-child(2) .folder-body{ --metal:url("images/folder-steel2-2.jpg"); }
+.folder:nth-child(3) .folder-body{ --metal:url("images/folder-steel2-3.jpg"); }
+.folder:nth-child(4) .folder-body{ --metal:url("images/folder-steel2-4.jpg"); }
+.folder:nth-child(5) .folder-body{ --metal:url("images/folder-steel2-5.jpg"); }
+.folder:nth-child(6) .folder-body{ --metal:url("images/folder-steel2-6.jpg"); }
+.folder:nth-child(7) .folder-body{ --metal:url("images/folder-steel2-7.jpg"); }
 .folder:focus-visible .folder-tab{ outline:1px solid var(--fg); outline-offset:2px; }
 
 .site-footer{ padding:30px 20px 44px; border-top:1px solid var(--hairline); }
