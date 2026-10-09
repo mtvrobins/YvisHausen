@@ -452,21 +452,22 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 
 .filing-cabinet{
-  width:100%; margin:18px 0 0; padding:0;
+  /* trimmed to the same edges as the heading above it, equal on both sides */
+  box-sizing:border-box; width:100%; max-width:1240px; margin:18px auto 0; padding:0 32px;
   display:flex; flex-direction:column;
   overflow-x:hidden;
 }
 /* Folders are filed one in front of the next, like dividers in a drawer:
    SOUND sits at the back, each following folder overlaps the one behind it. */
 .folder{
-  --body-h:82px;
+  --body-h:68px;
   position:relative; z-index:var(--i);
   display:flex; flex-direction:column; align-items:flex-start;
   width:100%; border:none; background:none; padding:30px 0 0; margin:0;
   cursor:pointer; text-align:left; font:inherit; color:inherit;
   transition:transform .45s cubic-bezier(.2,.7,.2,1);
 }
-.folder + .folder{ margin-top:-62px; }
+.folder + .folder{ margin-top:-52px; }
 .folder:hover{ transform:translateY(-7px); }
 
 /* the title tab: a brushed-silver divider tab, its shoulders flaring down into the papers */
@@ -507,9 +508,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
     linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 22%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.35) 100%),
     #0d0d0c var(--metal) center / 100% 100% no-repeat;
   filter:brightness(0.78) contrast(1.12) saturate(0.9);
-  border:1px solid rgba(255,255,255,0.13); border-bottom:none;
-  border-radius:3px 3px 0 0;
-  box-shadow:0 -12px 26px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.14); border-bottom:none;
+  border-radius:4px 4px 0 0;
+  box-shadow:0 -12px 26px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.10), inset 1px 0 0 rgba(255,255,255,0.07), inset -1px 0 0 rgba(255,255,255,0.07);
   transition:filter .3s ease;
 }
 /* file number, set like the title cards; the "o" of No. is small and raised */
@@ -528,7 +529,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   z-index:0; pointer-events:none;
 }
 .paper{
-  position:absolute; bottom:-12px; left:var(--l); right:var(--rr); height:calc(var(--h) * 0.6 + 12px);
+  position:absolute; bottom:-12px; left:calc(var(--l) + 14px); right:calc(var(--rr) + 14px); height:calc(var(--h) * 0.6 + 12px);
   border-radius:1px;
   box-shadow:0 -1px 0 rgba(255,255,255,0.28), 0 -3px 8px rgba(0,0,0,0.35);
   will-change:transform;
@@ -868,8 +869,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 @media (max-width:900px){
   .tiles-row{ grid-template-columns:1fr; max-width:420px; margin:0 auto; }
-  .folder{ --body-h:74px; }
-  .folder + .folder{ margin-top:-56px; }
+  .folder{ --body-h:62px; }
+  .folder + .folder{ margin-top:-48px; }
   .folder-tab{ padding:10px 40px 9px; }
   .folder-label{ letter-spacing:0.2em; font-size:11px; }
   .folder:nth-child(1) .folder-tab{ margin-left:22%; }
