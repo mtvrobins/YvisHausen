@@ -453,21 +453,22 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 .filing-cabinet{
   /* trimmed to the same edges as the heading above it, equal on both sides */
-  box-sizing:border-box; width:100%; max-width:1240px; margin:18px auto 0; padding:0 32px;
+  box-sizing:border-box; width:100%; max-width:1240px; margin:18px auto 0; padding:0 46px 0 18px;
   display:flex; flex-direction:column;
   overflow-x:hidden;
 }
 /* Folders are filed one in front of the next, like dividers in a drawer:
    SOUND sits at the back, each following folder overlaps the one behind it. */
 .folder{
-  --body-h:68px;
+  --body-h:128px;   /* each front runs on down behind the next file's papers */
   position:relative; z-index:var(--i);
   display:flex; flex-direction:column; align-items:flex-start;
   width:100%; border:none; background:none; padding:30px 0 0; margin:0;
   cursor:pointer; text-align:left; font:inherit; color:inherit;
   transition:transform .45s cubic-bezier(.2,.7,.2,1);
 }
-.folder + .folder{ margin-top:-52px; }
+.folder + .folder{ margin-top:-112px; }
+.folder:last-child{ --body-h:68px; }
 .folder:hover{ transform:translateY(-7px); }
 
 /* the title tab: a brushed-silver divider tab, its shoulders flaring down into the papers */
@@ -477,7 +478,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   max-width:calc(100% - 32px);
   background:
     repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, rgba(0,0,0,0.03) 1px 2px),
-    linear-gradient(180deg, rgba(214,209,200,0.52) 0%, rgba(186,180,171,0.42) 50%, rgba(160,154,146,0.36) 100%);
+    linear-gradient(180deg, rgba(214,209,200,0.36) 0%, rgba(186,180,171,0.28) 50%, rgba(160,154,146,0.23) 100%);
   -webkit-backdrop-filter:blur(8px) saturate(115%); backdrop-filter:blur(8px) saturate(115%);
   clip-path:polygon(0 100%, 9px 95%, 15px 84%, 20px 58%, 25px 24%, 30px 7%, 38px 0,
     calc(100% - 38px) 0, calc(100% - 30px) 7%, calc(100% - 25px) 24%, calc(100% - 20px) 58%, calc(100% - 15px) 84%, calc(100% - 9px) 95%, 100% 100%);
@@ -872,8 +873,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 @media (max-width:900px){
   .tiles-row{ grid-template-columns:1fr; max-width:420px; margin:0 auto; }
-  .folder{ --body-h:62px; }
-  .folder + .folder{ margin-top:-48px; }
+  .folder{ --body-h:116px; }
+  .folder + .folder{ margin-top:-102px; }
+  .folder:last-child{ --body-h:62px; }
   .folder-tab{ padding:10px 40px 9px; }
   .folder-label{ letter-spacing:0.2em; font-size:11px; }
   .folder:nth-child(1) .folder-tab{ margin-left:22%; }
