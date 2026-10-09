@@ -508,9 +508,12 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
     linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 22%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.35) 100%),
     #0d0d0c var(--metal) center / 100% 100% no-repeat;
   filter:brightness(0.78) contrast(1.12) saturate(0.9);
-  border:1px solid rgba(255,255,255,0.14); border-bottom:none;
-  border-radius:4px 4px 0 0;
-  box-shadow:0 -12px 26px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.10), inset 1px 0 0 rgba(255,255,255,0.07), inset -1px 0 0 rgba(255,255,255,0.07);
+  /* a folded steel front: rounded top corners and a fine bright rim along the top and both sides */
+  border:1px solid rgba(230,227,220,0.38); border-bottom:none;
+  border-radius:7px 7px 0 0;
+  width:calc(100% - var(--ix, 0px) - var(--iy, 0px)); margin-left:var(--ix, 0px);
+  box-shadow:0 -12px 26px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.16), inset 2px 0 2px -1px rgba(255,255,255,0.12), inset -2px 0 2px -1px rgba(255,255,255,0.12);
   transition:filter .3s ease;
 }
 /* file number, set like the title cards; the "o" of No. is small and raised */
@@ -529,9 +532,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   z-index:0; pointer-events:none;
 }
 .paper{
-  position:absolute; bottom:-12px; left:calc(var(--l) + 14px); right:calc(var(--rr) + 14px); height:calc(var(--h) * 0.6 + 12px);
-  border-radius:1px;
-  box-shadow:0 -1px 0 rgba(255,255,255,0.28), 0 -3px 8px rgba(0,0,0,0.35);
+  position:absolute; bottom:-12px; left:calc(var(--l) * 3 + 16px); right:calc(var(--rr) * 3 + 16px); height:calc(var(--h) * 0.6 + 12px);
+  border-radius:3px 3px 0 0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.35), 0 -1px 0 rgba(0,0,0,0.45), 0 -3px 8px rgba(0,0,0,0.35);
   will-change:transform;
 }
 .paper--white{ background:linear-gradient(180deg, #f0e8d8, #d8ccb5); }
@@ -542,13 +545,13 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 }
 .folder:hover .folder-body{ filter:brightness(0.95) contrast(1.12) saturate(0.9); }
 .folder:hover .folder-tab{ filter:drop-shadow(0 -1px 0 rgba(255,255,255,0.35)) brightness(1.08); }
-.folder:nth-child(1) .folder-body{ --metal:url("images/folder-metal-1.jpg"); }
-.folder:nth-child(2) .folder-body{ --metal:url("images/folder-metal-2.jpg"); }
-.folder:nth-child(3) .folder-body{ --metal:url("images/folder-metal-3.jpg"); }
-.folder:nth-child(4) .folder-body{ --metal:url("images/folder-metal-4.jpg"); }
-.folder:nth-child(5) .folder-body{ --metal:url("images/folder-metal-5.jpg"); }
-.folder:nth-child(6) .folder-body{ --metal:url("images/folder-metal-6.jpg"); }
-.folder:nth-child(7) .folder-body{ --metal:url("images/folder-metal-7.jpg"); }
+.folder:nth-child(1) .folder-body{ --metal:url("images/folder-metal-1.jpg"); --ix:6px; --iy:2px; }
+.folder:nth-child(2) .folder-body{ --metal:url("images/folder-metal-2.jpg"); --ix:0px; --iy:4px; }
+.folder:nth-child(3) .folder-body{ --metal:url("images/folder-metal-3.jpg"); --ix:3px; --iy:0px; }
+.folder:nth-child(4) .folder-body{ --metal:url("images/folder-metal-4.jpg"); --ix:1px; --iy:3px; }
+.folder:nth-child(5) .folder-body{ --metal:url("images/folder-metal-5.jpg"); --ix:4px; --iy:1px; }
+.folder:nth-child(6) .folder-body{ --metal:url("images/folder-metal-6.jpg"); --ix:0px; --iy:5px; }
+.folder:nth-child(7) .folder-body{ --metal:url("images/folder-metal-7.jpg"); --ix:5px; --iy:0px; }
 .folder:focus-visible .folder-tab{ outline:1px solid var(--fg); outline-offset:2px; }
 
 .site-footer{ padding:30px 20px 44px; border-top:1px solid var(--hairline); }
