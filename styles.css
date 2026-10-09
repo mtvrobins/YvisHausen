@@ -193,7 +193,10 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .front-page{ max-width:1240px; margin:0 auto; padding:70px 32px 90px; }
 /* the three tiles always fit the first screen: their width follows the window height */
 @media (min-width:901px){
-  .front-page{ max-width:min(1140px, calc((100vh - 130px) * 2.4 + 180px)); padding-top:clamp(18px, 3vh, 40px); }
+  /* the tiles sit in the middle of the first screen, with equal space above and below */
+  .front-page{ max-width:min(1320px, calc((100vh - 81px) * 1.9 + 180px)); box-sizing:border-box;
+    min-height:calc(100vh - 81px); padding-top:clamp(16px, 3vh, 36px); padding-bottom:clamp(16px, 3vh, 36px);
+    display:flex; flex-direction:column; justify-content:center; }
 }
 .tiles-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
 .tile{
@@ -230,13 +233,14 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
    composition identical at every width. */
 /* three shapes: Operations a slightly shorter portrait, Creative House a smaller
    landscape centred between them, Curation the tallest portrait */
-.tiles-row{ grid-template-columns:277fr 340fr 296fr; align-items:center; column-gap:clamp(26px,4.6vw,58px); }
+.tiles-row{ grid-template-columns:296fr 340fr 296fr; align-items:center; column-gap:clamp(26px,4.6vw,58px); }
+/* Operations is a little narrower than its column; centred in it, the row stays symmetrical */
+@media (min-width:901px){ .tiles-row .tile-ops{ width:calc(100% * 277 / 296); justify-self:center; } }
 
 .tiles-row .tile{ aspect-ratio:277/345; }
 .tiles-row .tile-creative{ aspect-ratio:340/230; }
 .tiles-row .tile-art{ aspect-ratio:296/361; }
 /* Creative House sits a little right of centre between the other two */
-@media (min-width:901px){ .tiles-row .tile-creative{ translate:clamp(10px,1.7vw,24px) 0; } }
 .tile-creative{
   container-type:inline-size; overflow:hidden; padding:0; border-color:rgba(245,242,235,0.18);
   background:
@@ -270,7 +274,9 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   transform:scaleY(0.96); transform-origin:center top; transition:color .2s ease;
 }
 .cr-desc{
-  display:block; margin:0.8cqw 0 0; width:0; min-width:max(100%, 27cqw); text-align:left;
+  position:relative; z-index:1; box-sizing:border-box; padding:0.7cqw 1cqw; border-radius:0.4cqw;
+  background:rgba(252,247,240,0.86); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  display:block; margin:0.8cqw 0 0 -1cqw; width:0; min-width:max(100%, 27cqw); text-align:left;
   font-size:2.4cqw; font-weight:500; line-height:1.4; letter-spacing:0.012em; color:#3B332E;
   opacity:0; transition:opacity .18s ease;
 }
