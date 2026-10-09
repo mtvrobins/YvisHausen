@@ -459,14 +459,14 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 /* Folders are filed one in front of the next, like dividers in a drawer:
    SOUND sits at the back, each following folder overlaps the one behind it. */
 .folder{
-  --body-h:104px;
+  --body-h:82px;
   position:relative; z-index:var(--i);
   display:flex; flex-direction:column; align-items:flex-start;
   width:100%; border:none; background:none; padding:30px 0 0; margin:0;
   cursor:pointer; text-align:left; font:inherit; color:inherit;
   transition:transform .45s cubic-bezier(.2,.7,.2,1);
 }
-.folder + .folder{ margin-top:-80px; }
+.folder + .folder{ margin-top:-62px; }
 .folder:hover{ transform:translateY(-7px); }
 
 /* the title tab: a brushed-silver divider tab, its shoulders flaring down into the papers */
@@ -475,17 +475,18 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   margin:0 0 -1px 0; padding:11px 54px 10px;
   max-width:calc(100% - 32px);
   background:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, rgba(0,0,0,0.035) 1px 2px),
-    linear-gradient(180deg, #cdc8bf 0%, #bab4ab 45%, #a7a198 100%);
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, rgba(0,0,0,0.03) 1px 2px),
+    linear-gradient(180deg, rgba(214,209,200,0.52) 0%, rgba(186,180,171,0.42) 50%, rgba(160,154,146,0.36) 100%);
+  -webkit-backdrop-filter:blur(8px) saturate(115%); backdrop-filter:blur(8px) saturate(115%);
   clip-path:polygon(0 100%, 9px 95%, 15px 84%, 20px 58%, 25px 24%, 30px 7%, 38px 0,
     calc(100% - 38px) 0, calc(100% - 30px) 7%, calc(100% - 25px) 24%, calc(100% - 20px) 58%, calc(100% - 15px) 84%, calc(100% - 9px) 95%, 100% 100%);
   filter:drop-shadow(0 -1px 0 rgba(255,255,255,0.25));
   transition:filter .3s ease;
 }
 .folder-label{
-  font-weight:500; font-size:11.5px; letter-spacing:0.26em; color:#3d3a35;
+  font-weight:500; font-size:11.5px; letter-spacing:0.26em; color:#F6F4EF;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block;
-  text-shadow:0 1px 0 rgba(255,255,255,0.35);
+  text-shadow:0 1px 2px rgba(0,0,0,0.55);
 }
 /* hand-placed so the tabs never line up in a column */
 .folder:nth-child(1) .folder-tab{ margin-left:68%; }
@@ -501,7 +502,11 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
   position:relative; z-index:1; display:block;
   width:100%; height:var(--body-h);
   /* brushed steel with a soft diagonal sheen, cut from the supplied artwork */
-  background:#141311 var(--metal) center / 100% 100% no-repeat;
+  /* darker, with a faint satin gloss along the top edge: smooth, slightly glossy, still matte */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 22%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.35) 100%),
+    #0d0d0c var(--metal) center / 100% 100% no-repeat;
+  filter:brightness(0.78) contrast(1.12) saturate(0.9);
   border:1px solid rgba(255,255,255,0.13); border-bottom:none;
   border-radius:3px 3px 0 0;
   box-shadow:0 -12px 26px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(255,255,255,0.04);
@@ -512,7 +517,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .folder-no{
   position:absolute; top:15px; left:26px;
   font-family:var(--sans); font-style:normal; font-weight:500;
-  font-size:11.5px; letter-spacing:0.24em; color:rgba(222,220,216,0.72);
+  font-size:11.5px; letter-spacing:0.24em; color:rgba(244,242,238,0.92);
   font-variant-numeric:tabular-nums; white-space:nowrap;
   transform:var(--v-squish); transform-origin:top left;
 }
@@ -534,7 +539,7 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 .paper--bw{
   background:linear-gradient(90deg, #050505 0%, #2a2a2a 14%, #efefef 26%, #111 41%, #dcdcdc 58%, #080808 72%, #bdbdbd 86%, #0d0d0d 100%);
 }
-.folder:hover .folder-body{ filter:brightness(1.25); }
+.folder:hover .folder-body{ filter:brightness(0.95) contrast(1.12) saturate(0.9); }
 .folder:hover .folder-tab{ filter:drop-shadow(0 -1px 0 rgba(255,255,255,0.35)) brightness(1.08); }
 .folder:nth-child(1) .folder-body{ --metal:url("images/folder-metal-1.jpg"); }
 .folder:nth-child(2) .folder-body{ --metal:url("images/folder-metal-2.jpg"); }
@@ -863,8 +868,8 @@ button{font-family:inherit;background:none;border:none;color:inherit;cursor:poin
 
 @media (max-width:900px){
   .tiles-row{ grid-template-columns:1fr; max-width:420px; margin:0 auto; }
-  .folder{ --body-h:92px; }
-  .folder + .folder{ margin-top:-70px; }
+  .folder{ --body-h:74px; }
+  .folder + .folder{ margin-top:-56px; }
   .folder-tab{ padding:10px 40px 9px; }
   .folder-label{ letter-spacing:0.2em; font-size:11px; }
   .folder:nth-child(1) .folder-tab{ margin-left:22%; }
