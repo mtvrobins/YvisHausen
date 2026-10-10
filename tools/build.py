@@ -55,7 +55,7 @@ def encrypt(text, code):
     return out.stdout.decode()
 
 ENGINE_NOTE = '''<div class="code-restricted code-note" id="gateNote">
-        <p>THIS PAGE CONTAINS PROPRIETARY YVIS HAUSEN METHODOLOGY AND IS AVAILABLE BY PRIVATE ACCESS ONLY. ACCESS DETAILS ARE PROVIDED TO PROSPECTIVE CLIENTS FOLLOWING A DISCOVERY CONVERSATION.</p>
+        <p>THE FULL WALKTHROUGH IS SHARED AFTER A FIRST CONVERSATION, SO WE CAN TAKE YOU THROUGH IT WITH YOUR BRAND IN MIND.</p>
         <div class="code-book-row"><a class="code-book" href="book.html">BOOK A CALL</a></div>
       </div>'''
 FOLDER_NOTE = '<p class="code-restricted" id="gateNote">ACCESS RESTRICTED. ACCESS CODES ARE PROVIDED BY AUTHORISED AGENTS ONLY</p>'
