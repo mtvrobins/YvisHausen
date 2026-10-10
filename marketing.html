@@ -247,8 +247,10 @@
   .cta{ padding:76px 0 64px; text-align:center; background:var(--bg); }
   .cta-question{ font-size:clamp(20px, 3.4vw, 34px); line-height:1.2; margin:0 0 16px; font-weight:700; }
   .cta-line{ max-width:460px; margin:0 auto 28px; font-size:13px; line-height:1.7; color:var(--muted); }
-  .cta-btns{ display:flex; flex-direction:column; align-items:center; gap:14px; }
-  .btn.btn-ghost{ border-color:rgba(242,241,236,0.3); padding:8px 16px; font-size:8.5px; letter-spacing:0.16em; font-weight:500; }
+  .cta-btns{ display:flex; flex-direction:column; align-items:center; gap:20px; }
+  .cta-link{ font-size:9.5px; letter-spacing:0.2em; font-weight:500; color:rgba(242,241,236,0.82); text-decoration:none; padding:4px 0 3px;
+    border-bottom:1px solid rgba(242,241,236,0.22); transition:color .35s ease, border-color .35s ease; }
+  .cta-link:hover, .cta-link:focus-visible{ color:rgba(242,241,236,0.42); border-color:rgba(242,241,236,0.1); }
   .cta-ready{ font-size:12px; color:var(--muted); margin:0 0 22px; }
   .btn{ position:relative; display:inline-block; padding:14px 36px; border:1px solid var(--fg); color:var(--fg); text-decoration:none; font-size:11px; letter-spacing:0.2em; font-weight:600; background:transparent; overflow:hidden; transition: color 400ms ease; }
   .btn::before{ content:''; position:absolute; inset:0; background:var(--fg); transform:translateY(101%); transition:transform 400ms cubic-bezier(.16,.8,.24,1); z-index:0; }
@@ -978,7 +980,7 @@
       <p data-t="49ccabf0" class="cta-ready reveal reveal-d2">Ready to start the conversation?</p>
       <div class="cta-btns">
         <a href="book.html" class="btn reveal reveal-d3"><span data-t="b3b9344c">ENQUIRE</span></a>
-        <a href="engine.html" data-gate="engine" class="btn btn-ghost reveal reveal-d3"><span data-t="979b2837">LEARN MORE ABOUT WHAT HAPPENS INSIDE</span></a>
+        <a href="engine.html" data-gate="engine" class="cta-link reveal reveal-d3"><span data-t="979b2837">LEARN MORE ABOUT WHAT HAPPENS INSIDE</span></a>
       </div>
     </div>
   </section>
@@ -1165,7 +1167,7 @@
       if(close){
         var redM2 = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
         var scenes = close.querySelectorAll('.cs-scene'), tabs = close.querySelectorAll('.cs-tab');
-        var DUR = [6000, 6000], cur = 0, visible = false, sceneT = 0, advTimer = 0, fills = [];
+        var DUR = [6000, 7000], cur = 0, visible = false, sceneT = 0, advTimer = 0, fills = [];
 
         /* ---- scene 1: the globe ---- */
         var cv = close.querySelector('.cs-globe'), ctx = cv.getContext('2d');
@@ -1302,7 +1304,7 @@
           ripple.style.transformOrigin = '280px 84px'; ripple.style.transformBox = 'view-box';
           l2.push(ripple.animate([{ transform: 'scale(1)', opacity: 0.5 }, { transform: 'scale(2.6)', opacity: 0 }], { duration: 1000, delay: 750, easing: 'cubic-bezier(.2,.6,.3,1)' }));
           climb(2550, 1);
-          climb(4500, 0.55);
+          climb(5200, 0.55);
         }
 
         /* ---- the timer between the two ---- */

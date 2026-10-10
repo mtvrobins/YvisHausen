@@ -68,12 +68,12 @@
   <!-- /partial:nav -->
   <main class="about-stage">
     <h1 class="about-line" translate="no" aria-label="Yvis Hausen, said Vis Housen">
-      <span class="about-name"><span style="--d:0.30s">Y</span><span style="--d:0.37s">V</span><span style="--d:0.44s">I</span><span style="--d:0.51s">S</span>&nbsp;<span style="--d:0.58s">H</span><span style="--d:0.65s">A</span><span style="--d:0.72s">U</span><span style="--d:0.79s">S</span><span style="--d:0.86s">E</span><span style="--d:0.93s">N</span></span>
+      <span class="about-name">YVIS&nbsp;HAUSEN</span>
       <span class="about-tilde" aria-hidden="true">~</span>
-      <span class="about-said"><span style="--d:1.60s">V</span><span style="--d:1.67s">I</span><span style="--d:1.74s">S</span>&nbsp;<span style="--d:1.81s">H</span><span style="--d:1.88s">O</span><span style="--d:1.95s">U</span><span style="--d:2.02s">S</span><span style="--d:2.09s">E</span><span style="--d:2.16s">N</span></span>
+      <span class="about-said">VIS&nbsp;HOUSEN</span>
     </h1>
     <span class="about-rule" aria-hidden="true"></span>
-    <p data-t="2bb3a39a" class="about-text" data-split>An international creative house and global ideation firm, working across Meta acquisition, brand, art and culture. Known by introduction and word of mouth.</p>
+    <p data-t="2bb3a39a" class="about-text">An international creative house and global ideation firm, working across Meta acquisition, brand, art and culture. Known by introduction and word of mouth.</p>
   </main>
   <!-- partial:footer -->
   <footer class="site-footer">
@@ -93,23 +93,6 @@
 <script src="i18n.js"></script>
 <!-- /i18n -->
 <script src="script.js"></script>
-<script>
-/* the description arrives word by word, each rising out of a soft blur */
-(function(){
-  var p = document.querySelector('.about-text');
-  if(!p) return;
-  var words = p.textContent.trim().split(/\s+/);
-  p.textContent = '';
-  words.forEach(function(w, i){
-    var outer = document.createElement('span'); outer.className = 'aw';
-    var inner = document.createElement('span'); inner.textContent = w;
-    inner.style.setProperty('--d', (2.95 + i * 0.075).toFixed(3) + 's');
-    outer.appendChild(inner); p.appendChild(outer);
-    if(i < words.length - 1) p.appendChild(document.createTextNode(' '));
-  });
-  p.classList.add('split');
-})();
-</script>
 
 </body>
 </html>

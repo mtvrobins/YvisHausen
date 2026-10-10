@@ -1017,26 +1017,26 @@ body.private-gate{ background:#000; min-height:100vh; }
 }
 .about-name, .about-said{ white-space:nowrap; }
 .about-said{ font-style:italic; font-weight:400; letter-spacing:0.12em; color:#d6d5cf; }
-.about-line span span{ display:inline-block; opacity:0; transform:translateY(0.3em); filter:blur(6px);
-  animation:aboutIn 1.1s cubic-bezier(.2,.7,.2,1) var(--d,0s) forwards; }
-.about-tilde{ display:inline-block; color:#C9A46A; font-weight:400; opacity:0; transform:scaleX(0.2);
-  animation:aboutTilde 1s cubic-bezier(.2,.7,.2,1) 1.25s forwards; }
+/* a quiet, single-gesture entrance: the name settles in as one line while its tracking eases closed,
+   the pronunciation follows, a fine gold rule draws from the centre, and the text fades up as one block */
+.about-name, .about-said, .about-tilde{ display:inline-block; opacity:0; }
+.about-name{ letter-spacing:0.3em; margin-right:-0.14em;
+  animation:aboutName 2.4s cubic-bezier(.22,.61,.24,1) .3s forwards; }
+.about-tilde{ color:#C9A46A; font-weight:400; animation:aboutFade 1.4s ease 1.35s forwards; }
+.about-said{ animation:aboutSaid 1.8s cubic-bezier(.22,.61,.24,1) 1.55s forwards; }
 .about-text{
   max-width:440px; margin:22px auto 0; font-family:"Cormorant Garamond", var(--serif); font-size:18px; font-weight:500; line-height:1.75;
-  letter-spacing:0.02em; color:#BDB6A8; opacity:0; animation:aboutText 1.2s ease 2.9s forwards;
+  letter-spacing:0.02em; color:#BDB6A8; opacity:0; transform:translateY(6px);
+  animation:aboutText 1.8s cubic-bezier(.22,.61,.24,1) 2.75s forwards;
 }
-/* a fine gold line draws out from the centre, then the words rise in one by one */
 .about-rule{ display:block; width:64px; height:1px; margin:44px auto 0; background:linear-gradient(90deg, transparent, #C9A46A, transparent);
-  transform:scaleX(0); opacity:0; animation:aboutRule 1.1s cubic-bezier(.2,.7,.2,1) 2.45s forwards; }
-.about-text.split{ opacity:1; animation:none; }
-.about-text .aw{ display:inline-block; overflow:hidden; vertical-align:top; padding:0 0.02em 0.12em; margin-bottom:-0.12em; }
-.about-text .aw > span{ display:inline-block; opacity:0; transform:translateY(105%); filter:blur(5px);
-  animation:aboutWord 0.95s cubic-bezier(.2,.75,.2,1) var(--d,0s) forwards; }
-@keyframes aboutWord{ 60%{ filter:blur(0.5px); } to{ opacity:1; transform:none; filter:none; } }
+  transform:scaleX(0); opacity:0; animation:aboutRule 1.4s cubic-bezier(.22,.61,.24,1) 2.35s forwards; }
+@keyframes aboutName{ to{ opacity:1; letter-spacing:0.16em; margin-right:0; } }
+@keyframes aboutSaid{ from{ opacity:0; transform:translateY(3px); } to{ opacity:1; transform:none; } }
+@keyframes aboutFade{ to{ opacity:1; } }
 @keyframes aboutRule{ to{ transform:none; opacity:1; } }
-@keyframes aboutIn{ to{ opacity:1; transform:none; filter:none; } }
-@keyframes aboutTilde{ to{ opacity:1; transform:none; } }
-@keyframes aboutText{ to{ opacity:1; filter:none; } }
+@keyframes aboutText{ to{ opacity:1; transform:none; } }
 @media (prefers-reduced-motion: reduce){
-  .about-line span span, .about-tilde, .about-text, .about-rule, .about-text .aw > span{ opacity:1; transform:none; filter:none; animation:none; }
+  .about-name, .about-said, .about-tilde, .about-text, .about-rule{ opacity:1; transform:none; animation:none; }
+  .about-name{ letter-spacing:0.16em; margin-right:0; }
 }
