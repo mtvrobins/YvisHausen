@@ -87,7 +87,11 @@
   .worldmap-caption.go .ch{ opacity:1; filter:blur(0); transform:none; }
 
   .map-line{ fill:none; stroke:#F2F1EC; stroke-width:3.4; stroke-linecap:round; opacity:0.9; stroke-dasharray:3000; stroke-dashoffset:3000; transition:opacity 1.8s ease; }
-  .map-line.done{ opacity:0.72; }
+  .map-line.done{ opacity:0.3; }
+  /* the routes carry a soft glow, and once drawn a bright streak keeps travelling out from London along each */
+  .map-lines{ filter:drop-shadow(0 0 3px rgba(242,241,236,0.55)) drop-shadow(0 0 10px rgba(242,241,236,0.18)); }
+  .map-pulse{ fill:none; stroke:#FFFFFF; stroke-width:4; stroke-linecap:round; opacity:0; pointer-events:none;
+    filter:drop-shadow(0 0 5px rgba(255,255,255,0.95)) drop-shadow(0 0 14px rgba(255,255,255,0.45)); }
   .map-head{ opacity:0; }
 
   .map-city > *{ transform-box:fill-box; transform-origin:center; will-change:transform, opacity; }
@@ -367,6 +371,7 @@
     .worldmap-caption .ch{ opacity:1; filter:none; transform:none; transition:none; }
     .cl{ transform:none; transition:none; }
     .map-line{ stroke-dashoffset:0 !important; opacity:0.3; }
+    .map-pulse{ display:none; }
     .c-dot{ opacity:1 !important; transform:none !important; animation:none !important; }
     .c-glow, .c-pulse, .c-ring, .c-flash, .c-burst{ animation:none !important; opacity:0 !important; }
   }
@@ -1029,6 +1034,22 @@
         mHeads[i].setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ')');
       }
       function ease(t){ return -(Math.cos(Math.PI * t) - 1) / 2; }
+      // a light streak that keeps running along a route once it is drawn
+      function addPulse(i){
+        var L = lens[i], seg = Math.max(18, L * 0.22);
+        var pl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        pl.setAttribute('d', mLines[i].getAttribute('d'));
+        pl.setAttribute('class', 'map-pulse');
+        pl.style.strokeDasharray = seg + ' ' + (L + seg);
+        mLines[i].parentNode.appendChild(pl);
+        if(!pl.animate) return;
+        pl.animate([
+          { strokeDashoffset: seg, opacity: 0 },
+          { strokeDashoffset: seg - (L + seg) * 0.12, opacity: 1, offset: 0.12 },
+          { strokeDashoffset: seg - (L + seg) * 0.85, opacity: 1, offset: 0.85 },
+          { strokeDashoffset: -L, opacity: 0 }
+        ], { duration: 2200 + L * 2.4, delay: 300 + (i % 4) * 500, iterations: Infinity, easing: 'cubic-bezier(.45,.05,.55,.95)' });
+      }
 
       var started = false;
       function runMap(){
@@ -1053,6 +1074,7 @@
                 done[i] = true; setLine(i, 1);
                 mHeads[i].style.opacity = 0;
                 mLines[i].classList.add('done');
+                addPulse(i);
                 mCities[i + 1].classList.add('landed');
               }
               continue;
