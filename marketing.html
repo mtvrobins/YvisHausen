@@ -1036,19 +1036,24 @@
       function ease(t){ return -(Math.cos(Math.PI * t) - 1) / 2; }
       // a light streak that keeps running along a route once it is drawn
       function addPulse(i){
-        var L = lens[i], seg = Math.max(18, L * 0.22);
+        // a streak that leaves London long and shrinks to a point as it reaches the city,
+        // then rests a while before the next one sets off
+        var L = lens[i], s0 = Math.max(26, L * 0.3), gap = L + s0 + 10;
         var pl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         pl.setAttribute('d', mLines[i].getAttribute('d'));
         pl.setAttribute('class', 'map-pulse');
-        pl.style.strokeDasharray = seg + ' ' + (L + seg);
         mLines[i].parentNode.appendChild(pl);
         if(!pl.animate) return;
-        pl.animate([
-          { strokeDashoffset: seg, opacity: 0 },
-          { strokeDashoffset: seg - (L + seg) * 0.12, opacity: 1, offset: 0.12 },
-          { strokeDashoffset: seg - (L + seg) * 0.85, opacity: 1, offset: 0.85 },
-          { strokeDashoffset: -L, opacity: 0 }
-        ], { duration: 2200 + L * 2.4, delay: 300 + (i % 4) * 500, iterations: Infinity, easing: 'cubic-bezier(.45,.05,.55,.95)' });
+        var travel = 0.42, frames = [], n = 14;
+        for(var k = 0; k <= n; k++){
+          var t = k / n, e = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;   // ease in-out along the route
+          var head = e * L, len = Math.max(1.5, s0 * Math.pow(1 - e, 1.4));     // shorter and shorter
+          len = Math.min(len, Math.max(head, 0.01));                             // never pokes back past London
+          frames.push({ strokeDasharray: len + ' ' + gap, strokeDashoffset: len - head,
+            opacity: t < 0.08 ? t / 0.08 : (t > 0.9 ? (1 - t) / 0.1 : 1), offset: t * travel });
+        }
+        frames.push({ strokeDasharray: '0 ' + gap, strokeDashoffset: 0, opacity: 0, offset: 1 });
+        pl.animate(frames, { duration: (2000 + L * 2.4) / travel, delay: 600 + i * 900, iterations: Infinity, easing: 'linear' });
       }
 
       var started = false;
