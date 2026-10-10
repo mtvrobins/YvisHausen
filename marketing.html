@@ -64,7 +64,7 @@
   .reveal-d3{ transition-delay:280ms; }
 
   /* HERO */
-  .hero{ padding:18px 0 22px; text-align:left; background:var(--bg); }
+  .hero{ padding:6px 0 14px; text-align:left; background:var(--bg); }
   .hero-left{ max-width:460px; }
   .hero-kicker{
     font-size:11px; letter-spacing:0.28em; margin:0 0 16px; font-weight:600; color:var(--muted);
@@ -78,7 +78,7 @@
     opacity:0; animation: rise 1000ms cubic-bezier(.16,.8,.24,1) 460ms forwards; }
 
   /* WORLD MAP */
-  .worldmap-section{ padding:8px 0 54px; text-align:center; background:var(--bg); }
+  .worldmap-section{ padding:0 0 54px; text-align:center; background:var(--bg); }
   .worldmap-wrap{ width:min(100%, 820px, max(300px, calc((100vh - 292px) * 2.03))); margin:0 auto; }
   .worldmap-svg{ width:100%; height:auto; display:block; overflow:visible; }
   .worldmap-caption{ margin:16px 0 0; font-size:12.5px; letter-spacing:0.08em; color:var(--muted); }
@@ -227,8 +227,8 @@
   .cta{ padding:76px 0 64px; text-align:center; background:var(--bg); }
   .cta-question{ font-size:clamp(20px, 3.4vw, 34px); line-height:1.2; margin:0 0 16px; font-weight:700; }
   .cta-line{ max-width:460px; margin:0 auto 28px; font-size:13px; line-height:1.7; color:var(--muted); }
-  .cta-btns{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
-  .btn.btn-ghost{ border-color:rgba(242,241,236,0.35); }
+  .cta-btns{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .btn.btn-ghost{ border-color:rgba(242,241,236,0.3); padding:8px 16px; font-size:8.5px; letter-spacing:0.16em; font-weight:500; }
   .cta-ready{ font-size:12px; color:var(--muted); margin:0 0 22px; }
   .btn{ position:relative; display:inline-block; padding:14px 36px; border:1px solid var(--fg); color:var(--fg); text-decoration:none; font-size:11px; letter-spacing:0.2em; font-weight:600; background:transparent; overflow:hidden; transition: color 400ms ease; }
   .btn::before{ content:''; position:absolute; inset:0; background:var(--fg); transform:translateY(101%); transition:transform 400ms cubic-bezier(.16,.8,.24,1); z-index:0; }
