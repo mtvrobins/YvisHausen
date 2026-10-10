@@ -160,7 +160,7 @@
  "BOTTOM": "PARTE BASSA",
  "BROAD": "AMPIO",
  "BROADER CONSULTING": "CONSULENZA ALLARGATA",
- "BUILD": "COSTRUZIONE",
+ "BUILD": "COSTRUIRE",
  "BUSINESS PORTFOLIO": "PORTFOLIO BUSINESS",
  "Before anything is built, we study the whole picture: how ready your website is to convert, what your competitors are running and where the gaps are, and what your account history already tells us. From this we shape a funnel strategy built around your business, not a one-size-fits-all playbook.": "Prima di costruire qualsiasi cosa, studiamo il quadro completo: quanto il vostro sito è pronto a convertire, cosa stanno pubblicando i vostri concorrenti e dove sono le lacune, e cosa ci dice già lo storico del vostro account. Da qui definiamo una strategia di funnel costruita sulla vostra attività, non un modello valido per tutti.",
  "Before launch, the full architecture is designed: which campaigns serve awareness, leads and sales, how testing, scaling and retargeting are kept apart, and how budget could be weighted between them. It is documented with naming conventions and templates, and your team is trained to run it with <span style=\"white-space:nowrap\">confidence.<a class=\"fn\" href=\"#note-5\" aria-label=\"See note 5\">*5</a></span>": "Prima del lancio viene progettata l’intera architettura: quali campagne servono notorietà, lead e vendite, come test, scaling e retargeting restano separati e come il budget potrebbe essere ripartito tra loro. È documentata con convenzioni di denominazione e modelli, e il vostro team viene formato per gestirla con <span style=\"white-space:nowrap\">sicurezza.<a class=\"fn\" href=\"#note-5\" aria-label=\"Vedi nota 5\">*5</a></span>",
@@ -865,5 +865,14 @@
  "Built properly.": "Costruito con rigore.",
  "Measured honestly.": "Misurato con onestà.",
  "Refined continuously.": "Affinato senza sosta.",
- "The system behind your brand.": "Il sistema dietro il vostro brand."
+ "The system behind your brand.": "Il sistema dietro il vostro brand.",
+ "HOW THE SYSTEM GROWS": "COME CRESCE IL SISTEMA",
+ "LEARN": "APPRENDERE",
+ "REFINE": "AFFINARE",
+ "Accounts and tracking, set up properly": "Account e tracciamento, configurati a dovere",
+ "Every action on your site, measured": "Ogni azione sul vostro sito, misurata",
+ "Meta learns who responds": "Meta impara chi risponde",
+ "We sharpen the next move": "Affiniamo la mossa successiva",
+ "CYCLE": "CICLO",
+ "Each cycle starts from everything the last one learned.": "Ogni ciclo parte da tutto ciò che il precedente ha imparato."
 }
