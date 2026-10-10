@@ -187,32 +187,32 @@
   .compound-lines .cl-3{ --d:1.1s; transition-delay:1.1s; }
   .compound-final{ margin:26px 0 0; max-width:none; text-align:right; font-size:clamp(12.5px, 1.5vw, 14.5px); line-height:1.4; font-weight:700; }
 
-  /* THE CYCLE */
-  .loop{ padding:58px 0 56px; background:var(--panel-2); text-align:center; overflow:hidden; }
-  .cy-kicker{ margin:0 0 6px; font-size:10.5px; letter-spacing:0.3em; font-weight:600; color:var(--muted); }
-  .cy-stage{ max-width:760px; margin:0 auto; }
-  .cy-svg{ display:block; width:100%; height:auto; overflow:visible; }
-  .cy-ring-faint{ fill:none; stroke:#F2F1EC; stroke-opacity:0.08; stroke-width:1; }
-  .cy-ring{ fill:none; stroke:#F2F1EC; stroke-opacity:0.32; stroke-width:1.2; stroke-dasharray:942.5; stroke-dashoffset:942.5; }
-  .cy-trail{ fill:none; stroke:#F2F1EC; stroke-width:2.2; stroke-linecap:round; opacity:0; filter:drop-shadow(0 0 6px rgba(242,241,236,0.7)); }
-  .cy-comet{ fill:#FFFFFF; opacity:0; filter:drop-shadow(0 0 8px rgba(255,255,255,1)); }
-  .cy-comet-glow{ opacity:0; }
-  .cy-wave{ fill:none; stroke:#F2F1EC; stroke-width:1; }
-  .cy-dot{ fill:var(--panel-2); stroke:#F2F1EC; stroke-opacity:0.45; stroke-width:1.2; transition:fill .5s ease, stroke-opacity .5s ease; }
-  .cy-halo{ fill:url(#cyGlow); opacity:0; transition:opacity .6s ease; }
-  .cy-num{ font-family:var(--sans); font-size:10px; letter-spacing:0.22em; fill:#6A6964; }
-  .cy-t{ font-family:var(--sans); font-size:15px; font-weight:700; letter-spacing:0.24em; fill:#8E8D86; transition:fill .5s ease; }
-  .cy-d{ font-family:var(--sans); font-size:12px; fill:#6A6964; transition:fill .5s ease; }
-  .cy-node{ opacity:0; transition:opacity .8s ease; }
-  .cy-node.show{ opacity:1; }
-  .cy-node.on .cy-dot{ fill:#F2F1EC; stroke-opacity:1; }
-  .cy-node.on .cy-halo{ opacity:1; }
-  .cy-node.on .cy-t{ fill:#F2F1EC; }
-  .cy-node.on .cy-d{ fill:#B8B7B0; }
-  .cy-c1{ font-family:var(--sans); font-size:10px; letter-spacing:0.38em; fill:#6A6964; }
-  .cy-c2{ font-family:var(--sans); font-size:40px; font-weight:700; letter-spacing:0.04em; fill:#F2F1EC; opacity:0; transition:opacity .6s ease; }
-  #cycle.in .cy-c2{ opacity:1; }
-  .cy-note{ margin:6px auto 0; font-size:12.5px; color:var(--muted); }
+  /* WHO HOLDS WHAT */
+  .loop{ padding:58px 0 54px; background:var(--panel-2); text-align:center; overflow:hidden; }
+  .hw-kicker{ margin:0 0 4px; font-size:10.5px; letter-spacing:0.3em; font-weight:600; color:var(--muted); }
+  .hw-stage{ max-width:860px; margin:0 auto; }
+  .hw-svg{ display:block; width:100%; height:auto; overflow:visible; font-family:var(--sans); }
+  .hw-head{ font-size:12px; font-weight:700; letter-spacing:0.34em; fill:#F2F1EC; opacity:0; transition:opacity .8s ease; }
+  .hw-rule{ stroke:#F2F1EC; stroke-opacity:0.35; stroke-width:1; stroke-dasharray:120; stroke-dashoffset:120; transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1) .2s; }
+  .hw-item text{ font-size:15px; letter-spacing:0.02em; fill:#BDBCB5; }
+  .hw-item{ opacity:0; transition:opacity .7s ease, transform .9s cubic-bezier(.16,1,.3,1); transition-delay:calc(.35s + var(--k) * .09s); }
+  .hw-L{ transform:translateX(-14px); } .hw-R{ transform:translateX(14px); }
+  .hw-pt{ fill:#F2F1EC; }
+  .hw-line{ fill:none; stroke:#F2F1EC; stroke-opacity:0.28; stroke-width:1.1; stroke-dasharray:1; stroke-dashoffset:1;
+    transition:stroke-dashoffset 1.2s cubic-bezier(.6,0,.2,1); transition-delay:calc(.9s + var(--k) * .1s); }
+  .hw-pulse{ fill:none; stroke:#FFFFFF; stroke-width:2; stroke-linecap:round; filter:drop-shadow(0 0 5px rgba(255,255,255,0.9)); }
+  .hw-core-ring{ fill:none; stroke:#F2F1EC; stroke-width:1.3; stroke-dasharray:1; stroke-dashoffset:1; transform:rotate(-90deg); transform-origin:450px 250px;
+    transition:stroke-dashoffset 1.1s cubic-bezier(.6,0,.2,1) 2.1s; }
+  .hw-core{ fill:#F2F1EC; opacity:0; transition:opacity .5s ease 2.6s; filter:drop-shadow(0 0 8px rgba(255,255,255,0.9)); }
+  .hw-halo{ opacity:0; transition:opacity 1s ease 2.6s; }
+  .hw-core-t{ font-size:12px; font-weight:700; letter-spacing:0.3em; fill:#F2F1EC; opacity:0; transition:opacity .8s ease 2.8s; }
+  .hw-core-s{ font-size:12px; fill:var(--muted); opacity:0; transition:opacity .8s ease 3s; }
+  #hold.in .hw-head, #hold.in .hw-item, #hold.in .hw-core, #hold.in .hw-core-t, #hold.in .hw-core-s{ opacity:1; }
+  #hold.in .hw-item{ transform:none; }
+  #hold.in .hw-rule, #hold.in .hw-line, #hold.in .hw-core-ring{ stroke-dashoffset:0; }
+  #hold.in .hw-halo{ opacity:1; animation:hwBreath 4.5s ease-in-out 3.6s infinite; }
+  @keyframes hwBreath{ 50%{ opacity:0.45; } }
+  .hw-note{ margin:18px auto 0; max-width:560px; font-size:12.5px; line-height:1.7; color:var(--muted); }
 
   /* PARTNERSHIP */
   .team{ padding:40px 0 44px; text-align:left; background:var(--bg); }
@@ -367,7 +367,8 @@
     .hero-kicker, .hero-title, .hero-sub{ animation:none; opacity:1; }
     .reveal{ opacity:1; transform:none; transition:none; }
     .btn, .btn::before{ transition:none; }
-    .cy-node{ opacity:1; } .cy-ring{ stroke-dashoffset:0; } .cy-c2{ opacity:1; }
+    .hw-item, .hw-head, .hw-core, .hw-halo, .hw-core-t, .hw-core-s{ opacity:1 !important; transform:none !important; transition:none !important; }
+    .hw-line, .hw-rule, .hw-core-ring{ stroke-dashoffset:0 !important; transition:none !important; }
     .tl > span{ transform:none !important; transition:none; }
     .phase-illustration.in .illu-svg *{ animation-duration:1ms !important; animation-delay:0s !important; }
     .ln-in{ translate:none; transition:none; }
@@ -392,7 +393,8 @@
     .engineer{ padding:34px 0 42px; }
     .phase{ padding:34px 0; }
     .loop{ padding:40px 0 40px; }
-    .cy-t{ font-size:19px; } .cy-d, .cy-num{ display:none; }
+    .hw-item text{ font-size:25px; } .hw-head, .hw-core-t{ font-size:19px; } .hw-core-s{ font-size:18px; }
+    .hw-svg{ overflow:hidden; }
     .team{ padding:30px 0 34px; }
     .cta{ padding:60px 0 50px; }
     .compound{ padding:28px 0 32px; }
@@ -892,54 +894,28 @@
     </div>
   </section>
 
-  <!-- THE CYCLE: four stages on one ring; a light runs it lap after lap, and every lap widens the system -->
-  <section class="loop" id="cycle">
+  <!-- WHO HOLDS WHAT: everything that is yours on the left, what we bring on the right,
+       joined at one point: Meta's partner access, which you can remove at any time -->
+  <section class="loop" id="hold">
     <div class="wrap">
-      <p data-t="c28c7304" class="cy-kicker">HOW THE SYSTEM GROWS</p>
-      <div class="cy-stage">
-        <svg class="cy-svg" viewBox="0 0 800 500" aria-hidden="true">
-          <defs>
-            <radialGradient id="cyGlow"><stop offset="0" stop-color="#F2F1EC" stop-opacity="0.5"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient>
-          </defs>
-          <g class="cy-waves"></g>
-          <circle class="cy-ring-faint" cx="400" cy="250" r="150"/>
-          <circle class="cy-ring" id="cyRing" cx="400" cy="250" r="150" transform="rotate(-90 400 250)"/>
-          <circle class="cy-trail" id="cyTrail" cx="400" cy="250" r="150" transform="rotate(-90 400 250)"/>
-          <g class="cy-node" data-i="0">
-            <circle class="cy-halo" cx="400.0" cy="100.0" r="22"/>
-            <circle class="cy-dot" cx="400.0" cy="100.0" r="6"/>
-            <text class="cy-num" x="400.0" y="50.0" text-anchor="middle">01</text>
-            <text data-t="9b8dfdff" class="cy-t" x="400.0" y="66.0" text-anchor="middle">BUILD</text>
-            <text data-t="e399cd89" class="cy-d" x="400.0" y="84.0" text-anchor="middle">Accounts and tracking, set up properly</text>
-          </g>
-          <g class="cy-node" data-i="1">
-            <circle class="cy-halo" cx="550.0" cy="250.0" r="22"/>
-            <circle class="cy-dot" cx="550.0" cy="250.0" r="6"/>
-            <text class="cy-num" x="580.0" y="230.0" text-anchor="start">02</text>
-            <text data-t="289e7cb6" class="cy-t" x="580.0" y="246.0" text-anchor="start">SIGNAL</text>
-            <text data-t="0fbddb29" class="cy-d" x="580.0" y="264.0" text-anchor="start">Every action on your site, measured</text>
-          </g>
-          <g class="cy-node" data-i="2">
-            <circle class="cy-halo" cx="400.0" cy="400.0" r="22"/>
-            <circle class="cy-dot" cx="400.0" cy="400.0" r="6"/>
-            <text class="cy-num" x="400.0" y="426.0" text-anchor="middle">03</text>
-            <text data-t="9345269c" class="cy-t" x="400.0" y="442.0" text-anchor="middle">LEARN</text>
-            <text data-t="5b3643ff" class="cy-d" x="400.0" y="460.0" text-anchor="middle">Meta learns who responds</text>
-          </g>
-          <g class="cy-node" data-i="3">
-            <circle class="cy-halo" cx="250.0" cy="250.0" r="22"/>
-            <circle class="cy-dot" cx="250.0" cy="250.0" r="6"/>
-            <text class="cy-num" x="220.0" y="230.0" text-anchor="end">04</text>
-            <text data-t="8f4d2b3b" class="cy-t" x="220.0" y="246.0" text-anchor="end">REFINE</text>
-            <text data-t="447802c2" class="cy-d" x="220.0" y="264.0" text-anchor="end">We sharpen the next move</text>
-          </g>
-          <circle class="cy-comet-glow" id="cyCometG" r="18" fill="url(#cyGlow)"/>
-          <circle class="cy-comet" id="cyComet" r="4.5"/>
-          <text data-t="e86a63ff" class="cy-c1" x="400" y="244" text-anchor="middle">CYCLE</text>
-          <text class="cy-c2" id="cyCount" x="400" y="280" text-anchor="middle">01</text>
+      <p data-t="77c28652" class="hw-kicker">WHO HOLDS WHAT</p>
+      <div class="hw-stage">
+        <svg class="hw-svg" viewBox="0 90 900 345" aria-hidden="true">
+          <defs><radialGradient id="hwGlow"><stop offset="0" stop-color="#F2F1EC" stop-opacity="0.45"/><stop offset="1" stop-color="#F2F1EC" stop-opacity="0"/></radialGradient></defs>
+          <text data-t="25b8673c" class="hw-head" x="300" y="118" text-anchor="end">YOURS</text>
+          <text data-t="f466db2c" class="hw-head" x="600" y="118" text-anchor="start">OURS</text>
+          <line class="hw-rule" x1="180" y1="132" x2="300" y2="132"/><line class="hw-rule" x1="600" y1="132" x2="720" y2="132"/>
+          <path class="hw-line hw-Ll" style="--k:0" d="M314,162.0 C382.0,162.0 382.0,250 416,250" pathLength="1"/><path class="hw-line hw-Ll" style="--k:1" d="M314,206.0 C382.0,206.0 382.0,250 416,250" pathLength="1"/><path class="hw-line hw-Ll" style="--k:2" d="M314,250.0 C382.0,250.0 382.0,250 416,250" pathLength="1"/><path class="hw-line hw-Ll" style="--k:3" d="M314,294.0 C382.0,294.0 382.0,250 416,250" pathLength="1"/><path class="hw-line hw-Ll" style="--k:4" d="M314,338.0 C382.0,338.0 382.0,250 416,250" pathLength="1"/><path class="hw-line hw-Rl" style="--k:0" d="M586,184.0 C518.0,184.0 518.0,250 484,250" pathLength="1"/><path class="hw-line hw-Rl" style="--k:1" d="M586,228.0 C518.0,228.0 518.0,250 484,250" pathLength="1"/><path class="hw-line hw-Rl" style="--k:2" d="M586,272.0 C518.0,272.0 518.0,250 484,250" pathLength="1"/><path class="hw-line hw-Rl" style="--k:3" d="M586,316.0 C518.0,316.0 518.0,250 484,250" pathLength="1"/>
+          <g class="hw-pulses"></g>
+          <g class="hw-item hw-L" style="--k:0"><circle class="hw-pt" cx="314" cy="162.0" r="3.2"/><text data-t="aae6c144" x="300" y="166.5" text-anchor="end">Business Portfolio</text></g><g class="hw-item hw-L" style="--k:1"><circle class="hw-pt" cx="314" cy="206.0" r="3.2"/><text data-t="20aac6ac" x="300" y="210.5" text-anchor="end">Ad account</text></g><g class="hw-item hw-L" style="--k:2"><circle class="hw-pt" cx="314" cy="250.0" r="3.2"/><text data-t="afcdc1ec" x="300" y="254.5" text-anchor="end">Pixel and data</text></g><g class="hw-item hw-L" style="--k:3"><circle class="hw-pt" cx="314" cy="294.0" r="3.2"/><text data-t="1aa3db7e" x="300" y="298.5" text-anchor="end">Advertising budget</text></g><g class="hw-item hw-L" style="--k:4"><circle class="hw-pt" cx="314" cy="338.0" r="3.2"/><text data-t="28a3a2f5" x="300" y="342.5" text-anchor="end">Final approval</text></g><g class="hw-item hw-R" style="--k:0"><circle class="hw-pt" cx="586" cy="184.0" r="3.2"/><text data-t="2fb8956f" x="600" y="188.5" text-anchor="start">Account architecture</text></g><g class="hw-item hw-R" style="--k:1"><circle class="hw-pt" cx="586" cy="228.0" r="3.2"/><text data-t="eded1cf9" x="600" y="232.5" text-anchor="start">Tracking set-up</text></g><g class="hw-item hw-R" style="--k:2"><circle class="hw-pt" cx="586" cy="272.0" r="3.2"/><text data-t="1446c5ef" x="600" y="276.5" text-anchor="start">Strategy and testing</text></g><g class="hw-item hw-R" style="--k:3"><circle class="hw-pt" cx="586" cy="316.0" r="3.2"/><text data-t="88d00a4f" x="600" y="320.5" text-anchor="start">Reviews and direction</text></g>
+          <circle class="hw-halo" cx="450" cy="250" r="70" fill="url(#hwGlow)"/>
+          <circle class="hw-core-ring" cx="450" cy="250" r="34" pathLength="1"/>
+          <circle class="hw-core" cx="450" cy="250" r="5"/>
+          <text data-t="65e29304" class="hw-core-t" x="450" y="392" text-anchor="middle">PARTNER ACCESS</text>
+          <text data-t="74df1fa0" class="hw-core-s" x="450" y="412" text-anchor="middle">Removable by you, at any time</text>
         </svg>
       </div>
-      <p data-t="120690d1" class="cy-note">Each cycle starts from everything the last one learned.</p>
+      <p data-t="460064a1" class="hw-note">Every account, every pound and every decision stays with you. We work inside your account, never in place of you.</p>
     </div>
   </section>
 
@@ -988,7 +964,7 @@
   </div>
 
 <!-- i18n -->
-<script type="application/json" id="yh-i18n">{"fr":{"02ef3a3f":"CODE PRIVÉ","06c49349":"OPTIMISATION","0aa34f73":"Notre approche","0bd7d165":"Trois phases. Un seul système, jusqu’au chiffre d’affaires.","0deb202c":"Nous mettons le système en place correctement dès le départ, afin que votre publicité soit conçue pour fonctionner, suivre et mesurer avec justesse.<br>Nous concevons ensuite des cycles de test maîtrisés, pour observer ce qui se passe et en tirer des enseignements.<br>Les premiers résultats montrent ce qui mérite d’être approfondi et ce qui ne le mérite pas.","0fbddb29":"Chaque action sur votre site, mesurée","10354ced":"Marketing : Meta — Yvis Hausen","120690d1":"Chaque cycle part de tout ce que le précédent a appris.","14485912":"MISE EN PLACE","1507c40f":"ANNULER","1605ca3a":"Jusqu’à ce que le système soit conçu pour un <span class=\"hl\">ROAS qui se démultiplie.<\/span>","16953235":"Nous posons les fondations.","19f768fc":"Chaque information change la suite.","1ca33947":"Emblème Yvis Hausen","23a92b3e":"LONDRES &nbsp;&bull;&nbsp; NEW YORK &nbsp;&bull;&nbsp; PARIS &nbsp;&bull;&nbsp; MEXICO","250e6188":"Chaque campagne produit un résultat.","2a3ffd9e":"LANGUE","307df66e":"Croissance.","33add840":"Vous dirigez la marque. Nous bâtissons l’infrastructure qui la transforme en croissance.","37864d45":"CETTE PAGE CONTIENT UNE MÉTHODOLOGIE PROPRIÉTAIRE YVIS HAUSEN, ACCESSIBLE UNIQUEMENT SUR ACCÈS PRIVÉ. LES DÉTAILS D’ACCÈS SONT COMMUNIQUÉS AUX CLIENTS POTENTIELS APRÈS UN ENTRETIEN DE DÉCOUVERTE.","3b53429f":"Envie de voir le système appliqué à votre marque ?","3fa84065":"Considérez-nous comme le prolongement de votre entreprise, tendu vers le même but.","438d1b09":"LA MARQUE RESTE LA VÔTRE.","447802c2":"Nous affinons l’étape suivante","49ccabf0":"Prêts à engager la conversation ?","4a09c9cf":"Des tests rigoureux plutôt que chaotiques, une analyse méthodique, chaque enseignement mis en pratique, les bons signaux captés : autant de conditions pour une croissance guidée par la performance.","4df32ef8":"POLITIQUE DE CONFIDENTIALITÉ","53ace873":"et développez-vous en toute confiance.","55f312a1":"MARKETING : META","5a44a791":"Chaque résultat produit de l’information.","5a9c4354":"CONDITIONS D’UTILISATION","5b3643ff":"Meta apprend qui répond","5f1c5791":"Vos objectifs deviennent les nôtres.","6204b976":"Nous faisons partie de votre équipe.","7136b10a":"Au lieu de repartir de zéro à chaque lancement de campagne, votre équipe s’appuie sur ce que nous avons déjà analysé, transformant des enseignements éprouvés en contenus plus forts, et des contenus plus forts en revenus plus importants.","71d5b688":"Nous analysons ce qui se passe et identifions ce qui mérite attention.","798f72c1":"RÉSERVER UN APPEL","8080c6a6":"Atteindre le monde avec un seul système","82733ab6":"Social Ads, e-mail &amp; cycle de vie client, gouvernance visuelle. Pilotés par une seule équipe, selon une seule stratégie, sans intermédiaires superflus.","8afaae74":"LE SYSTÈME SE RENFORCE.","8b94dd50":"Nous concevons le retargeting qui ramène les personnes intéressées dans le parcours.","8e0065ab":"ACCÈS REFUSÉ","8f4d2b3b":"AFFINER","902c91d9":"Mentions légales","92960dda":"Rien d’utile n’est écarté, chaque enseignement précieux est documenté, offrant aux futures campagnes un point de départ fondé sur ce qui a déjà prouvé son efficacité.","9345269c":"APPRENDRE","93a6e2e6":"Yvis Hausen — accueil","9b8dfdff":"CONSTRUIRE","a121d0af":"Découvrir le fonctionnement en détail&nbsp;&nbsp;&rarr;","ab0b5a70":"Lorsqu’une direction créative démontre une performance et une croissance significatives, le système passe à une montée en puissance maîtrisée, pour élargir la portée tout en affinant la performance afin de maximiser les retours.","ad59a17b":"Chaque campagne apporte davantage d’informations à la suivante. Au fil du temps, notre système s’enrichit à mesure que nous analysons les performances, identifions les opportunités et recommandons les ajustements qui aideront votre publicité à se développer.","b3b9344c":"CONTACT","b3bb2e1b":"RECONQUÊTE","bb996007":"Il ne s’agit pas de supposer ce qui fonctionnera.<br>Il s’agit de le découvrir.","bd73cfc4":"Retenir ce qui fonctionne. Conserver chaque accroche, chaque plan et chaque montage gagnants. Constituer une bibliothèque de ce qui continue de réussir pour vous.","c28c7304":"COMMENT LE SYSTÈME PROGRESSE","c4be3481":"VOIR LES DÉTAILS","c707956a":"Yvis Hausen conçoit le système qui sous-tend votre publicité Meta et transforme le potentiel en performance.","d037b69f":"Vous décidez de ce que dit votre marque. Nous veillons à ce que le système qui la porte soit prêt à le diffuser.","d1e75c27":"VOTRE AMBITION, NOTRE ENGAGEMENT.","d710be2e":"YVIS HAUSEN &nbsp;&mdash;&nbsp; MAISON PRIVÉE &nbsp;&mdash;&nbsp; SUR DEMANDE UNIQUEMENT","d8b6201a":"POLITIQUE RELATIVE AUX COOKIES","da04ac1c":"NOUS GÉRONS LE SYSTÈME.","dbc8ef34":"Investissez donc le budget dans ce qui a fait ses preuves","dcff8ec7":"Tester les campagnes, analyser ce qui fonctionne, ne faire avancer que ce qui le mérite.","dea26a0d":"Code d’accès","e06752de":"Investir avec intention. Croître avec précision. Diffusion maîtrisée, ciblage précis, optimisation continue.","e2d42116":"PARAMÈTRES DES COOKIES","e399cd89":"Comptes et suivi, bien configurés"},"it":{"02ef3a3f":"CODICE PRIVATO","06c49349":"OTTIMIZZAZIONE","0aa34f73":"Il nostro metodo","0bd7d165":"Tre fasi. Un unico sistema che genera ricavi.","0deb202c":"Configuriamo il sistema correttamente fin dall’inizio, così che la vostra pubblicità sia costruita per funzionare, tracciare e misurare come si deve.<br>Poi progettiamo cicli di test controllati, per osservare ciò che accade e imparare.<br>I primi risultati ci mostrano cosa merita ulteriore attenzione e cosa no.","0fbddb29":"Ogni azione sul vostro sito, misurata","120690d1":"Ogni ciclo parte da tutto ciò che il precedente ha imparato.","14485912":"CONFIGURAZIONE","1507c40f":"ANNULLA","1605ca3a":"Finché il sistema non è progettato per un <span class=\"hl\">ROAS che si moltiplica.<\/span>","16953235":"Costruiamo le fondamenta.","19f768fc":"Ogni informazione cambia ciò che viene dopo.","1ab17975":"FASE 03","1ca33947":"Emblema Yvis Hausen","23a92b3e":"LONDRA &nbsp;&bull;&nbsp; NEW YORK &nbsp;&bull;&nbsp; PARIGI &nbsp;&bull;&nbsp; CITTÀ DEL MESSICO","250e6188":"Ogni campagna produce un risultato.","289e7cb6":"SEGNALE","2a3ffd9e":"LINGUA","307df66e":"Crescita.","33add840":"Voi guidate il brand. Noi costruiamo l’infrastruttura che lo trasforma in crescita.","37864d45":"QUESTA PAGINA CONTIENE LA METODOLOGIA PROPRIETARIA DI YVIS HAUSEN ED È DISPONIBILE SOLO SU ACCESSO PRIVATO. I DETTAGLI DI ACCESSO VENGONO FORNITI AI POTENZIALI CLIENTI DOPO UN COLLOQUIO CONOSCITIVO.","3b53429f":"Volete vedere il sistema applicato al vostro brand?","3fa84065":"Considerateci un’estensione della vostra azienda, che lavora per lo stesso obiettivo.","438d1b09":"IL BRAND RESTA VOSTRO.","447802c2":"Affiniamo la mossa successiva","49ccabf0":"Pronti ad avviare la conversazione?","4a09c9cf":"Test disciplinati anziché caotici, indagine analitica, ogni insight applicato, i segnali giusti raccolti: così si creano le condizioni per una crescita guidata dalla performance.","4df32ef8":"INFORMATIVA SULLA PRIVACY","53ace873":"e crescete con fiducia.","5a44a791":"Ogni risultato produce informazioni.","5a9c4354":"TERMINI D’USO","5b3643ff":"Meta impara chi risponde","5f1c5791":"I vostri obiettivi diventano i nostri.","6204b976":"Diventiamo parte del vostro team.","6413a0f1":"FASE 01","7136b10a":"Invece di ripartire da zero a ogni lancio, il vostro team costruisce su ciò che abbiamo già analizzato, trasformando insight comprovati in contenuti più efficaci, e contenuti più efficaci in ricavi maggiori.","71d5b688":"Analizziamo ciò che accade e individuiamo ciò che richiede attenzione.","798f72c1":"PRENOTA UNA CHIAMATA","8080c6a6":"Raggiungere il mondo con un unico sistema","82733ab6":"Social a pagamento, email &amp; lifecycle, governance visiva. Gestiti da un unico team, secondo un’unica strategia, senza passaggi di consegne superflui.","84a05ca9":"Archivio.","8ae5dbd1":"FASE 02","8afaae74":"IL SISTEMA SI RAFFORZA.","8b94dd50":"Progettiamo il retargeting che riporta le persone interessate nel percorso.","8e0065ab":"ACCESSO NEGATO","8f4d2b3b":"AFFINARE","902c91d9":"Note legali","92960dda":"Nulla di utile viene scartato, ogni insight prezioso viene documentato, offrendo alle campagne future un punto di partenza basato su ciò che si è già dimostrato più efficace.","9345269c":"APPRENDERE","9b8dfdff":"COSTRUIRE","a121d0af":"Scoprite nel dettaglio come funziona&nbsp;&nbsp;&rarr;","ab0b5a70":"Quando una direzione creativa dimostra performance e crescita significative, il sistema passa a uno scaling controllato, per ampliare la copertura affinando al contempo le performance e massimizzare i ritorni.","ad59a17b":"Ogni campagna fornisce più informazioni alla successiva. Nel tempo, il nostro sistema diventa sempre più informato man mano che analizziamo le performance, individuiamo le opportunità e raccomandiamo le modifiche che aiutano la vostra pubblicità a crescere.","b3b9344c":"CONTATTI","b3bb2e1b":"RICONNESSIONE","bb996007":"Non si tratta di presumere cosa funzionerà.<br>Si tratta di scoprirlo.","bd73cfc4":"Catturare ciò che funziona. Conservare ogni hook, inquadratura e montaggio vincenti. Costruire una libreria di ciò che continua a funzionare per voi.","c28c7304":"COME CRESCE IL SISTEMA","c4be3481":"VEDI I DETTAGLI","c707956a":"Yvis Hausen progetta il sistema alla base della vostra pubblicità su Meta, che trasforma il potenziale in performance.","d037b69f":"Voi decidete cosa dice il vostro brand. Noi ci assicuriamo che il sistema alle sue spalle sia pronto a comunicarlo.","d1e75c27":"LA VOSTRA AMBIZIONE, IL NOSTRO IMPEGNO.","d710be2e":"YVIS HAUSEN &nbsp;&mdash;&nbsp; STUDIO PRIVATO &nbsp;&mdash;&nbsp; SOLO SU RICHIESTA","d8dba766":"Indagine.","da04ac1c":"AL SISTEMA PENSIAMO NOI.","dbc8ef34":"Investite quindi il budget in ciò che ha dimostrato di funzionare","dcff8ec7":"Testare le campagne, indagare ciò che funziona, portare avanti solo ciò che lo merita.","dea26a0d":"Codice di accesso","e06752de":"Investire con uno scopo. Crescere con precisione. Distribuzione controllata, targeting preciso, ottimizzazione continua.","e2d42116":"IMPOSTAZIONI COOKIE","e399cd89":"Account e tracciamento, configurati a dovere","e86a63ff":"CICLO"}}</script>
+<script type="application/json" id="yh-i18n">{"fr":{"02ef3a3f":"CODE PRIVÉ","06c49349":"OPTIMISATION","0aa34f73":"Notre approche","0bd7d165":"Trois phases. Un seul système, jusqu’au chiffre d’affaires.","0deb202c":"Nous mettons le système en place correctement dès le départ, afin que votre publicité soit conçue pour fonctionner, suivre et mesurer avec justesse.<br>Nous concevons ensuite des cycles de test maîtrisés, pour observer ce qui se passe et en tirer des enseignements.<br>Les premiers résultats montrent ce qui mérite d’être approfondi et ce qui ne le mérite pas.","10354ced":"Marketing : Meta — Yvis Hausen","1446c5ef":"Stratégie et tests","14485912":"MISE EN PLACE","1507c40f":"ANNULER","1605ca3a":"Jusqu’à ce que le système soit conçu pour un <span class=\"hl\">ROAS qui se démultiplie.<\/span>","16953235":"Nous posons les fondations.","19f768fc":"Chaque information change la suite.","1aa3db7e":"Budget publicitaire","1ca33947":"Emblème Yvis Hausen","20aac6ac":"Compte publicitaire","23a92b3e":"LONDRES &nbsp;&bull;&nbsp; NEW YORK &nbsp;&bull;&nbsp; PARIS &nbsp;&bull;&nbsp; MEXICO","250e6188":"Chaque campagne produit un résultat.","25b8673c":"À VOUS","28a3a2f5":"Validation finale","2a3ffd9e":"LANGUE","2fb8956f":"Architecture du compte","307df66e":"Croissance.","33add840":"Vous dirigez la marque. Nous bâtissons l’infrastructure qui la transforme en croissance.","37864d45":"CETTE PAGE CONTIENT UNE MÉTHODOLOGIE PROPRIÉTAIRE YVIS HAUSEN, ACCESSIBLE UNIQUEMENT SUR ACCÈS PRIVÉ. LES DÉTAILS D’ACCÈS SONT COMMUNIQUÉS AUX CLIENTS POTENTIELS APRÈS UN ENTRETIEN DE DÉCOUVERTE.","3b53429f":"Envie de voir le système appliqué à votre marque ?","3fa84065":"Considérez-nous comme le prolongement de votre entreprise, tendu vers le même but.","438d1b09":"LA MARQUE RESTE LA VÔTRE.","460064a1":"Chaque compte, chaque euro et chaque décision restent à vous. Nous travaillons dans votre compte, jamais à votre place.","49ccabf0":"Prêts à engager la conversation ?","4a09c9cf":"Des tests rigoureux plutôt que chaotiques, une analyse méthodique, chaque enseignement mis en pratique, les bons signaux captés : autant de conditions pour une croissance guidée par la performance.","4df32ef8":"POLITIQUE DE CONFIDENTIALITÉ","53ace873":"et développez-vous en toute confiance.","55f312a1":"MARKETING : META","5a44a791":"Chaque résultat produit de l’information.","5a9c4354":"CONDITIONS D’UTILISATION","5f1c5791":"Vos objectifs deviennent les nôtres.","6204b976":"Nous faisons partie de votre équipe.","65e29304":"ACCÈS PARTENAIRE","7136b10a":"Au lieu de repartir de zéro à chaque lancement de campagne, votre équipe s’appuie sur ce que nous avons déjà analysé, transformant des enseignements éprouvés en contenus plus forts, et des contenus plus forts en revenus plus importants.","71d5b688":"Nous analysons ce qui se passe et identifions ce qui mérite attention.","74df1fa0":"Révocable par vous, à tout moment","77c28652":"QUI DÉTIENT QUOI","798f72c1":"RÉSERVER UN APPEL","8080c6a6":"Atteindre le monde avec un seul système","82733ab6":"Social Ads, e-mail &amp; cycle de vie client, gouvernance visuelle. Pilotés par une seule équipe, selon une seule stratégie, sans intermédiaires superflus.","88d00a4f":"Analyses et orientation","8afaae74":"LE SYSTÈME SE RENFORCE.","8b94dd50":"Nous concevons le retargeting qui ramène les personnes intéressées dans le parcours.","8e0065ab":"ACCÈS REFUSÉ","902c91d9":"Mentions légales","92960dda":"Rien d’utile n’est écarté, chaque enseignement précieux est documenté, offrant aux futures campagnes un point de départ fondé sur ce qui a déjà prouvé son efficacité.","93a6e2e6":"Yvis Hausen — accueil","a121d0af":"Découvrir le fonctionnement en détail&nbsp;&nbsp;&rarr;","aae6c144":"Portefeuille d’entreprise","ab0b5a70":"Lorsqu’une direction créative démontre une performance et une croissance significatives, le système passe à une montée en puissance maîtrisée, pour élargir la portée tout en affinant la performance afin de maximiser les retours.","ad59a17b":"Chaque campagne apporte davantage d’informations à la suivante. Au fil du temps, notre système s’enrichit à mesure que nous analysons les performances, identifions les opportunités et recommandons les ajustements qui aideront votre publicité à se développer.","afcdc1ec":"Pixel et données","b3b9344c":"CONTACT","b3bb2e1b":"RECONQUÊTE","bb996007":"Il ne s’agit pas de supposer ce qui fonctionnera.<br>Il s’agit de le découvrir.","bd73cfc4":"Retenir ce qui fonctionne. Conserver chaque accroche, chaque plan et chaque montage gagnants. Constituer une bibliothèque de ce qui continue de réussir pour vous.","c4be3481":"VOIR LES DÉTAILS","c707956a":"Yvis Hausen conçoit le système qui sous-tend votre publicité Meta et transforme le potentiel en performance.","d037b69f":"Vous décidez de ce que dit votre marque. Nous veillons à ce que le système qui la porte soit prêt à le diffuser.","d1e75c27":"VOTRE AMBITION, NOTRE ENGAGEMENT.","d710be2e":"YVIS HAUSEN &nbsp;&mdash;&nbsp; MAISON PRIVÉE &nbsp;&mdash;&nbsp; SUR DEMANDE UNIQUEMENT","d8b6201a":"POLITIQUE RELATIVE AUX COOKIES","da04ac1c":"NOUS GÉRONS LE SYSTÈME.","dbc8ef34":"Investissez donc le budget dans ce qui a fait ses preuves","dcff8ec7":"Tester les campagnes, analyser ce qui fonctionne, ne faire avancer que ce qui le mérite.","dea26a0d":"Code d’accès","e06752de":"Investir avec intention. Croître avec précision. Diffusion maîtrisée, ciblage précis, optimisation continue.","e2d42116":"PARAMÈTRES DES COOKIES","eded1cf9":"Mise en place du suivi","f466db2c":"À NOUS"},"it":{"02ef3a3f":"CODICE PRIVATO","06c49349":"OTTIMIZZAZIONE","0aa34f73":"Il nostro metodo","0bd7d165":"Tre fasi. Un unico sistema che genera ricavi.","0deb202c":"Configuriamo il sistema correttamente fin dall’inizio, così che la vostra pubblicità sia costruita per funzionare, tracciare e misurare come si deve.<br>Poi progettiamo cicli di test controllati, per osservare ciò che accade e imparare.<br>I primi risultati ci mostrano cosa merita ulteriore attenzione e cosa no.","1446c5ef":"Strategia e test","14485912":"CONFIGURAZIONE","1507c40f":"ANNULLA","1605ca3a":"Finché il sistema non è progettato per un <span class=\"hl\">ROAS che si moltiplica.<\/span>","16953235":"Costruiamo le fondamenta.","19f768fc":"Ogni informazione cambia ciò che viene dopo.","1aa3db7e":"Budget pubblicitario","1ab17975":"FASE 03","1ca33947":"Emblema Yvis Hausen","20aac6ac":"Account pubblicitario","23a92b3e":"LONDRA &nbsp;&bull;&nbsp; NEW YORK &nbsp;&bull;&nbsp; PARIGI &nbsp;&bull;&nbsp; CITTÀ DEL MESSICO","250e6188":"Ogni campagna produce un risultato.","25b8673c":"VOSTRO","28a3a2f5":"Approvazione finale","2a3ffd9e":"LINGUA","2fb8956f":"Architettura dell’account","307df66e":"Crescita.","33add840":"Voi guidate il brand. Noi costruiamo l’infrastruttura che lo trasforma in crescita.","37864d45":"QUESTA PAGINA CONTIENE LA METODOLOGIA PROPRIETARIA DI YVIS HAUSEN ED È DISPONIBILE SOLO SU ACCESSO PRIVATO. I DETTAGLI DI ACCESSO VENGONO FORNITI AI POTENZIALI CLIENTI DOPO UN COLLOQUIO CONOSCITIVO.","3b53429f":"Volete vedere il sistema applicato al vostro brand?","3fa84065":"Considerateci un’estensione della vostra azienda, che lavora per lo stesso obiettivo.","438d1b09":"IL BRAND RESTA VOSTRO.","460064a1":"Ogni account, ogni euro e ogni decisione restano vostri. Lavoriamo nel vostro account, mai al posto vostro.","49ccabf0":"Pronti ad avviare la conversazione?","4a09c9cf":"Test disciplinati anziché caotici, indagine analitica, ogni insight applicato, i segnali giusti raccolti: così si creano le condizioni per una crescita guidata dalla performance.","4df32ef8":"INFORMATIVA SULLA PRIVACY","53ace873":"e crescete con fiducia.","5a44a791":"Ogni risultato produce informazioni.","5a9c4354":"TERMINI D’USO","5f1c5791":"I vostri obiettivi diventano i nostri.","6204b976":"Diventiamo parte del vostro team.","6413a0f1":"FASE 01","65e29304":"ACCESSO PARTNER","7136b10a":"Invece di ripartire da zero a ogni lancio, il vostro team costruisce su ciò che abbiamo già analizzato, trasformando insight comprovati in contenuti più efficaci, e contenuti più efficaci in ricavi maggiori.","71d5b688":"Analizziamo ciò che accade e individuiamo ciò che richiede attenzione.","74df1fa0":"Revocabile da voi, in qualsiasi momento","77c28652":"CHI DETIENE COSA","798f72c1":"PRENOTA UNA CHIAMATA","8080c6a6":"Raggiungere il mondo con un unico sistema","82733ab6":"Social a pagamento, email &amp; lifecycle, governance visiva. Gestiti da un unico team, secondo un’unica strategia, senza passaggi di consegne superflui.","84a05ca9":"Archivio.","88d00a4f":"Revisioni e indirizzo","8ae5dbd1":"FASE 02","8afaae74":"IL SISTEMA SI RAFFORZA.","8b94dd50":"Progettiamo il retargeting che riporta le persone interessate nel percorso.","8e0065ab":"ACCESSO NEGATO","902c91d9":"Note legali","92960dda":"Nulla di utile viene scartato, ogni insight prezioso viene documentato, offrendo alle campagne future un punto di partenza basato su ciò che si è già dimostrato più efficace.","a121d0af":"Scoprite nel dettaglio come funziona&nbsp;&nbsp;&rarr;","aae6c144":"Portfolio aziendale","ab0b5a70":"Quando una direzione creativa dimostra performance e crescita significative, il sistema passa a uno scaling controllato, per ampliare la copertura affinando al contempo le performance e massimizzare i ritorni.","ad59a17b":"Ogni campagna fornisce più informazioni alla successiva. Nel tempo, il nostro sistema diventa sempre più informato man mano che analizziamo le performance, individuiamo le opportunità e raccomandiamo le modifiche che aiutano la vostra pubblicità a crescere.","afcdc1ec":"Pixel e dati","b3b9344c":"CONTATTI","b3bb2e1b":"RICONNESSIONE","bb996007":"Non si tratta di presumere cosa funzionerà.<br>Si tratta di scoprirlo.","bd73cfc4":"Catturare ciò che funziona. Conservare ogni hook, inquadratura e montaggio vincenti. Costruire una libreria di ciò che continua a funzionare per voi.","c4be3481":"VEDI I DETTAGLI","c707956a":"Yvis Hausen progetta il sistema alla base della vostra pubblicità su Meta, che trasforma il potenziale in performance.","d037b69f":"Voi decidete cosa dice il vostro brand. Noi ci assicuriamo che il sistema alle sue spalle sia pronto a comunicarlo.","d1e75c27":"LA VOSTRA AMBIZIONE, IL NOSTRO IMPEGNO.","d710be2e":"YVIS HAUSEN &nbsp;&mdash;&nbsp; STUDIO PRIVATO &nbsp;&mdash;&nbsp; SOLO SU RICHIESTA","d8dba766":"Indagine.","da04ac1c":"AL SISTEMA PENSIAMO NOI.","dbc8ef34":"Investite quindi il budget in ciò che ha dimostrato di funzionare","dcff8ec7":"Testare le campagne, indagare ciò che funziona, portare avanti solo ciò che lo merita.","dea26a0d":"Codice di accesso","e06752de":"Investire con uno scopo. Crescere con precisione. Distribuzione controllata, targeting preciso, ottimizzazione continua.","e2d42116":"IMPOSTAZIONI COOKIE","eded1cf9":"Configurazione del tracciamento","f466db2c":"NOSTRO"}}</script>
 <script src="i18n.js"></script>
 <!-- /i18n -->
 <script src="access.js"></script>
@@ -1134,56 +1110,32 @@
         }
         requestAnimationFrame(frame);
       }
-      /* The cycle: the ring draws in and the four stages appear; then a light runs the ring,
-         lighting each stage as it passes. Every completed lap sends a wave outward and the
-         cycle count steps on: each round builds on the last. */
-      var cyc = document.getElementById('cycle');
-      if(cyc){
-        var ring = document.getElementById('cyRing'), trail = document.getElementById('cyTrail');
-        var comet = document.getElementById('cyComet'), cg = document.getElementById('cyCometG');
-        var cnt = document.getElementById('cyCount'), wv = cyc.querySelector('.cy-waves');
-        var nodes = Array.prototype.slice.call(cyc.querySelectorAll('.cy-node'));
-        var CX = 400, CY = 250, R = 150, C = 2 * Math.PI * R, LAP = 4200, TL = C * 0.22;
-        var reduceM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-        function pad(n){ return (n < 10 ? '0' : '') + n; }
-        function wave(){
-          var w = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          w.setAttribute('cx', CX); w.setAttribute('cy', CY); w.setAttribute('r', R); w.setAttribute('class', 'cy-wave');
-          wv.appendChild(w);
-          if(w.animate){ var a = w.animate([{ r: R, opacity: 0.55, strokeWidth: 1.6 }, { r: R + 95, opacity: 0, strokeWidth: 0.4 }], { duration: 2200, easing: 'cubic-bezier(.2,.7,.2,1)' }); a.onfinish = function(){ w.remove(); }; }
-          else setTimeout(function(){ w.remove(); }, 2200);
+      /* Who holds what: the two sides arrive, every line runs into the one partner-access point,
+         then quiet pulses travel the lines both ways: work in, nothing taken out. */
+      var hold = document.getElementById('hold');
+      if(hold){
+        var redM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var lines = Array.prototype.slice.call(hold.querySelectorAll('.hw-line')), pg = hold.querySelector('.hw-pulses');
+        var pulsing = false, timer = 0;
+        function pulse(){
+          if(!pulsing) return;
+          var src = lines[Math.floor(Math.random() * lines.length)];
+          var pth = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          pth.setAttribute('d', src.getAttribute('d')); pth.setAttribute('class', 'hw-pulse'); pth.setAttribute('pathLength', '1');
+          pth.style.strokeDasharray = '0.14 1.2'; pg.appendChild(pth);
+          var inward = src.classList.contains('hw-Ll');
+          var a = pth.animate([{ strokeDashoffset: inward ? 0.14 : -1, opacity: 0 }, { opacity: 1, offset: 0.2 }, { opacity: 1, offset: 0.8 }, { strokeDashoffset: inward ? -1 : 0.14, opacity: 0 }],
+            { duration: 1600, easing: 'cubic-bezier(.45,.05,.55,.95)' });
+          a.onfinish = function(){ pth.remove(); };
+          timer = setTimeout(pulse, 650 + Math.random() * 700);
         }
-        var running = false, t0 = 0, raf = 0, lap = 0, held = 0;
-        function start(){
-          cyc.classList.add('in');
-          if(reduceM){ nodes.forEach(function(n){ n.classList.add('show', 'on'); }); ring.style.strokeDashoffset = 0; return; }
-          ring.animate([{ strokeDashoffset: C }, { strokeDashoffset: 0 }], { duration: 1400, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'forwards' });
-          nodes.forEach(function(n, i){ setTimeout(function(){ n.classList.add('show'); }, 250 + i * 280); });
-          setTimeout(function(){ comet.style.opacity = 1; cg.style.opacity = 1; trail.style.opacity = 1; play(); }, 1600);
-        }
-        function frame(now){
-          var el = now - t0, l = Math.floor(el / LAP), f = (el % LAP) / LAP;
-          var e = f < 0.5 ? 2*f*f : 1 - Math.pow(-2*f + 2, 2) / 2;      // eases into each stage
-          var p = (Math.floor(f * 4) + (function(q){ q = (f * 4) % 1; return q < 0.5 ? 2*q*q : 1 - Math.pow(-2*q + 2, 2) / 2; })()) / 4;
-          var ang = -Math.PI / 2 + p * 2 * Math.PI;
-          var x = CX + R * Math.cos(ang), y = CY + R * Math.sin(ang);
-          comet.setAttribute('cx', x.toFixed(1)); comet.setAttribute('cy', y.toFixed(1));
-          cg.setAttribute('cx', x.toFixed(1)); cg.setAttribute('cy', y.toFixed(1));
-          var len = Math.min(TL, p * C + (l > 0 ? TL : 0));
-          trail.style.strokeDasharray = len.toFixed(1) + ' ' + C.toFixed(1);
-          trail.style.strokeDashoffset = (-(p * C - len)).toFixed(1);
-          var k = Math.floor(f * 4 + 0.08) % 4;
-          nodes.forEach(function(n, i){ n.classList.toggle('on', i === k); });
-          if(l !== lap){ lap = l; wave(); cnt.textContent = pad(Math.min(99, lap + 1)); }
-          raf = requestAnimationFrame(frame);
-        }
-        function play(){ if(running) return; running = true; t0 = performance.now() - held; raf = requestAnimationFrame(frame); }
-        function pause(){ if(!running) return; running = false; held = performance.now() - t0; cancelAnimationFrame(raf); }
         var begun = false;
         new IntersectionObserver(function(en){
-          if(en[0].isIntersecting){ if(!begun){ begun = true; start(); } else if(comet.style.opacity == '1') play(); }
-          else pause();
-        }, { threshold:0.35 }).observe(cyc);
+          if(en[0].isIntersecting){
+            if(!begun){ begun = true; hold.classList.add('in'); }
+            if(!redM && !pulsing && pg.animate){ pulsing = true; timer = setTimeout(pulse, 3400); }
+          } else { pulsing = false; clearTimeout(timer); }
+        }, { threshold:0.35 }).observe(hold);
       }
       var teamSec = document.querySelector('.team');
       if(teamSec){ new IntersectionObserver(function(en, ob){ if(en[0].isIntersecting){ teamSec.classList.add('in'); ob.disconnect(); } }, { threshold:0.5 }).observe(teamSec); }
